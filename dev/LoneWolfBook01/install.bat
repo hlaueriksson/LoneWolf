@@ -1,0 +1,1 @@
+adb -d install ..\out\production\LoneWolfBook01\LoneWolfBook01.apk

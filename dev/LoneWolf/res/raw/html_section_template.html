@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>%1$s</title>
+    <meta name="revised" content="%2$s" />
+    <meta charset="UTF-8" />
+    <style type="text/css">
+        html, body {
+        background-color: #ffffe6;
+        color: #003300;
+        font-family: Souvenir, Georgia, "Times New Roman", Times, serif;
+        }
+        p { text-align: justify }
+        figure {
+        text-align: center;
+        }
+        .choice, .combat {
+        text-align: left;
+        margin-left: 15px;
+        width: 435px;
+        }
+        .smallcaps {
+        font-size: 0.8em;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" /-->
+    <!--script src="http://code.jquery.com/jquery-1.7.1.min.js"></script-->
+    <!--script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script-->
+</head>
+<!--
+Text copyright © 1984 Joe Dever.
+Illustrations copyright © 1984 Gary Chalk.
+Published by Project Aon.
+-->
+<body>
+%3$s
+<script type="text/javascript">
+function disableChoice(section) {
+    console.log("disableChoice: " + section);
+    var choice = document.getElementById(section);
+    choice.style.color = "gray";
+    var button = choice.getElementsByTagName("button")[0];
+    button.disabled = true;
+}
+function disableAllChoices() {
+    console.log("disableAllChoices");
+    var paragraphs = document.getElementsByTagName("p");
+    for (i in paragraphs) {
+        var paragraph = paragraphs[i];
+        if (paragraph.className == "choice") {
+            paragraph.style.color = "gray";
+            var button = paragraph.getElementsByTagName("button")[0];
+            button.disabled = true;
+        }
+    }
+}
+function disableRandomNumber() {
+    console.log("disableRandomNumber");
+    var buttons = document.getElementsByTagName("button");
+    for (i in buttons) {
+        var button = buttons[i];
+        if (button.className == "random-number") {
+            button.disabled = true;
+        }
+    }
+}
+function disableCombat() {
+    console.log("disableCombat");
+    var buttons = document.getElementsByTagName("button");
+    for (i in buttons) {
+        var button = buttons[i];
+        if (button.className == "combat") {
+            button.disabled = true;
+        }
+    }
+}
+function displayRandomNumber(value) {
+    console.log("displayRandomNumber: " + value);
+    var buttons = document.getElementsByTagName("button");
+    for (i in buttons) {
+        var button = buttons[i];
+        if (button.className == "random-number") {
+            button.innerHTML += ": " + value;
+        }
+    }
+}
+%4$s
+</script>
+</body>
+</html>
