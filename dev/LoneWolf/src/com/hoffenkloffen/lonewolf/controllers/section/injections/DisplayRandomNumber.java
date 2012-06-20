@@ -1,7 +1,6 @@
 package com.hoffenkloffen.lonewolf.controllers.section.injections;
 
-import com.hoffenkloffen.lonewolf.controllers.SectionState;
-import com.hoffenkloffen.lonewolf.controllers.javascript.injections.JavascriptInjection;
+import com.hoffenkloffen.lonewolf.controllers.section.SectionState;
 import com.hoffenkloffen.lonewolf.models.RandomNumberResult;
 
 import java.util.Collection;

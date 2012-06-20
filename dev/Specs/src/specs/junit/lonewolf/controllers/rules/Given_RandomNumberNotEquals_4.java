@@ -1,6 +1,6 @@
 package specs.junit.lonewolf.controllers.rules;
 
-import com.hoffenkloffen.lonewolf.controllers.SectionState;
+import com.hoffenkloffen.lonewolf.controllers.section.SectionState;
 import com.hoffenkloffen.lonewolf.controllers.section.rules.RandomNumberNotEquals;
 import com.hoffenkloffen.lonewolf.models.RandomNumberResult;
 import org.junit.Test;

@@ -2,7 +2,7 @@ package specs.junit.lonewolf.controllers.combat;
 
 import com.hoffenkloffen.lonewolf.models.combat.Enemy;
 import com.hoffenkloffen.lonewolf.models.LoneWolf;
-import com.hoffenkloffen.lonewolf.models.Outcome;
+import com.hoffenkloffen.lonewolf.models.combat.Outcome;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

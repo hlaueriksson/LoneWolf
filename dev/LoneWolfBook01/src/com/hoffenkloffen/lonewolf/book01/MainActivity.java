@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebView;
 import com.hoffenkloffen.lonewolf.BaseActivity;
-import com.hoffenkloffen.lonewolf.controllers.Combat;
+import com.hoffenkloffen.lonewolf.controllers.combat.Combat;
 import com.hoffenkloffen.lonewolf.controllers.section.Section;
 import com.hoffenkloffen.lonewolf.controllers.section.SectionManager;
 import com.hoffenkloffen.lonewolf.controllers.section.injections.DisableChoice;

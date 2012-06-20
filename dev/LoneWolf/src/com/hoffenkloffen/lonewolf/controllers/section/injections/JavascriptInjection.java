@@ -1,6 +1,6 @@
-package com.hoffenkloffen.lonewolf.controllers.javascript.injections;
+package com.hoffenkloffen.lonewolf.controllers.section.injections;
 
-import com.hoffenkloffen.lonewolf.controllers.SectionState;
+import com.hoffenkloffen.lonewolf.controllers.section.SectionState;
 
 import java.util.Collection;
 

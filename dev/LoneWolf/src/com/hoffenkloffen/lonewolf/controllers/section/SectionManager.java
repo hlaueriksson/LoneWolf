@@ -2,12 +2,12 @@ package com.hoffenkloffen.lonewolf.controllers.section;
 
 import com.hoffenkloffen.lonewolf.controllers.RandomNumberTable;
 import com.hoffenkloffen.lonewolf.controllers.SectionResourceManager;
-import com.hoffenkloffen.lonewolf.controllers.Combat;
+import com.hoffenkloffen.lonewolf.controllers.combat.Combat;
 import com.hoffenkloffen.lonewolf.controllers.events.ChoiceEventHandler;
 import com.hoffenkloffen.lonewolf.controllers.events.CombatEventHandler;
 import com.hoffenkloffen.lonewolf.controllers.events.EventHandler;
 import com.hoffenkloffen.lonewolf.controllers.events.RandomNumberEventHandler;
-import com.hoffenkloffen.lonewolf.controllers.rules.RandomNumberRule;
+import com.hoffenkloffen.lonewolf.controllers.section.rules.RandomNumberRule;
 import com.hoffenkloffen.lonewolf.controllers.section.injections.*;
 import com.hoffenkloffen.lonewolf.controllers.interfaces.ChoiceJavascriptInterface;
 import com.hoffenkloffen.lonewolf.controllers.interfaces.CombatJavascriptInterface;

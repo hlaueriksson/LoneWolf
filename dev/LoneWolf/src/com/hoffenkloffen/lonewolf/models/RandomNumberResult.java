@@ -1,6 +1,6 @@
 package com.hoffenkloffen.lonewolf.models;
 
-import com.hoffenkloffen.lonewolf.controllers.SectionState;
+import com.hoffenkloffen.lonewolf.controllers.section.SectionState;
 
 public class RandomNumberResult implements SectionState {
 

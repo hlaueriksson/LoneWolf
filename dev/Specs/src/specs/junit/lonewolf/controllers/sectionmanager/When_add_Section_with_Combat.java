@@ -1,6 +1,6 @@
 package specs.junit.lonewolf.controllers.sectionmanager;
 
-import com.hoffenkloffen.lonewolf.controllers.Combat;
+import com.hoffenkloffen.lonewolf.controllers.combat.Combat;
 import com.hoffenkloffen.lonewolf.controllers.section.Section;
 import com.hoffenkloffen.lonewolf.controllers.interfaces.CombatJavascriptInterface;
 import com.hoffenkloffen.lonewolf.controllers.section.rules.CombatIsFought;

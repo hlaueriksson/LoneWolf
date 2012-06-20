@@ -1,7 +1,6 @@
 package com.hoffenkloffen.lonewolf.models.combat;
 
-import com.hoffenkloffen.lonewolf.controllers.SectionState;
-import com.hoffenkloffen.lonewolf.models.Outcome;
+import com.hoffenkloffen.lonewolf.controllers.section.SectionState;
 
 public class CombatResult implements SectionState {
 

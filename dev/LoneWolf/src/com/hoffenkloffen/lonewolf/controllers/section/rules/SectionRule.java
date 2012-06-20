@@ -1,7 +1,7 @@
 package com.hoffenkloffen.lonewolf.controllers.section.rules;
 
-import com.hoffenkloffen.lonewolf.controllers.SectionState;
-import com.hoffenkloffen.lonewolf.controllers.javascript.injections.JavascriptInjection;
+import com.hoffenkloffen.lonewolf.controllers.section.SectionState;
+import com.hoffenkloffen.lonewolf.controllers.section.injections.JavascriptInjection;
 
 import java.util.Collection;
 

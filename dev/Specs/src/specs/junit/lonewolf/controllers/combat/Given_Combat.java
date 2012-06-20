@@ -1,6 +1,6 @@
 package specs.junit.lonewolf.controllers.combat;
 
-import com.hoffenkloffen.lonewolf.controllers.Combat;
+import com.hoffenkloffen.lonewolf.controllers.combat.Combat;
 import com.hoffenkloffen.lonewolf.models.combat.CombatResult;
 import com.hoffenkloffen.lonewolf.models.combat.Enemy;
 import com.hoffenkloffen.lonewolf.models.LoneWolf;

@@ -1,9 +1,8 @@
 package com.hoffenkloffen.lonewolf.controllers.section;
 
 import com.hoffenkloffen.lonewolf.controllers.SectionResourceManager;
-import com.hoffenkloffen.lonewolf.controllers.Combat;
-import com.hoffenkloffen.lonewolf.controllers.SectionState;
-import com.hoffenkloffen.lonewolf.controllers.javascript.injections.JavascriptInjection;
+import com.hoffenkloffen.lonewolf.controllers.combat.Combat;
+import com.hoffenkloffen.lonewolf.controllers.section.injections.JavascriptInjection;
 import com.hoffenkloffen.lonewolf.controllers.interfaces.ChoiceJavascriptInterface;
 import com.hoffenkloffen.lonewolf.controllers.interfaces.JavascriptInterface;
 import com.hoffenkloffen.lonewolf.controllers.section.rules.SectionRule;

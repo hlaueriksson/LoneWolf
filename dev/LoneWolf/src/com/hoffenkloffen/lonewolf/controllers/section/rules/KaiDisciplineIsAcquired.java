@@ -1,6 +1,6 @@
 package com.hoffenkloffen.lonewolf.controllers.section.rules;
 
-import com.hoffenkloffen.lonewolf.controllers.SectionState;
+import com.hoffenkloffen.lonewolf.controllers.section.SectionState;
 import com.hoffenkloffen.lonewolf.models.KaiDiscipline;
 import com.hoffenkloffen.lonewolf.models.LoneWolf;
 

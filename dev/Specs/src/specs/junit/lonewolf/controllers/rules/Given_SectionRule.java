@@ -1,6 +1,6 @@
 package specs.junit.lonewolf.controllers.rules;
 
-import com.hoffenkloffen.lonewolf.controllers.SectionState;
+import com.hoffenkloffen.lonewolf.controllers.section.SectionState;
 import com.hoffenkloffen.lonewolf.controllers.section.rules.SectionRule;
 import specs.junit.BaseSpec;
 

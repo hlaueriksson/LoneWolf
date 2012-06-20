@@ -1,8 +1,6 @@
-package com.hoffenkloffen.lonewolf.controllers;
+package com.hoffenkloffen.lonewolf.controllers.combat;
 
-import com.hoffenkloffen.lonewolf.controllers.combat.CombatResultsTable;
-import com.hoffenkloffen.lonewolf.controllers.combat.CombatState;
-import com.hoffenkloffen.lonewolf.controllers.combat.EnduranceLoss;
+import com.hoffenkloffen.lonewolf.controllers.RandomNumberTable;
 import com.hoffenkloffen.lonewolf.controllers.combat.modifiers.CombatModifier;
 import com.hoffenkloffen.lonewolf.controllers.combat.rules.CombatRule;
 import com.hoffenkloffen.lonewolf.models.*;

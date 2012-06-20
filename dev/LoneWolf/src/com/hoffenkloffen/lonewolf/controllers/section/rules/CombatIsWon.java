@@ -1,8 +1,8 @@
 package com.hoffenkloffen.lonewolf.controllers.section.rules;
 
-import com.hoffenkloffen.lonewolf.controllers.SectionState;
+import com.hoffenkloffen.lonewolf.controllers.section.SectionState;
 import com.hoffenkloffen.lonewolf.models.combat.CombatResult;
-import com.hoffenkloffen.lonewolf.models.Outcome;
+import com.hoffenkloffen.lonewolf.models.combat.Outcome;
 
 import java.util.Collection;
 
