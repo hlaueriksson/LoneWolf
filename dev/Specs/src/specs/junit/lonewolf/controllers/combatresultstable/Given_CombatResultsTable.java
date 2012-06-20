@@ -1,7 +1,7 @@
 package specs.junit.lonewolf.controllers.combatresultstable;
 
-import com.hoffenkloffen.lonewolf.controllers.CombatResultsTable;
-import com.hoffenkloffen.lonewolf.controllers.EnduranceLoss;
+import com.hoffenkloffen.lonewolf.controllers.combat.CombatResultsTable;
+import com.hoffenkloffen.lonewolf.controllers.combat.EnduranceLoss;
 import com.hoffenkloffen.lonewolf.models.RandomNumberResult;
 import specs.junit.BaseSpec;
 

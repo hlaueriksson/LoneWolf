@@ -1,11 +1,12 @@
 package com.hoffenkloffen.lonewolf.models;
 
 import com.hoffenkloffen.lonewolf.controllers.SectionState;
+import com.hoffenkloffen.lonewolf.controllers.combat.CombatState;
 
 import java.util.Hashtable;
 import java.util.Map;
 
-public class LoneWolf implements SectionState {
+public class LoneWolf implements SectionState, CombatState {
 
     private int combatSkill;
     private int endurance;

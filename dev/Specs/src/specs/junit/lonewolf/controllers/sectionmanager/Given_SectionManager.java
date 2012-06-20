@@ -1,12 +1,12 @@
 package specs.junit.lonewolf.controllers.sectionmanager;
 
-import com.hoffenkloffen.lonewolf.controllers.Section;
-import com.hoffenkloffen.lonewolf.controllers.SectionManager;
+import com.hoffenkloffen.lonewolf.controllers.section.Section;
+import com.hoffenkloffen.lonewolf.controllers.section.SectionManager;
 import com.hoffenkloffen.lonewolf.controllers.SectionResourceManager;
 import com.hoffenkloffen.lonewolf.controllers.events.AggregatedEventHandler;
 import com.hoffenkloffen.lonewolf.controllers.events.EventHandler;
-import com.hoffenkloffen.lonewolf.controllers.javascript.interfaces.JavascriptInterface;
-import com.hoffenkloffen.lonewolf.controllers.rules.SectionRule;
+import com.hoffenkloffen.lonewolf.controllers.interfaces.JavascriptInterface;
+import com.hoffenkloffen.lonewolf.controllers.section.rules.SectionRule;
 import com.hoffenkloffen.lonewolf.views.SectionRenderer;
 import specs.junit.BaseSpec;
 

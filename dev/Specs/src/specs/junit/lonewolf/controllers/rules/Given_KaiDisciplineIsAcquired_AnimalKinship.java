@@ -1,6 +1,6 @@
 package specs.junit.lonewolf.controllers.rules;
 
-import com.hoffenkloffen.lonewolf.controllers.rules.KaiDisciplineIsAcquired;
+import com.hoffenkloffen.lonewolf.controllers.section.rules.KaiDisciplineIsAcquired;
 import com.hoffenkloffen.lonewolf.models.KaiDiscipline;
 import com.hoffenkloffen.lonewolf.models.LoneWolf;
 import org.junit.Test;

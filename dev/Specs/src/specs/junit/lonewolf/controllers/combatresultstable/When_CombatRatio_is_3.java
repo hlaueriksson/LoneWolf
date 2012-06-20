@@ -1,6 +1,6 @@
 package specs.junit.lonewolf.controllers.combatresultstable;
 
-import com.hoffenkloffen.lonewolf.controllers.CombatResultsTable;
+import com.hoffenkloffen.lonewolf.controllers.combat.CombatResultsTable;
 import org.junit.Test;
 
 public class When_CombatRatio_is_3 extends Given_CombatResultsTable {

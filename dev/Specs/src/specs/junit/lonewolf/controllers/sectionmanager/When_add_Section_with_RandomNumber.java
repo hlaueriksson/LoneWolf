@@ -1,9 +1,9 @@
 package specs.junit.lonewolf.controllers.sectionmanager;
 
-import com.hoffenkloffen.lonewolf.controllers.Section;
-import com.hoffenkloffen.lonewolf.controllers.javascript.interfaces.RandomNumberJavascriptInterface;
-import com.hoffenkloffen.lonewolf.controllers.rules.RandomNumberEquals;
-import com.hoffenkloffen.lonewolf.controllers.rules.RandomNumberIsRolled;
+import com.hoffenkloffen.lonewolf.controllers.section.Section;
+import com.hoffenkloffen.lonewolf.controllers.interfaces.RandomNumberJavascriptInterface;
+import com.hoffenkloffen.lonewolf.controllers.section.rules.RandomNumberEquals;
+import com.hoffenkloffen.lonewolf.controllers.section.rules.RandomNumberIsRolled;
 import org.junit.Test;
 
 public class When_add_Section_with_RandomNumber extends Given_SectionManager {

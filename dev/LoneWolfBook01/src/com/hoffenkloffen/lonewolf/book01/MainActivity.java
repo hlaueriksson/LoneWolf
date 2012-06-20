@@ -5,13 +5,13 @@ import android.util.Log;
 import android.webkit.WebView;
 import com.hoffenkloffen.lonewolf.BaseActivity;
 import com.hoffenkloffen.lonewolf.controllers.Combat;
-import com.hoffenkloffen.lonewolf.controllers.Section;
-import com.hoffenkloffen.lonewolf.controllers.SectionManager;
-import com.hoffenkloffen.lonewolf.controllers.javascript.injections.DisableChoice;
-import com.hoffenkloffen.lonewolf.controllers.rules.KaiDisciplineIsNotAcquired;
-import com.hoffenkloffen.lonewolf.controllers.rules.RandomNumberIsNotBetween;
-import com.hoffenkloffen.lonewolf.controllers.rules.RandomNumberNotEquals;
-import com.hoffenkloffen.lonewolf.models.Enemy;
+import com.hoffenkloffen.lonewolf.controllers.section.Section;
+import com.hoffenkloffen.lonewolf.controllers.section.SectionManager;
+import com.hoffenkloffen.lonewolf.controllers.section.injections.DisableChoice;
+import com.hoffenkloffen.lonewolf.controllers.section.rules.KaiDisciplineIsNotAcquired;
+import com.hoffenkloffen.lonewolf.controllers.section.rules.RandomNumberIsNotBetween;
+import com.hoffenkloffen.lonewolf.controllers.section.rules.RandomNumberNotEquals;
+import com.hoffenkloffen.lonewolf.models.combat.Enemy;
 import com.hoffenkloffen.lonewolf.models.KaiDiscipline;
 
 public class MainActivity extends BaseActivity
@@ -52,6 +52,56 @@ public class MainActivity extends BaseActivity
     protected void initSections(SectionManager manager)
     {
         Log.d(TAG, "initSections");
+
+        // TODO: move
+
+        /*
+        manager.add(new Section("17")
+                .set(new Combat()
+                        .add(new ModifyCombatSkill(-1))));
+
+        manager.add(new Section("29")
+                .set(new Combat()
+                        .when(combatWithout(KaiDiscipline.Mindshield).then(new ModifyCombatSkill(-2)))));
+
+        manager.add(new Section("34")
+                .set(new Combat()
+                        .when(combatWithout(KaiDiscipline.Mindshield).then(new ModifyCombatSkill(-2)))));
+
+        manager.add(new Section("55")
+                .set(new Combat()
+                        .add(new ModifyCombatSkill(4))));
+
+        manager.add(new Section("136")
+                .set(new Combat()
+                        .add(new ModifyCombatSkill(1))));
+
+        manager.add(new Section("170")
+                .set(new Combat()
+                        .when(combatWithout(new Item("Torch")).then(new ModifyCombatSkill(-3)))
+                        .add(new Enemy("Burrowcrawler", 17, 7)
+                                .add(new Immunity(KaiDiscipline.Mindblast))
+                                .add(new Immunity(KaiDiscipline.AnimalKinship)))));
+
+        manager.add(new Section("229")
+                .set(new Combat()
+                        .add(new ModifyCombatSkill(-1))));
+
+        manager.add(new Section("260")
+                .set(new Combat()
+                        .add(new ModifyCombatSkill(-4))));
+
+        manager.add(new Section("283")
+                .set(new Combat()
+                        .when(new OnRound(1).then(new ModifyCombatSkill(2)))
+                        .when(new AggregateCombatRule(new FromRound(2), combatWithout(KaiDiscipline.Mindshield)).then(new ModifyCombatSkill(-2)))));
+
+        manager.add(new Section("342")
+                .set(new Combat()
+                        .when(combatWithout(KaiDiscipline.Mindshield).then(new ModifyCombatSkill(-2)))));
+
+        */
+        //
 
         manager.add(new Section("1").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.SixthSense).then(new DisableChoice("141"))));
 
@@ -263,8 +313,6 @@ public class MainActivity extends BaseActivity
         manager.add(new Section("341").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.Tracking).then(new DisableChoice("310"))));
 
         manager.add(new Section("342").set(new Combat().add(new Enemy("Vordak", 18, 26))));
-
-        //.modify(Stat.CombatSkill, -1)));
 
         // TODO: new Section("21") is tricky!
     }

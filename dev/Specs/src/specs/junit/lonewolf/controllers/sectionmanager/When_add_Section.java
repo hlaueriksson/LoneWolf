@@ -1,8 +1,8 @@
 package specs.junit.lonewolf.controllers.sectionmanager;
 
-import com.hoffenkloffen.lonewolf.controllers.Section;
-import com.hoffenkloffen.lonewolf.controllers.javascript.interfaces.ChoiceJavascriptInterface;
-import com.hoffenkloffen.lonewolf.controllers.javascript.interfaces.JavascriptInterface;
+import com.hoffenkloffen.lonewolf.controllers.section.Section;
+import com.hoffenkloffen.lonewolf.controllers.interfaces.ChoiceJavascriptInterface;
+import com.hoffenkloffen.lonewolf.controllers.interfaces.JavascriptInterface;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertSame;

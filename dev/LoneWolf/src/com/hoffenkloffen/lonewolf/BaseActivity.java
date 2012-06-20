@@ -14,7 +14,9 @@ import android.widget.Toast;
 import com.hoffenkloffen.lonewolf.controllers.*;
 import com.hoffenkloffen.lonewolf.controllers.events.AggregatedEventHandler;
 import com.hoffenkloffen.lonewolf.controllers.events.DebugEventHandler;
-import com.hoffenkloffen.lonewolf.controllers.javascript.interfaces.JavascriptInterface;
+import com.hoffenkloffen.lonewolf.controllers.interfaces.JavascriptInterface;
+import com.hoffenkloffen.lonewolf.controllers.section.Section;
+import com.hoffenkloffen.lonewolf.controllers.section.SectionManager;
 import com.hoffenkloffen.lonewolf.models.Illustration;
 import com.hoffenkloffen.lonewolf.views.SectionRenderer;
 

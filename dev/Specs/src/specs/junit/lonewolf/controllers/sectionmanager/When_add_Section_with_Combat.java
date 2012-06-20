@@ -1,10 +1,10 @@
 package specs.junit.lonewolf.controllers.sectionmanager;
 
 import com.hoffenkloffen.lonewolf.controllers.Combat;
-import com.hoffenkloffen.lonewolf.controllers.Section;
-import com.hoffenkloffen.lonewolf.controllers.javascript.interfaces.CombatJavascriptInterface;
-import com.hoffenkloffen.lonewolf.controllers.rules.CombatIsFought;
-import com.hoffenkloffen.lonewolf.controllers.rules.CombatIsNotWon;
+import com.hoffenkloffen.lonewolf.controllers.section.Section;
+import com.hoffenkloffen.lonewolf.controllers.interfaces.CombatJavascriptInterface;
+import com.hoffenkloffen.lonewolf.controllers.section.rules.CombatIsFought;
+import com.hoffenkloffen.lonewolf.controllers.section.rules.CombatIsNotWon;
 import org.junit.Test;
 
 public class When_add_Section_with_Combat extends Given_SectionManager {

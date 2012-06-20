@@ -1,6 +1,6 @@
 package specs.cucumber.lonewolf;
 
-import com.hoffenkloffen.lonewolf.controllers.SectionManager;
+import com.hoffenkloffen.lonewolf.controllers.section.SectionManager;
 import com.hoffenkloffen.lonewolf.controllers.SectionResourceManager;
 import com.hoffenkloffen.lonewolf.controllers.events.AggregatedEventHandler;
 import com.hoffenkloffen.lonewolf.controllers.events.EventHandler;

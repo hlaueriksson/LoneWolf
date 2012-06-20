@@ -1,6 +1,6 @@
 package com.hoffenkloffen.lonewolf.views;
 
-import com.hoffenkloffen.lonewolf.controllers.javascript.interfaces.JavascriptInterface;
+import com.hoffenkloffen.lonewolf.controllers.interfaces.JavascriptInterface;
 
 public interface SectionRenderer {
     void addJavascriptInterfaces(Iterable<JavascriptInterface> javascriptInterfaces);

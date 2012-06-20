@@ -1,6 +1,6 @@
 package specs.junit.lonewolf.controllers.sectionmanager;
 
-import com.hoffenkloffen.lonewolf.controllers.javascript.interfaces.JavascriptInterface;
+import com.hoffenkloffen.lonewolf.controllers.interfaces.JavascriptInterface;
 import org.junit.Test;
 
 import static org.mockito.Matchers.anyCollectionOf;

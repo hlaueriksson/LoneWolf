@@ -1,8 +1,8 @@
 package specs.junit.lonewolf.controllers.rules;
 
 import com.hoffenkloffen.lonewolf.controllers.SectionState;
-import com.hoffenkloffen.lonewolf.controllers.rules.CombatIsWon;
-import com.hoffenkloffen.lonewolf.models.CombatResult;
+import com.hoffenkloffen.lonewolf.controllers.section.rules.CombatIsWon;
+import com.hoffenkloffen.lonewolf.models.combat.CombatResult;
 import com.hoffenkloffen.lonewolf.models.Outcome;
 import org.junit.Test;
 

@@ -1,6 +1,6 @@
 package specs.junit.lonewolf.controllers.section;
 
-import com.hoffenkloffen.lonewolf.controllers.Section;
+import com.hoffenkloffen.lonewolf.controllers.section.Section;
 import specs.junit.BaseSpec;
 import specs.support.AlwaysFalse;
 import specs.support.AlwaysTrue;
