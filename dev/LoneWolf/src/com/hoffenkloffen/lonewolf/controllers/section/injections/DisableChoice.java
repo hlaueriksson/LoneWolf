@@ -18,8 +18,7 @@ public class DisableChoice implements JavascriptInjection {
     }
 
     @Override
-    public String toString()
-    {
-        return "Disable choice: " + section;
+    public String toString() {
+        return super.toString() + ": " + section;
     }
 }

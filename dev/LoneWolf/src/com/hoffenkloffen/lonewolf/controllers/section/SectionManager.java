@@ -1,5 +1,6 @@
 package com.hoffenkloffen.lonewolf.controllers.section;
 
+import android.util.Log;
 import com.hoffenkloffen.lonewolf.controllers.RandomNumberTable;
 import com.hoffenkloffen.lonewolf.controllers.SectionResourceManager;
 import com.hoffenkloffen.lonewolf.controllers.combat.Combat;
@@ -43,8 +44,8 @@ public class SectionManager {
         random = new RandomNumberTable();
 
         character = new LoneWolf(); // TODO
-        character.setCombatSkill(20);
-        character.setEndurance(20);
+        character.setCombatSkill(1);
+        character.setEndurance(1);
     }
 
     public void add(Section section) {
@@ -109,6 +110,8 @@ public class SectionManager {
 
         CombatResult result = combat.fight(Integer.parseInt(index));
 
+        Log.d(SectionManager.class.getSimpleName(), "CombatResult: " + result.getOutcome());
+
         // State
         section.add(result);
 
@@ -134,8 +137,9 @@ public class SectionManager {
         if(hasCombat(section)) {
             section
                     .add(new CombatJavascriptInterface((CombatEventHandler) eventHandler))
-                    .when(new CombatIsFought().then(new DisableCombat()))
-                    .when(new CombatIsNotWon().then(new DisableAllChoices()));
+                    .when(new CombatIsNotFought().then(new DisableAllChoices()))
+                    .when(new CombatIsWon().then(new DisableCombat()))
+                    .when(new CombatIsLost().then(new DisableAll()));
         }
 
         return section;

@@ -7,9 +7,6 @@ import java.util.Collection;
 
 public class DisplayRandomNumber implements JavascriptInjection {
 
-    public DisplayRandomNumber() {
-    }
-
     @Override
     public String getScript(Collection<SectionState> states) {
         RandomNumberResult result = getRandomNumberResult(states);
@@ -17,12 +14,6 @@ public class DisplayRandomNumber implements JavascriptInjection {
         if(states == null) return "";
 
         return String.format("displayRandomNumber(%s);", result.getValue());
-    }
-
-    @Override
-    public String toString()
-    {
-        return "Display random number";
     }
 
     private RandomNumberResult getRandomNumberResult(Collection<SectionState> states) {

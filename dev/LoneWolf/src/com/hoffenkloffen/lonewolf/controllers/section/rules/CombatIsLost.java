@@ -6,7 +6,7 @@ import com.hoffenkloffen.lonewolf.models.combat.Outcome;
 
 import java.util.Collection;
 
-public class CombatIsWon extends BaseRule {
+public class CombatIsLost extends BaseRule {
 
     @Override
     public boolean match(Collection<SectionState> states) {
@@ -14,6 +14,6 @@ public class CombatIsWon extends BaseRule {
 
         if(result == null) return false;
 
-        return result.getOutcome() == Outcome.Win;
+        return result.getOutcome() == Outcome.Lose;
     }
 }

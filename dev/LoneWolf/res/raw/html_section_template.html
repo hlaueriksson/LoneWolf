@@ -36,6 +36,12 @@ Published by Project Aon.
 <body>
 %3$s
 <script type="text/javascript">
+function disableAll() {
+    console.log("disableAll");
+    disableAllChoices();
+    disableRandomNumber();
+    disableCombat();
+}
 function disableChoice(section) {
     console.log("disableChoice: " + section);
     var choice = document.getElementById(section);

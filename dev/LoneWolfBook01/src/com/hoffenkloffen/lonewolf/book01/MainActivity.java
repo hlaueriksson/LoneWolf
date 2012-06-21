@@ -37,7 +37,7 @@ public class MainActivity extends BaseActivity
 
         init();
 
-        turnTo("1");
+        turnTo("112");
 
         Log.d(TAG, "Done");
     }
@@ -143,6 +143,13 @@ public class MainActivity extends BaseActivity
         manager.add(new Section("112").set(new Combat()
                 .add(new Enemy("Giak 1", 13, 10))
                 .add(new Enemy("Giak 2", 12, 10))));
+
+        /*
+                    .add(new CombatJavascriptInterface((CombatEventHandler) eventHandler))
+                    .when(new CombatIsFought(0).then(new DisableCombat(0)))
+                    .when(new CombatIsFought(1).then(new DisableCombat(1)))
+                    .when(new CombatIsLost().then(new DisableAll()));
+         */
 
         manager.add(new Section("125").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.Tracking).then(new DisableChoice("301"))));
 

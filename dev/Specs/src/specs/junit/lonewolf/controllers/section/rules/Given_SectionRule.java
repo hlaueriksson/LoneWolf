@@ -11,8 +11,7 @@ public class Given_SectionRule extends BaseSpec {
 
     protected SectionRule rule;
 
-    protected List<SectionState> get(SectionState state)
-    {
+    protected List<SectionState> get(SectionState state) {
         List<SectionState> result = new ArrayList<SectionState>();
         result.add(state);
 

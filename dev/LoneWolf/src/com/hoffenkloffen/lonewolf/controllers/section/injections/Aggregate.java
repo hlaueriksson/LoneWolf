@@ -4,7 +4,7 @@ import com.hoffenkloffen.lonewolf.controllers.section.SectionState;
 
 import java.util.Collection;
 
-public class Aggregate implements JavascriptInjection {
+public class Aggregate extends BaseInjection {
 
     private JavascriptInjection[] injections;
 
@@ -25,7 +25,7 @@ public class Aggregate implements JavascriptInjection {
 
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder("Aggregate: ");
+        StringBuilder result = new StringBuilder(super.toString());
 
         for (JavascriptInjection injection : injections) {
             result.append(injection.toString());

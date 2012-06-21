@@ -13,26 +13,22 @@ import static org.junit.Assert.assertTrue;
 
 public class Given_CombatIsWon extends Given_SectionRule {
 
-    protected void given()
-    {
+    protected void given() {
         rule = new CombatIsWon();
     }
 
     @Test
-    public void then_the_rule_should_match_on_state_with_CombatResult_Win()
-    {
+    public void then_the_rule_should_match_on_state_with_CombatResult_Win() {
         assertTrue(rule.match(get(new CombatResult(Outcome.Win))));
     }
 
     @Test
-    public void then_the_rule_should_not_match_on_state_with_CombatResult_Lose()
-    {
+    public void then_the_rule_should_not_match_on_state_with_CombatResult_Lose() {
         assertFalse(rule.match(get(new CombatResult(Outcome.Lose))));
     }
 
     @Test
-    public void then_the_rule_should_not_match_on_state_without_CombatResult()
-    {
+    public void then_the_rule_should_not_match_on_state_without_CombatResult() {
         assertFalse(rule.match(new ArrayList<SectionState>()));
     }
 }
