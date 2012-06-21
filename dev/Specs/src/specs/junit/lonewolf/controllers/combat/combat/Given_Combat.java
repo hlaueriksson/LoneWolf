@@ -7,8 +7,8 @@ import com.hoffenkloffen.lonewolf.models.LoneWolf;
 import specs.junit.BaseSpec;
 
 public class Given_Combat extends BaseSpec {
-    LoneWolf character;
-    Enemy enemy;
+    protected LoneWolf character;
+    protected Enemy enemy;
 
     protected Combat combat;
     protected CombatResult result;

@@ -3,8 +3,12 @@ package com.hoffenkloffen.lonewolf.controllers.combat;
 import com.hoffenkloffen.lonewolf.controllers.RandomNumberTable;
 import com.hoffenkloffen.lonewolf.controllers.combat.modifiers.CombatModifier;
 import com.hoffenkloffen.lonewolf.controllers.combat.rules.CombatRule;
-import com.hoffenkloffen.lonewolf.models.*;
-import com.hoffenkloffen.lonewolf.models.combat.*;
+import com.hoffenkloffen.lonewolf.models.LoneWolf;
+import com.hoffenkloffen.lonewolf.models.RandomNumberResult;
+import com.hoffenkloffen.lonewolf.models.combat.CombatResult;
+import com.hoffenkloffen.lonewolf.models.combat.CombatRound;
+import com.hoffenkloffen.lonewolf.models.combat.Enemy;
+import com.hoffenkloffen.lonewolf.models.combat.Outcome;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,6 +24,7 @@ public class Combat {
 
     private RandomNumberTable random = new RandomNumberTable();
     private CombatResultsTable table = new CombatResultsTable();
+    private CombatRatio ratio;
     private CombatRound round;
 
     public Combat set(LoneWolf character) {
@@ -47,12 +52,16 @@ public class Combat {
     }
 
     public CombatResult fight(int index) {
-        round = new CombatRound(1);
         Enemy enemy = enemies.get(index);
 
+        round = new CombatRound(1);
+        ratio = new CombatRatio(character, enemy, modifiers, rules);
+
         while (true) {
-            table.setCombatRatio(getCombatRatio(enemy));
-            EnduranceLoss result = table.getEnduranceLoss(random.getResult());
+            table.setCombatRatio(ratio.getResult(getStates()));
+            RandomNumberResult d10 = random.getResult();
+
+            EnduranceLoss result = table.getEnduranceLoss(d10);
 
             if (result.getEnemyPoints() == EnduranceLoss.AutomaticallyKilled) {
                 enemy.setEndurance(0);
@@ -73,23 +82,6 @@ public class Combat {
 
             round.increment();
         }
-    }
-
-    private int getCombatRatio(Enemy enemy) {
-        CombatSkillValue lw = new CombatSkillValue(character.getCombatSkill());
-        CombatSkillValue e = new CombatSkillValue(enemy.getCombatSkill());
-
-        for (CombatModifier modifier : modifiers) {
-            modifier.modify(lw);
-        }
-
-        for (CombatRule rule : rules) {
-            if(!rule.match(getStates())) continue;
-
-            rule.getModifier().modify(lw);
-        }
-
-        return lw.getValue() - e.getValue();
     }
 
     private Collection<CombatState> getStates() {

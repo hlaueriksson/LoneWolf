@@ -5,14 +5,22 @@ import android.util.Log;
 import android.webkit.WebView;
 import com.hoffenkloffen.lonewolf.BaseActivity;
 import com.hoffenkloffen.lonewolf.controllers.combat.Combat;
+import com.hoffenkloffen.lonewolf.controllers.combat.modifiers.ModifyCombatSkill;
+import com.hoffenkloffen.lonewolf.controllers.combat.rules.AggregateCombatRule;
+import com.hoffenkloffen.lonewolf.controllers.combat.rules.FromRound;
+import com.hoffenkloffen.lonewolf.controllers.combat.rules.OnRound;
 import com.hoffenkloffen.lonewolf.controllers.section.Section;
 import com.hoffenkloffen.lonewolf.controllers.section.SectionManager;
 import com.hoffenkloffen.lonewolf.controllers.section.injections.DisableChoice;
 import com.hoffenkloffen.lonewolf.controllers.section.rules.KaiDisciplineIsNotAcquired;
 import com.hoffenkloffen.lonewolf.controllers.section.rules.RandomNumberIsNotBetween;
 import com.hoffenkloffen.lonewolf.controllers.section.rules.RandomNumberNotEquals;
-import com.hoffenkloffen.lonewolf.models.combat.Enemy;
+import com.hoffenkloffen.lonewolf.models.Item;
 import com.hoffenkloffen.lonewolf.models.KaiDiscipline;
+import com.hoffenkloffen.lonewolf.models.combat.Enemy;
+import com.hoffenkloffen.lonewolf.models.combat.Immunity;
+
+import static com.hoffenkloffen.lonewolf.controllers.combat.rules.BaseRule.combatWithout;
 
 public class MainActivity extends BaseActivity
 {
@@ -53,56 +61,6 @@ public class MainActivity extends BaseActivity
     {
         Log.d(TAG, "initSections");
 
-        // TODO: move
-
-        /*
-        manager.add(new Section("17")
-                .set(new Combat()
-                        .add(new ModifyCombatSkill(-1))));
-
-        manager.add(new Section("29")
-                .set(new Combat()
-                        .when(combatWithout(KaiDiscipline.Mindshield).then(new ModifyCombatSkill(-2)))));
-
-        manager.add(new Section("34")
-                .set(new Combat()
-                        .when(combatWithout(KaiDiscipline.Mindshield).then(new ModifyCombatSkill(-2)))));
-
-        manager.add(new Section("55")
-                .set(new Combat()
-                        .add(new ModifyCombatSkill(4))));
-
-        manager.add(new Section("136")
-                .set(new Combat()
-                        .add(new ModifyCombatSkill(1))));
-
-        manager.add(new Section("170")
-                .set(new Combat()
-                        .when(combatWithout(new Item("Torch")).then(new ModifyCombatSkill(-3)))
-                        .add(new Enemy("Burrowcrawler", 17, 7)
-                                .add(new Immunity(KaiDiscipline.Mindblast))
-                                .add(new Immunity(KaiDiscipline.AnimalKinship)))));
-
-        manager.add(new Section("229")
-                .set(new Combat()
-                        .add(new ModifyCombatSkill(-1))));
-
-        manager.add(new Section("260")
-                .set(new Combat()
-                        .add(new ModifyCombatSkill(-4))));
-
-        manager.add(new Section("283")
-                .set(new Combat()
-                        .when(new OnRound(1).then(new ModifyCombatSkill(2)))
-                        .when(new AggregateCombatRule(new FromRound(2), combatWithout(KaiDiscipline.Mindshield)).then(new ModifyCombatSkill(-2)))));
-
-        manager.add(new Section("342")
-                .set(new Combat()
-                        .when(combatWithout(KaiDiscipline.Mindshield).then(new ModifyCombatSkill(-2)))));
-
-        */
-        //
-
         manager.add(new Section("1").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.SixthSense).then(new DisableChoice("141"))));
 
         manager.add(new Section("2")
@@ -119,7 +77,9 @@ public class MainActivity extends BaseActivity
                 .when(new RandomNumberNotEquals(0).then(new DisableChoice("53")))
                 .when(new RandomNumberIsNotBetween(1, 2).then(new DisableChoice("274")))
                 .when(new RandomNumberIsNotBetween(3, 9).then(new DisableChoice("316")))
-                .set(new Combat().add(new Enemy("Kraan", 16, 24))));
+                .set(new Combat()
+                        .add(new Enemy("Kraan", 16, 24))
+                        .add(new ModifyCombatSkill(-1))));
 
         manager.add(new Section("18").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.Camouflage).then(new DisableChoice("114"))));
 
@@ -131,9 +91,13 @@ public class MainActivity extends BaseActivity
 
         manager.add(new Section("23").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.MindOverMatter).then(new DisableChoice("151"))));
 
-        manager.add(new Section("29").set(new Combat().add(new Enemy("Vordak", 17, 25))));
+        manager.add(new Section("29").set(new Combat()
+                .add(new Enemy("Vordak", 17, 25))
+                .when(combatWithout(KaiDiscipline.Mindshield).then(new ModifyCombatSkill(-2)))));
 
-        manager.add(new Section("34").set(new Combat().add(new Enemy("Vordak", 17, 25))));
+        manager.add(new Section("34").set(new Combat()
+                .add(new Enemy("Vordak", 17, 25))
+                .when(combatWithout(KaiDiscipline.Mindshield).then(new ModifyCombatSkill(-2)))));
 
         manager.add(new Section("37").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.Camouflage).then(new DisableChoice("282"))));
 
@@ -151,7 +115,9 @@ public class MainActivity extends BaseActivity
 
         manager.add(new Section("52").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.AnimalKinship).then(new DisableChoice("225"))));
 
-        manager.add(new Section("55").set(new Combat().add(new Enemy("Giak", 9, 9))));
+        manager.add(new Section("55").set(new Combat()
+                .add(new Enemy("Giak", 9, 9))
+                .add(new ModifyCombatSkill(4))));
 
         manager.add(new Section("63").set(new Combat().add(new Enemy("Madman", 11, 10))));
 
@@ -186,7 +152,8 @@ public class MainActivity extends BaseActivity
 
         manager.add(new Section("136").set(new Combat()
                 .add(new Enemy("Giak 1", 13, 10))
-                .add(new Enemy("Giak 2", 12, 10))));
+                .add(new Enemy("Giak 2", 12, 10))
+                .add(new ModifyCombatSkill(1))));
 
         manager.add(new Section("138").set(new Combat()
                 .add(new Enemy("Giak 1", 13, 10))
@@ -204,7 +171,11 @@ public class MainActivity extends BaseActivity
 
         manager.add(new Section("169").set(new Combat().add(new Enemy("Crypt Spawn", 16, 16))));
 
-        manager.add(new Section("170").set(new Combat().add(new Enemy("Burrowcrawler", 17, 7))));
+        manager.add(new Section("170").set(new Combat()
+                .add(new Enemy("Burrowcrawler", 17, 7)
+                        .add(new Immunity(KaiDiscipline.Mindblast))
+                        .add(new Immunity(KaiDiscipline.AnimalKinship)))
+                .when(combatWithout(new Item("Torch")).then(new ModifyCombatSkill(-3)))));
 
         manager.add(new Section("172").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.Camouflage).then(new DisableChoice("114"))));
 
@@ -237,7 +208,9 @@ public class MainActivity extends BaseActivity
 
         manager.add(new Section("227").set(new Combat().add(new Enemy("Marshviper", 16, 6))));
 
-        manager.add(new Section("229").set(new Combat().add(new Enemy("Kraan", 16, 25))));
+        manager.add(new Section("229").set(new Combat()
+                .add(new Enemy("Kraan", 16, 25))
+                .add(new ModifyCombatSkill(-1))));
 
         manager.add(new Section("231").set(new Combat().add(new Enemy("Robber", 13, 20))));
 
@@ -261,7 +234,8 @@ public class MainActivity extends BaseActivity
 
         manager.add(new Section("260").set(new Combat()
                 .add(new Enemy("Giak 1", 11, 18))
-                .add(new Enemy("Giak 2", 12, 17))));
+                .add(new Enemy("Giak 2", 12, 17))
+                .add(new ModifyCombatSkill(-4))));
 
         manager.add(new Section("272").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.Tracking).then(new DisableChoice("134"))));
 
@@ -273,7 +247,10 @@ public class MainActivity extends BaseActivity
                 .when(new RandomNumberIsNotBetween(0, 6).then(new DisableChoice("112")))
                 .when(new RandomNumberIsNotBetween(7, 9).then(new DisableChoice("96"))));
 
-        manager.add(new Section("283").set(new Combat().add(new Enemy("Vordak", 17, 25))));
+        manager.add(new Section("283").set(new Combat()
+                .add(new Enemy("Vordak", 17, 25))
+                .when(new OnRound(1).then(new ModifyCombatSkill(2)))
+                .when(new AggregateCombatRule(new FromRound(2), combatWithout(KaiDiscipline.Mindshield)).then(new ModifyCombatSkill(-2)))));
 
         manager.add(new Section("294")
                 .when(new RandomNumberIsNotBetween(0, 2).then(new DisableChoice("230")))
@@ -312,7 +289,9 @@ public class MainActivity extends BaseActivity
 
         manager.add(new Section("341").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.Tracking).then(new DisableChoice("310"))));
 
-        manager.add(new Section("342").set(new Combat().add(new Enemy("Vordak", 18, 26))));
+        manager.add(new Section("342").set(new Combat()
+                .add(new Enemy("Vordak", 18, 26))
+                .when(combatWithout(KaiDiscipline.Mindshield).then(new ModifyCombatSkill(-2)))));
 
         // TODO: new Section("21") is tricky!
     }
