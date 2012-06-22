@@ -15,6 +15,10 @@ public class CombatJavascriptInterface implements JavascriptInterface {
         return "Combat";
     }
 
+    public void fight() {
+        eventHandler.fight();
+    }
+
     public void fight(String index) {
         eventHandler.fight(index);
     }

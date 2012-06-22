@@ -5,9 +5,26 @@ import com.hoffenkloffen.lonewolf.controllers.section.SectionState;
 import java.util.Collection;
 
 public class DisableCombat implements JavascriptInjection {
+    private int index = -1;
+
+    public DisableCombat() {
+    }
+
+    public DisableCombat(int index) {
+        this.index = index;
+    }
 
     @Override
     public String getScript(Collection<SectionState> states) {
-        return "disableCombat();";
+        if(index == -1) return "disableAllCombats();"; // NOTE: disable all
+
+        return String.format("disableCombat(%s);", index);
+    }
+
+    @Override
+    public String toString() {
+        if(index == -1) return super.toString();
+
+        return super.toString() + ": " + index;
     }
 }

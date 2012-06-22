@@ -5,6 +5,7 @@ import com.hoffenkloffen.lonewolf.controllers.section.injections.JavascriptInjec
 import com.hoffenkloffen.lonewolf.models.combat.CombatResult;
 import com.hoffenkloffen.lonewolf.models.LoneWolf;
 import com.hoffenkloffen.lonewolf.models.RandomNumberResult;
+import com.hoffenkloffen.lonewolf.models.combat.CombatResultList;
 
 import java.util.Collection;
 
@@ -48,6 +49,14 @@ public abstract class BaseRule implements SectionRule {
     protected CombatResult getCombatResult(Collection<SectionState> states) {
         for (SectionState state : states) {
             if(state instanceof CombatResult) return (CombatResult) state;
+        }
+
+        return null;
+    }
+
+    protected CombatResultList getCombatResultList(Collection<SectionState> states) {
+        for (SectionState state : states) {
+            if(state instanceof CombatResultList) return (CombatResultList) state;
         }
 
         return null;

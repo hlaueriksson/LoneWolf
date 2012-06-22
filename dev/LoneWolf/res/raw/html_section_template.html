@@ -40,7 +40,7 @@ function disableAll() {
     console.log("disableAll");
     disableAllChoices();
     disableRandomNumber();
-    disableCombat();
+    disableAllCombats();
 }
 function disableChoice(section) {
     console.log("disableChoice: " + section);
@@ -71,13 +71,27 @@ function disableRandomNumber() {
         }
     }
 }
-function disableCombat() {
-    console.log("disableCombat");
+function disableAllCombats() {
+    console.log("disableAllCombats");
     var buttons = document.getElementsByTagName("button");
     for (i in buttons) {
         var button = buttons[i];
         if (button.className == "combat") {
             button.disabled = true;
+        }
+    }
+}
+function disableCombat(index) {
+    console.log("disableCombat: " + index);
+    var count = 0;
+    var buttons = document.getElementsByTagName("button");
+    for (i in buttons) {
+        var button = buttons[i];
+        if (button.className == "combat") {
+            if(index == count) {
+                button.disabled = true;
+            }
+            count++;
         }
     }
 }

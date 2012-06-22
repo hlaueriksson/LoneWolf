@@ -74,7 +74,7 @@ public abstract class BaseActivity extends Activity implements ConfigurationMana
         // DEBUG: GestureDetection
         initGestureDetection();
 
-        Log.d(TAG, manager.toString());
+        //Log.d(TAG, manager.toString());
     }
 
     protected abstract void initSections(SectionManager manager);
@@ -166,7 +166,7 @@ public abstract class BaseActivity extends Activity implements ConfigurationMana
 
     @Override
     public void loadData(String data, String mimeType, String encoding) {
-        Log.d(TAG, data);
+        //Log.d(TAG, data);
 
         browser.loadData(data, mimeType, encoding);
     }
@@ -202,6 +202,17 @@ public abstract class BaseActivity extends Activity implements ConfigurationMana
     }
 
     // CombatEventHandler
+
+    @Override
+    public void fight() {
+        runOnUiThread(new Runnable() {
+            public void run() {
+                Log.d(TAG, "Fight enemy");
+
+                manager.fight();
+            }
+        });
+    }
 
     @Override
     public void fight(final String index) {

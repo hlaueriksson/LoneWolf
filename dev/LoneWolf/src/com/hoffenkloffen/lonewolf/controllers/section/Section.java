@@ -71,6 +71,10 @@ public class Section {
         return states.values();
     }
 
+    public SectionState getState(String key) {
+        return states.get(key);
+    }
+
     public Section set(Combat combat) {
         this.combat = combat;
 

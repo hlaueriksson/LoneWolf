@@ -17,6 +17,7 @@ import com.hoffenkloffen.lonewolf.controllers.section.rules.*;
 import com.hoffenkloffen.lonewolf.models.combat.CombatResult;
 import com.hoffenkloffen.lonewolf.models.LoneWolf;
 import com.hoffenkloffen.lonewolf.models.RandomNumberResult;
+import com.hoffenkloffen.lonewolf.models.combat.CombatResultList;
 import com.hoffenkloffen.lonewolf.views.SectionRenderer;
 
 import java.util.Hashtable;
@@ -44,8 +45,8 @@ public class SectionManager {
         random = new RandomNumberTable();
 
         character = new LoneWolf(); // TODO
-        character.setCombatSkill(1);
-        character.setEndurance(1);
+        character.setCombatSkill(20);
+        character.setEndurance(20);
     }
 
     public void add(Section section) {
@@ -101,6 +102,25 @@ public class SectionManager {
         renderer.loadData(section.getContent(), section.getMimeType(), section.getEncoding());
     }
 
+    public void fight() {
+
+        Section section = getCurrent();
+
+        Combat combat = section.getCombat();
+        combat.set(character);
+
+        CombatResult result = combat.fight(0);
+
+        Log.d(SectionManager.class.getSimpleName(), "CombatResult: " + result.getOutcome());
+
+        // State
+        section.add(result);
+
+        // Render
+        renderer.addJavascriptInterfaces(section.getJavascriptInterfaces());
+        renderer.loadData(section.getContent(), section.getMimeType(), section.getEncoding());
+    }
+
     public void fight(String index) {
 
         Section section = getCurrent();
@@ -113,7 +133,19 @@ public class SectionManager {
         Log.d(SectionManager.class.getSimpleName(), "CombatResult: " + result.getOutcome());
 
         // State
-        section.add(result);
+        CombatResultList list;
+
+        if(index.equals("0")) // NOTE: First fight
+        {
+            list = new CombatResultList(combat.getEnemyCount());
+            section.add(list);
+        }
+        else
+        {
+            list = (CombatResultList) section.getState(CombatResultList.class.getSimpleName());
+        }
+
+        list.add(result);
 
         // Render
         renderer.addJavascriptInterfaces(section.getJavascriptInterfaces());
@@ -135,11 +167,26 @@ public class SectionManager {
         }
 
         if(hasCombat(section)) {
-            section
-                    .add(new CombatJavascriptInterface((CombatEventHandler) eventHandler))
-                    .when(new CombatIsNotFought().then(new DisableAllChoices()))
-                    .when(new CombatIsWon().then(new DisableCombat()))
-                    .when(new CombatIsLost().then(new DisableAll()));
+            if(hasCombatWithOneEnemy(section)) {
+                section
+                        .add(new CombatJavascriptInterface((CombatEventHandler) eventHandler))
+                        .when(new CombatIsNotFought().then(new DisableAllChoices()))
+                        .when(new CombatIsWon().then(new DisableCombat()))
+                        .when(new CombatIsLost().then(new DisableAll()));
+            }
+            else {
+                section
+                        .add(new CombatJavascriptInterface((CombatEventHandler) eventHandler))
+                        .when(new CombatsAreNotFought().then(new DisableAllChoices()))
+                        .when(new CombatsAreLost().then(new DisableAll()));
+
+                int enemies = section.getCombat().getEnemyCount();
+
+                for(int index = 0; index < enemies; index++) {
+                    section.when(new CombatIsFought(index).then(new DisableCombat(index)));
+                    if(index < enemies - 1) section.when(new CombatIsNotFought(index).then(new DisableCombat(index + 1)));
+                }
+            }
         }
 
         return section;
@@ -155,6 +202,10 @@ public class SectionManager {
 
     private boolean hasCombat(Section section) {
         return section.getCombat() != null;
+    }
+
+    private boolean hasCombatWithOneEnemy(Section section) {
+        return section.getCombat().getEnemyCount() == 1;
     }
 
     @Override

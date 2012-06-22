@@ -51,6 +51,10 @@ public class Combat {
         return this;
     }
 
+    public int getEnemyCount() {
+        return enemies.size();
+    }
+
     public CombatResult fight(int index) {
         Enemy enemy = enemies.get(index);
 

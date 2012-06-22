@@ -16,8 +16,7 @@ public class CombatResult implements SectionState {
     }
 
     @Override
-    public String toString()
-    {
-        return "Combat result: " + getOutcome();
+    public String toString() {
+        return getClass().getSimpleName() + ": " + getOutcome();
     }
 }

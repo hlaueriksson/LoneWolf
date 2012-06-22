@@ -4,14 +4,7 @@ import com.hoffenkloffen.lonewolf.controllers.section.SectionState;
 
 import java.util.Collection;
 
-public class CombatIsNotFought extends CombatIsFought {
-
-    public CombatIsNotFought() {
-    }
-
-    public CombatIsNotFought(int index) {
-        super(index);
-    }
+public class CombatsAreNotFought extends CombatsAreFought {
 
     @Override
     public boolean match(Collection<SectionState> states) {
