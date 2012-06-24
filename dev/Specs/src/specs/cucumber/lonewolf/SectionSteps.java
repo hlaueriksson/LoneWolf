@@ -1,9 +1,7 @@
 package specs.cucumber.lonewolf;
 
-import com.hoffenkloffen.lonewolf.controllers.section.SectionManager;
 import com.hoffenkloffen.lonewolf.controllers.SectionResourceManager;
-import com.hoffenkloffen.lonewolf.controllers.events.AggregatedEventHandler;
-import com.hoffenkloffen.lonewolf.controllers.events.EventHandler;
+import com.hoffenkloffen.lonewolf.controllers.section.SectionManager;
 import com.hoffenkloffen.lonewolf.views.SectionRenderer;
 import cucumber.annotation.en.Given;
 import cucumber.annotation.en.Then;
@@ -17,15 +15,13 @@ public class SectionSteps {
 
     private SectionResourceManager resourceManager;
     private SectionRenderer renderer;
-    private EventHandler eventHandler;
     private SectionManager manager;
 
     @Given("^the sections are initiated$")
     public void the_sections_are_initiated() throws Throwable {
         resourceManager = mock(SectionResourceManager.class);
         renderer = mock(SectionRenderer.class);
-        eventHandler = mock(AggregatedEventHandler.class);
-        manager = new SectionManager(resourceManager, renderer, eventHandler);
+        manager = new SectionManager(resourceManager, renderer);
     }
 
     // View a section

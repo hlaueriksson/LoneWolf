@@ -3,8 +3,6 @@ package com.hoffenkloffen.lonewolf.controllers.section;
 import com.hoffenkloffen.lonewolf.controllers.SectionResourceManager;
 import com.hoffenkloffen.lonewolf.controllers.combat.Combat;
 import com.hoffenkloffen.lonewolf.controllers.section.injections.JavascriptInjection;
-import com.hoffenkloffen.lonewolf.controllers.interfaces.ChoiceJavascriptInterface;
-import com.hoffenkloffen.lonewolf.controllers.interfaces.JavascriptInterface;
 import com.hoffenkloffen.lonewolf.controllers.section.rules.SectionRule;
 import com.hoffenkloffen.lonewolf.models.Illustration;
 
@@ -18,7 +16,6 @@ public class Section {
 
     private SectionResourceManager resourceManager;
 
-    private List<JavascriptInterface> javascriptInterfaces = new ArrayList<JavascriptInterface>();
     private Map<String, SectionState> states = new Hashtable<String, SectionState>();
     private List<SectionRule> rules = new ArrayList<SectionRule>();
     private Combat combat;
@@ -39,16 +36,6 @@ public class Section {
         this.resourceManager = resourceManager;
 
         return this;
-    }
-
-    public Section add(JavascriptInterface controller) {
-        javascriptInterfaces.add(controller);
-
-        return this;
-    }
-
-    public Collection<JavascriptInterface> getJavascriptInterfaces() {
-        return javascriptInterfaces;
     }
 
     public Section when(SectionRule rule) {
@@ -193,17 +180,6 @@ public class Section {
 
         result.append(getNumber());
         result.append("\n");
-
-        if(getJavascriptInterfaces().size() > 1) {
-            result.append("\tJavascriptInterfaces; ");
-            for (JavascriptInterface javascriptInterface : getJavascriptInterfaces()) {
-                if((javascriptInterface instanceof ChoiceJavascriptInterface)) continue;
-
-                result.append(javascriptInterface.getInterfaceName());
-                result.append(", ");
-            }
-            result.append("\n");
-        }
 
         if(!getRules().isEmpty()) {
             result.append("\tRules; ");

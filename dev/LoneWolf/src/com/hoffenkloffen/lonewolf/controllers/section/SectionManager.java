@@ -4,19 +4,11 @@ import android.util.Log;
 import com.hoffenkloffen.lonewolf.controllers.RandomNumberTable;
 import com.hoffenkloffen.lonewolf.controllers.SectionResourceManager;
 import com.hoffenkloffen.lonewolf.controllers.combat.Combat;
-import com.hoffenkloffen.lonewolf.controllers.events.ChoiceEventHandler;
-import com.hoffenkloffen.lonewolf.controllers.events.CombatEventHandler;
-import com.hoffenkloffen.lonewolf.controllers.events.EventHandler;
-import com.hoffenkloffen.lonewolf.controllers.events.RandomNumberEventHandler;
-import com.hoffenkloffen.lonewolf.controllers.section.rules.RandomNumberRule;
 import com.hoffenkloffen.lonewolf.controllers.section.injections.*;
-import com.hoffenkloffen.lonewolf.controllers.interfaces.ChoiceJavascriptInterface;
-import com.hoffenkloffen.lonewolf.controllers.interfaces.CombatJavascriptInterface;
-import com.hoffenkloffen.lonewolf.controllers.interfaces.RandomNumberJavascriptInterface;
 import com.hoffenkloffen.lonewolf.controllers.section.rules.*;
-import com.hoffenkloffen.lonewolf.models.combat.CombatResult;
 import com.hoffenkloffen.lonewolf.models.LoneWolf;
 import com.hoffenkloffen.lonewolf.models.RandomNumberResult;
+import com.hoffenkloffen.lonewolf.models.combat.CombatResult;
 import com.hoffenkloffen.lonewolf.models.combat.CombatResultList;
 import com.hoffenkloffen.lonewolf.views.SectionRenderer;
 
@@ -28,7 +20,6 @@ public class SectionManager {
 
     private SectionResourceManager resourceManager;
     private SectionRenderer renderer;
-    private EventHandler eventHandler;
 
     private Section current;
 
@@ -37,10 +28,9 @@ public class SectionManager {
     // Models
     protected LoneWolf character;
 
-    public SectionManager(SectionResourceManager resourceManager, SectionRenderer renderer, EventHandler eventHandler) {
+    public SectionManager(SectionResourceManager resourceManager, SectionRenderer renderer) {
         this.resourceManager = resourceManager;
         this.renderer = renderer;
-        this.eventHandler = eventHandler;
 
         random = new RandomNumberTable();
 
@@ -84,7 +74,6 @@ public class SectionManager {
         section.enter();
 
         // Render
-        renderer.addJavascriptInterfaces(section.getJavascriptInterfaces());
         renderer.loadData(section.getContent(), section.getMimeType(), section.getEncoding());
     }
 
@@ -98,7 +87,6 @@ public class SectionManager {
         section.add(result);
 
         // Render
-        renderer.addJavascriptInterfaces(section.getJavascriptInterfaces());
         renderer.loadData(section.getContent(), section.getMimeType(), section.getEncoding());
     }
 
@@ -117,7 +105,6 @@ public class SectionManager {
         section.add(result);
 
         // Render
-        renderer.addJavascriptInterfaces(section.getJavascriptInterfaces());
         renderer.loadData(section.getContent(), section.getMimeType(), section.getEncoding());
     }
 
@@ -148,7 +135,6 @@ public class SectionManager {
         list.add(result);
 
         // Render
-        renderer.addJavascriptInterfaces(section.getJavascriptInterfaces());
         renderer.loadData(section.getContent(), section.getMimeType(), section.getEncoding());
     }
 
@@ -158,25 +144,21 @@ public class SectionManager {
 
     private Section defaults(Section section) {
         section.set(resourceManager);
-        section.add(new ChoiceJavascriptInterface((ChoiceEventHandler) eventHandler));
 
         if(hasRandomNumber(section)) {
             section
-                    .add(new RandomNumberJavascriptInterface((RandomNumberEventHandler) eventHandler))
                     .when(new RandomNumberIsRolled().then(new Aggregate(new DisplayRandomNumber(), new DisableRandomNumber())));
         }
 
         if(hasCombat(section)) {
             if(hasCombatWithOneEnemy(section)) {
                 section
-                        .add(new CombatJavascriptInterface((CombatEventHandler) eventHandler))
                         .when(new CombatIsNotFought().then(new DisableAllChoices()))
                         .when(new CombatIsWon().then(new DisableCombat()))
                         .when(new CombatIsLost().then(new DisableAll()));
             }
             else {
                 section
-                        .add(new CombatJavascriptInterface((CombatEventHandler) eventHandler))
                         .when(new CombatsAreNotFought().then(new DisableAllChoices()))
                         .when(new CombatsAreLost().then(new DisableAll()));
 

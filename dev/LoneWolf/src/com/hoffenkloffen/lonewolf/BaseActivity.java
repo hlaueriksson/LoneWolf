@@ -14,13 +14,15 @@ import android.widget.Toast;
 import com.hoffenkloffen.lonewolf.controllers.*;
 import com.hoffenkloffen.lonewolf.controllers.events.AggregatedEventHandler;
 import com.hoffenkloffen.lonewolf.controllers.events.DebugEventHandler;
-import com.hoffenkloffen.lonewolf.controllers.interfaces.JavascriptInterface;
+import com.hoffenkloffen.lonewolf.controllers.interfaces.*;
 import com.hoffenkloffen.lonewolf.controllers.section.Section;
 import com.hoffenkloffen.lonewolf.controllers.section.SectionManager;
 import com.hoffenkloffen.lonewolf.models.Illustration;
 import com.hoffenkloffen.lonewolf.views.SectionRenderer;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class BaseActivity extends Activity implements ConfigurationManager, VersionManager, SectionResourceManager, SectionRenderer, AggregatedEventHandler, DebugEventHandler {
 
@@ -56,6 +58,10 @@ public abstract class BaseActivity extends Activity implements ConfigurationMana
             }
         });
 
+        for (JavascriptInterface javascriptInterface : getJavascriptInterfaces()) {
+            browser.addJavascriptInterface(javascriptInterface, javascriptInterface.getInterfaceName());
+        }
+
         /*
         browser.setWebViewClient(new WebViewClient() {
             @Override
@@ -68,13 +74,24 @@ public abstract class BaseActivity extends Activity implements ConfigurationMana
         if(isDebugMode()) Log.d(TAG, "Configuration: Debug");
         else Log.d(TAG, "Configuration: Release");
 
-        manager = new SectionManager(this, this, this);
+        manager = new SectionManager(this, this);
         initSections(manager);
 
         // DEBUG: GestureDetection
         initGestureDetection();
 
         //Log.d(TAG, manager.toString());
+    }
+
+    protected Iterable<JavascriptInterface> getJavascriptInterfaces()
+    {
+        List<JavascriptInterface> result = new ArrayList<JavascriptInterface>();
+        result.add(new ActionChartJavascriptInterface(this));
+        result.add(new ChoiceJavascriptInterface(this));
+        result.add(new CombatJavascriptInterface(this));
+        result.add(new RandomNumberJavascriptInterface(this));
+
+        return result;
     }
 
     protected abstract void initSections(SectionManager manager);
@@ -156,13 +173,6 @@ public abstract class BaseActivity extends Activity implements ConfigurationMana
     //</editor-fold>
 
     //<editor-fold desc="SectionRenderer">
-
-    @Override
-    public void addJavascriptInterfaces(Iterable<JavascriptInterface> javascriptInterfaces) {
-        for (JavascriptInterface javascriptInterface : javascriptInterfaces) {
-            browser.addJavascriptInterface(javascriptInterface, javascriptInterface.getInterfaceName());
-        }
-    }
 
     @Override
     public void loadData(String data, String mimeType, String encoding) {
@@ -262,6 +272,8 @@ public abstract class BaseActivity extends Activity implements ConfigurationMana
 
     //</editor-fold>
 
+    //<editor-fold desc="Resources">
+
     private String readFileToString(int resId) {
         StringBuffer result = new StringBuffer();
 
@@ -317,4 +329,6 @@ public abstract class BaseActivity extends Activity implements ConfigurationMana
     protected String getPackage() {
         return getApplication().getPackageName();
     }
+
+    //</editor-fold>
 }
