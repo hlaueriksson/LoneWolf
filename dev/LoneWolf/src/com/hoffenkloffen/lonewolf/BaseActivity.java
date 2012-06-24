@@ -157,6 +157,16 @@ public abstract class BaseActivity extends Activity implements ConfigurationMana
     public abstract String getHtmlTitle();
 
     @Override
+    public String getHtmlStyle() {
+        return readFileToString(R.raw.css_section);
+    }
+
+    @Override
+    public String getHtmlScript() {
+        return readFileToString(R.raw.js_section);
+    }
+
+    @Override
     public String getHtmlContent(String section) {
         String filename = "sect" + padSection(section);
 
@@ -176,7 +186,7 @@ public abstract class BaseActivity extends Activity implements ConfigurationMana
 
     @Override
     public void loadData(String data, String mimeType, String encoding) {
-        //Log.d(TAG, data);
+        Log.d(TAG, data);
 
         browser.loadData(data, mimeType, encoding);
     }

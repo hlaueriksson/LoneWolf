@@ -26,6 +26,16 @@ public class TestSectionResourceManager implements SectionResourceManager {
     }
 
     @Override
+    public String getHtmlStyle() {
+        return "/* style */";
+    }
+
+    @Override
+    public String getHtmlScript() {
+        return "/* script */";
+    }
+
+    @Override
     public String getHtmlContent(String number) {
         String path = "\\Specs\\src\\specs\\support\\data\\%s.xml";
 

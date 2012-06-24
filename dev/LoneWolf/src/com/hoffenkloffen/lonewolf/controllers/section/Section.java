@@ -109,24 +109,29 @@ public class Section {
         String template = resourceManager.getHtmlTemplate();
         String title = resourceManager.getHtmlTitle() + ": " + number;
         String revised = Long.toString(System.currentTimeMillis());
+        String style = resourceManager.getHtmlStyle();
+        String script = resourceManager.getHtmlScript();
         String content = resourceManager.getHtmlContent(number);
 
         if(template == null) return null;
 
         // Base64 images
-        for (Illustration illustration : getIllustrations()) {
-            String data = resourceManager.getBase64Image(illustration);
-            content = content.replace(illustration.getFilename(), "data:image/png;base64," + data);
+        if(true) { // TODO: config
+            for (Illustration illustration : getIllustrations()) {
+                String data = resourceManager.getBase64Image(illustration);
+                content = content.replace(illustration.getFilename(), "data:image/png;base64," + data);
+            }
         }
 
         // Javascript injections
-        StringBuilder javascript = new StringBuilder();
+        StringBuilder injections = new StringBuilder();
 
         for (JavascriptInjection javascriptInjection : getJavascriptInjections()) {
-            javascript.append(javascriptInjection.getScript(getStates()));
+            injections.append(javascriptInjection.getScript(getStates()));
         }
 
-        return String.format(template, title, revised, content, javascript);
+        // NOTE: %1=title, %2=revised, %3=style, %4=script, %5=content, %6=injections
+        return String.format(template, title, revised, style, script, content, injections);
     }
 
     public String getMimeType()
