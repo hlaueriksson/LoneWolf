@@ -10,6 +10,10 @@ public class RandomNumberIsNotBetween extends RandomNumberIsBetween implements R
         super(min, max);
     }
 
+    public RandomNumberIsNotBetween(int min, int max, int index) {
+        super(min, max, index);
+    }
+
     @Override
     public boolean match(Collection<SectionState> states) {
         return !super.match(states);

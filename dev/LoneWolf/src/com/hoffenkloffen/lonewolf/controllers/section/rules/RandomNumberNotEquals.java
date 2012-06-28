@@ -10,6 +10,10 @@ public class RandomNumberNotEquals extends RandomNumberEquals implements RandomN
         super(value);
     }
 
+    public RandomNumberNotEquals(int value, int index) {
+        super(value, index);
+    }
+
     @Override
     public boolean match(Collection<SectionState> states) {
         return !super.match(states);

@@ -221,6 +221,17 @@ public abstract class BaseActivity extends Activity implements ConfigurationMana
         });
     }
 
+    @Override
+    public void roll(final String index) {
+        runOnUiThread(new Runnable() {
+            public void run() {
+                Log.d(TAG, "Roll a random number: " + index);
+
+                manager.roll(index);
+            }
+        });
+    }
+
     // CombatEventHandler
 
     @Override

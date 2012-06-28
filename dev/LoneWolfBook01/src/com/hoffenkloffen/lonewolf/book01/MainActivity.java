@@ -11,9 +11,13 @@ import com.hoffenkloffen.lonewolf.controllers.combat.rules.FromRound;
 import com.hoffenkloffen.lonewolf.controllers.combat.rules.OnRound;
 import com.hoffenkloffen.lonewolf.controllers.section.Section;
 import com.hoffenkloffen.lonewolf.controllers.section.SectionManager;
+import com.hoffenkloffen.lonewolf.controllers.section.injections.Aggregate;
 import com.hoffenkloffen.lonewolf.controllers.section.injections.DisableChoice;
+import com.hoffenkloffen.lonewolf.controllers.section.injections.DisableRandomNumber;
+import com.hoffenkloffen.lonewolf.controllers.section.injections.DisplayRandomNumber;
 import com.hoffenkloffen.lonewolf.controllers.section.rules.KaiDisciplineIsNotAcquired;
 import com.hoffenkloffen.lonewolf.controllers.section.rules.RandomNumberIsNotBetween;
+import com.hoffenkloffen.lonewolf.controllers.section.rules.RandomNumberIsRolled;
 import com.hoffenkloffen.lonewolf.controllers.section.rules.RandomNumberNotEquals;
 import com.hoffenkloffen.lonewolf.models.Item;
 import com.hoffenkloffen.lonewolf.models.KaiDiscipline;
@@ -84,6 +88,16 @@ public class MainActivity extends BaseActivity
         manager.add(new Section("18").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.Camouflage).then(new DisableChoice("114"))));
 
         manager.add(new Section("19").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.Tracking).then(new DisableChoice("69"))));
+
+        manager.add(new Section("21", true)
+                .when(new RandomNumberIsRolled(0).then(new Aggregate(new DisplayRandomNumber(0), new DisableRandomNumber(0))))
+                .when(new RandomNumberIsRolled(1).then(new Aggregate(new DisplayRandomNumber(1), new DisableRandomNumber(1))))
+                .when(new RandomNumberIsRolled(2).then(new Aggregate(new DisplayRandomNumber(2), new DisableRandomNumber(2))))
+                .when(new RandomNumberIsNotBetween(0, 4, 0).then(new DisableRandomNumber(1)))
+                .when(new RandomNumberIsNotBetween(0, 7, 1).then(new DisableRandomNumber(2)))
+                .when(new RandomNumberIsNotBetween(5, 9, 0).then(new DisableChoice("189a")))
+                .when(new RandomNumberIsNotBetween(8, 9, 1).then(new DisableChoice("189b")))
+                .when(new RandomNumberNotEquals(9, 2).then(new DisableChoice("312"))));
 
         manager.add(new Section("22")
                 .when(new RandomNumberIsNotBetween(0, 4).then(new DisableChoice("181")))
@@ -292,7 +306,5 @@ public class MainActivity extends BaseActivity
         manager.add(new Section("342").set(new Combat()
                 .add(new Enemy("Vordak", 18, 26))
                 .when(combatWithout(KaiDiscipline.Mindshield).then(new ModifyCombatSkill(-2)))));
-
-        // TODO: new Section("21") is tricky!
     }
 }

@@ -18,4 +18,8 @@ public class RandomNumberJavascriptInterface implements JavascriptInterface {
     public void roll() {
         eventHandler.roll();
     }
+
+    public void roll(String index) {
+        eventHandler.roll(index);
+    }
 }

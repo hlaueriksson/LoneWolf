@@ -2,6 +2,7 @@ package com.hoffenkloffen.lonewolf.controllers.section.rules;
 
 import com.hoffenkloffen.lonewolf.controllers.section.SectionState;
 import com.hoffenkloffen.lonewolf.controllers.section.injections.JavascriptInjection;
+import com.hoffenkloffen.lonewolf.models.RandomNumberResultList;
 import com.hoffenkloffen.lonewolf.models.combat.CombatResult;
 import com.hoffenkloffen.lonewolf.models.LoneWolf;
 import com.hoffenkloffen.lonewolf.models.RandomNumberResult;
@@ -41,6 +42,14 @@ public abstract class BaseRule implements SectionRule {
     protected RandomNumberResult getRandomNumberResult(Collection<SectionState> states) {
         for (SectionState state : states) {
             if(state instanceof RandomNumberResult) return (RandomNumberResult) state;
+        }
+
+        return null;
+    }
+
+    protected RandomNumberResultList getRandomNumberResultList(Collection<SectionState> states) {
+        for (SectionState state : states) {
+            if(state instanceof RandomNumberResultList) return (RandomNumberResultList) state;
         }
 
         return null;

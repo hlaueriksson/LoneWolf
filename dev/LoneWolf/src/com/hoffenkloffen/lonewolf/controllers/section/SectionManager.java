@@ -8,6 +8,7 @@ import com.hoffenkloffen.lonewolf.controllers.section.injections.*;
 import com.hoffenkloffen.lonewolf.controllers.section.rules.*;
 import com.hoffenkloffen.lonewolf.models.LoneWolf;
 import com.hoffenkloffen.lonewolf.models.RandomNumberResult;
+import com.hoffenkloffen.lonewolf.models.RandomNumberResultList;
 import com.hoffenkloffen.lonewolf.models.combat.CombatResult;
 import com.hoffenkloffen.lonewolf.models.combat.CombatResultList;
 import com.hoffenkloffen.lonewolf.views.SectionRenderer;
@@ -90,6 +91,31 @@ public class SectionManager {
         renderer.loadData(section.getContent(), section.getMimeType(), section.getEncoding());
     }
 
+    public void roll(String index) {
+
+        Section section = getCurrent();
+
+        RandomNumberResult result = random.getResult();
+
+        // State
+        RandomNumberResultList list;
+
+        if(index.equals("0")) // NOTE: First roll
+        {
+            list = new RandomNumberResultList();
+            section.add(list);
+        }
+        else
+        {
+            list = (RandomNumberResultList) section.getState(RandomNumberResultList.class.getSimpleName());
+        }
+
+        list.add(result);
+
+        // Render
+        renderer.loadData(section.getContent(), section.getMimeType(), section.getEncoding());
+    }
+
     public void fight() {
 
         Section section = getCurrent();
@@ -144,6 +170,8 @@ public class SectionManager {
 
     private Section defaults(Section section) {
         section.set(resourceManager);
+
+        if(section.omitDefaultRules()) return section;
 
         if(hasRandomNumber(section)) {
             section

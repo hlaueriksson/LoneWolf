@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 public class Section {
 
     private String number;
+    private boolean omitDefaultRules = false;
 
     private SectionResourceManager resourceManager;
 
@@ -24,12 +25,21 @@ public class Section {
         setNumber(number);
     }
 
+    public Section(String number, boolean omitDefaultRules) {
+        setNumber(number);
+        this.omitDefaultRules = omitDefaultRules;
+    }
+
     public String getNumber() {
         return number;
     }
 
     private void setNumber(String number) {
         this.number = number;
+    }
+
+    public boolean omitDefaultRules() {
+        return omitDefaultRules;
     }
 
     public Section set(SectionResourceManager resourceManager) {

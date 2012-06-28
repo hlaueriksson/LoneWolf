@@ -14,7 +14,7 @@ public class DisableChoice implements JavascriptInjection {
 
     @Override
     public String getScript(Collection<SectionState> states) {
-        return String.format("disableChoice(%s);", section);
+        return String.format("disableChoice('%s');", section);
     }
 
     @Override
