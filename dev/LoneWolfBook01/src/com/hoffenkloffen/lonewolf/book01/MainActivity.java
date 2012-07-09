@@ -15,10 +15,7 @@ import com.hoffenkloffen.lonewolf.controllers.section.injections.Aggregate;
 import com.hoffenkloffen.lonewolf.controllers.section.injections.DisableChoice;
 import com.hoffenkloffen.lonewolf.controllers.section.injections.DisableRandomNumber;
 import com.hoffenkloffen.lonewolf.controllers.section.injections.DisplayRandomNumber;
-import com.hoffenkloffen.lonewolf.controllers.section.rules.KaiDisciplineIsNotAcquired;
-import com.hoffenkloffen.lonewolf.controllers.section.rules.RandomNumberIsNotBetween;
-import com.hoffenkloffen.lonewolf.controllers.section.rules.RandomNumberIsRolled;
-import com.hoffenkloffen.lonewolf.controllers.section.rules.RandomNumberNotEquals;
+import com.hoffenkloffen.lonewolf.controllers.section.rules.*;
 import com.hoffenkloffen.lonewolf.models.Item;
 import com.hoffenkloffen.lonewolf.models.KaiDiscipline;
 import com.hoffenkloffen.lonewolf.models.combat.Enemy;
@@ -41,7 +38,7 @@ public class MainActivity extends BaseActivity
 
         init();
 
-        turnTo("1");
+        turnTo("173");
 
         Log.d(TAG, "Done");
     }
@@ -77,6 +74,8 @@ public class MainActivity extends BaseActivity
                 .when(new RandomNumberIsNotBetween(0, 2).then(new DisableChoice("108")))
                 .when(new RandomNumberIsNotBetween(3, 9).then(new DisableChoice("25"))));
 
+        manager.add(new Section("9").when(new ItemIsNotInPossession("Vordak Gem").then(new DisableChoice("236"))));
+
         manager.add(new Section("17")
                 .when(new RandomNumberNotEquals(0).then(new DisableChoice("53")))
                 .when(new RandomNumberIsNotBetween(1, 2).then(new DisableChoice("274")))
@@ -103,7 +102,9 @@ public class MainActivity extends BaseActivity
                 .when(new RandomNumberIsNotBetween(0, 4).then(new DisableChoice("181")))
                 .when(new RandomNumberIsNotBetween(5, 9).then(new DisableChoice("145"))));
 
-        manager.add(new Section("23").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.MindOverMatter).then(new DisableChoice("151"))));
+        manager.add(new Section("23")
+                .when(new ItemIsNotInPossession("Golden Key").then(new DisableChoice("326")))
+                .when(new KaiDisciplineIsNotAcquired(KaiDiscipline.MindOverMatter).then(new DisableChoice("151"))));
 
         manager.add(new Section("29").set(new Combat()
                 .add(new Enemy("Vordak", 17, 25))
@@ -192,6 +193,8 @@ public class MainActivity extends BaseActivity
                 .when(combatWithout(new Item("Torch")).then(new ModifyCombatSkill(-3)))));
 
         manager.add(new Section("172").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.Camouflage).then(new DisableChoice("114"))));
+
+        manager.add(new Section("173").when(new ItemIsNotInPossession("Silver Key").then(new DisableChoice("158"))));
 
         manager.add(new Section("175").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.Camouflage).then(new DisableChoice("182"))));
 

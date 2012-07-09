@@ -1,9 +1,11 @@
 package com.hoffenkloffen.lonewolf.models;
 
-import com.hoffenkloffen.lonewolf.controllers.section.SectionState;
 import com.hoffenkloffen.lonewolf.controllers.combat.CombatState;
+import com.hoffenkloffen.lonewolf.controllers.section.SectionState;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 
 public class LoneWolf implements SectionState, CombatState {
@@ -15,6 +17,8 @@ public class LoneWolf implements SectionState, CombatState {
     // Endurance; Initial, Modifier, Total, Current
 
     private Hashtable<KaiDiscipline, Boolean> disciplines = new Hashtable<KaiDiscipline, Boolean>();
+
+    private List<Item> items = new ArrayList<Item>();
 
     public int getCombatSkill() {
         return combatSkill;
@@ -44,6 +48,20 @@ public class LoneWolf implements SectionState, CombatState {
 
     public boolean acquired(KaiDiscipline discipline) {
         return disciplines.containsKey(discipline) && disciplines.get(discipline);
+    }
+
+    public LoneWolf add(Item item) {
+        items.add(item);
+
+        return this;
+    }
+
+    public boolean possess(String item) {
+        for (Item i : items) {
+            if(i.getName().equals(item)) return true;
+        }
+
+        return false;
     }
 
     @Override
