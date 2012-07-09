@@ -38,7 +38,7 @@ public class MainActivity extends BaseActivity
 
         init();
 
-        turnTo("203");
+        turnTo("12");
 
         Log.d(TAG, "Done");
     }
@@ -75,6 +75,8 @@ public class MainActivity extends BaseActivity
                 .when(new RandomNumberIsNotBetween(3, 9).then(new DisableChoice("25"))));
 
         manager.add(new Section("9").when(new ItemIsNotInPossession("Vordak Gem").then(new DisableChoice("236"))));
+
+        manager.add(new Section("12").when(new GoldCrownsLessThan(10).then(new DisableChoice("262"))));
 
         manager.add(new Section("17")
                 .when(new RandomNumberNotEquals(0).then(new DisableChoice("53")))

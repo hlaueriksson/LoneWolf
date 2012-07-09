@@ -20,6 +20,8 @@ public class LoneWolf implements SectionState, CombatState {
 
     private List<Item> items = new ArrayList<Item>();
 
+    private int goldCrowns;
+
     public int getCombatSkill() {
         return combatSkill;
     }
@@ -66,6 +68,16 @@ public class LoneWolf implements SectionState, CombatState {
         }
 
         return false;
+    }
+
+    public int getGoldCrowns() {
+        return goldCrowns;
+    }
+
+    public LoneWolf setGoldCrowns(int value) {
+        this.goldCrowns = value;
+
+        return this;
     }
 
     @Override
