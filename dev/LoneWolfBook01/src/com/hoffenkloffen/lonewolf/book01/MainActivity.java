@@ -38,7 +38,7 @@ public class MainActivity extends BaseActivity
 
         init();
 
-        turnTo("173");
+        turnTo("203");
 
         Log.d(TAG, "Done");
     }
@@ -206,6 +206,10 @@ public class MainActivity extends BaseActivity
         manager.add(new Section("191").set(new Combat().add(new Enemy("Bodyguard", 11, 21))));
 
         manager.add(new Section("200").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.Camouflage).then(new DisableChoice("168"))));
+
+        manager.add(new Section("203")
+                .when(new EnduranceLessThan(10).then(new DisableChoice("80")))
+                .when(new EnduranceGreaterThan(9).then(new DisableChoice("344"))));
 
         manager.add(new Section("205")
                 .when(new RandomNumberIsNotBetween(0, 4).then(new DisableChoice("181")))

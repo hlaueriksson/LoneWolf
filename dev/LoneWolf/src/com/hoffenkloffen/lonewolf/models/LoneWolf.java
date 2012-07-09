@@ -24,16 +24,20 @@ public class LoneWolf implements SectionState, CombatState {
         return combatSkill;
     }
 
-    public void setCombatSkill(int combatSkill) {
+    public LoneWolf setCombatSkill(int combatSkill) {
         this.combatSkill = combatSkill;
+
+        return this;
     }
 
     public int getEndurance() {
         return endurance;
     }
 
-    public void setEndurance(int endurance) {
+    public LoneWolf setEndurance(int endurance) {
         this.endurance = endurance;
+
+        return this;
     }
 
     public void reduceEndurance(int delta) {
