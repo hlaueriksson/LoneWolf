@@ -1,7 +1,7 @@
 package specs.junit.lonewolf.controllers.section.rules;
 
 import com.hoffenkloffen.lonewolf.controllers.section.rules.ItemIsInPossession;
-import com.hoffenkloffen.lonewolf.models.Item;
+import com.hoffenkloffen.lonewolf.models.items.Item;
 import com.hoffenkloffen.lonewolf.models.LoneWolf;
 import org.junit.Test;
 

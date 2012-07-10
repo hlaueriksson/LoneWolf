@@ -2,6 +2,7 @@ package com.hoffenkloffen.lonewolf.models;
 
 import com.hoffenkloffen.lonewolf.controllers.combat.CombatState;
 import com.hoffenkloffen.lonewolf.controllers.section.SectionState;
+import com.hoffenkloffen.lonewolf.models.items.Item;
 
 import java.util.ArrayList;
 import java.util.Hashtable;

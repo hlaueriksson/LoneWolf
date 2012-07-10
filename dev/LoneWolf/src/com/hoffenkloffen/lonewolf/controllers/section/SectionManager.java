@@ -38,6 +38,7 @@ public class SectionManager {
         character = new LoneWolf(); // TODO
         character.setCombatSkill(20);
         character.setEndurance(20);
+        character.setGoldCrowns(20);
     }
 
     public void add(Section section) {

@@ -5,6 +5,7 @@ import com.hoffenkloffen.lonewolf.controllers.combat.Combat;
 import com.hoffenkloffen.lonewolf.controllers.section.injections.JavascriptInjection;
 import com.hoffenkloffen.lonewolf.controllers.section.rules.SectionRule;
 import com.hoffenkloffen.lonewolf.models.Illustration;
+import com.hoffenkloffen.lonewolf.models.items.Item;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -20,6 +21,7 @@ public class Section {
     private Map<String, SectionState> states = new Hashtable<String, SectionState>();
     private List<SectionRule> rules = new ArrayList<SectionRule>();
     private Combat combat;
+    private List<Item> items = new ArrayList<Item>();
 
     public Section(String number) {
         setNumber(number);
@@ -80,6 +82,24 @@ public class Section {
 
     public Combat getCombat() {
         return combat;
+    }
+
+    public Section add(Item item) {
+        items.add(item);
+
+        return this;
+    }
+
+    public Section add(Item item, int quantity) {
+        for(int i = 0; i < quantity; i++) {
+            items.add((Item) item.clone());
+        }
+
+        return this;
+    }
+
+    public Collection<Item> getItems() {
+        return items;
     }
 
     public List<String> getChoices() {

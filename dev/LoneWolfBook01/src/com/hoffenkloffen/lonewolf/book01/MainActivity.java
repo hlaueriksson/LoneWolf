@@ -16,10 +16,10 @@ import com.hoffenkloffen.lonewolf.controllers.section.injections.DisableChoice;
 import com.hoffenkloffen.lonewolf.controllers.section.injections.DisableRandomNumber;
 import com.hoffenkloffen.lonewolf.controllers.section.injections.DisplayRandomNumber;
 import com.hoffenkloffen.lonewolf.controllers.section.rules.*;
-import com.hoffenkloffen.lonewolf.models.Item;
 import com.hoffenkloffen.lonewolf.models.KaiDiscipline;
 import com.hoffenkloffen.lonewolf.models.combat.Enemy;
 import com.hoffenkloffen.lonewolf.models.combat.Immunity;
+import com.hoffenkloffen.lonewolf.models.items.*;
 
 import static com.hoffenkloffen.lonewolf.controllers.combat.rules.BaseRule.combatWithout;
 
@@ -38,7 +38,7 @@ public class MainActivity extends BaseActivity
 
         init();
 
-        turnTo("12");
+        turnTo("1");
 
         Log.d(TAG, "Done");
     }
@@ -78,6 +78,8 @@ public class MainActivity extends BaseActivity
 
         manager.add(new Section("12").when(new GoldCrownsLessThan(10).then(new DisableChoice("262"))));
 
+        manager.add(new Section("15").add(new Weapon("Sword")));
+
         manager.add(new Section("17")
                 .when(new RandomNumberNotEquals(0).then(new DisableChoice("53")))
                 .when(new RandomNumberIsNotBetween(1, 2).then(new DisableChoice("274")))
@@ -89,6 +91,11 @@ public class MainActivity extends BaseActivity
         manager.add(new Section("18").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.Camouflage).then(new DisableChoice("114"))));
 
         manager.add(new Section("19").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.Tracking).then(new DisableChoice("69"))));
+
+        manager.add(new Section("20")
+                .add(new Item("Backpack"))
+                .add(new Meal("Food"), 2)
+                .add(new Weapon("Dagger")));
 
         manager.add(new Section("21", true)
                 .when(new RandomNumberIsRolled(0).then(new Aggregate(new DisplayRandomNumber(0), new DisableRandomNumber(0))))
@@ -112,6 +119,8 @@ public class MainActivity extends BaseActivity
                 .add(new Enemy("Vordak", 17, 25))
                 .when(combatWithout(KaiDiscipline.Mindshield).then(new ModifyCombatSkill(-2)))));
 
+        manager.add(new Section("33").add(new GoldCrowns(3)));
+
         manager.add(new Section("34").set(new Combat()
                 .add(new Enemy("Vordak", 17, 25))
                 .when(combatWithout(KaiDiscipline.Mindshield).then(new ModifyCombatSkill(-2)))));
@@ -124,7 +133,9 @@ public class MainActivity extends BaseActivity
                 .when(new RandomNumberIsNotBetween(0, 4).then(new DisableChoice("277")))
                 .when(new RandomNumberIsNotBetween(5, 9).then(new DisableChoice("338"))));
 
-        manager.add(new Section("46").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.SixthSense).then(new DisableChoice("296"))));
+        manager.add(new Section("46")
+                .when(new KaiDisciplineIsNotAcquired(KaiDiscipline.SixthSense).then(new DisableChoice("296")))
+                .when(new GoldCrownsLessThan(2).then(new DisableChoice("246"))));
 
         manager.add(new Section("49")
                 .when(new RandomNumberIsNotBetween(0, 4).then(new DisableChoice("339")))
@@ -136,6 +147,12 @@ public class MainActivity extends BaseActivity
                 .add(new Enemy("Giak", 9, 9))
                 .add(new ModifyCombatSkill(4))));
 
+        manager.add(new Section("62")
+                .add(new GoldCrowns(3))
+                .add(new Item("Backpack"), 2)
+                .add(new Meal("Food"), 3)
+                .add(new Weapon("Sword"), 3));
+
         manager.add(new Section("63").set(new Combat().add(new Enemy("Madman", 11, 10))));
 
         manager.add(new Section("70").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.SixthSense).then(new DisableChoice("8"))));
@@ -143,6 +160,8 @@ public class MainActivity extends BaseActivity
         manager.add(new Section("71").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.SixthSense).then(new DisableChoice("65"))));
 
         manager.add(new Section("72").set(new Combat().add(new Enemy("Giak + Doomwolf", 15, 24))));
+
+        manager.add(new Section("76").add(new Item("Vordak Gem")));
 
         manager.add(new Section("83").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.SixthSense).then(new DisableChoice("45"))));
 
@@ -155,11 +174,21 @@ public class MainActivity extends BaseActivity
 
         manager.add(new Section("91").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.SixthSense).then(new DisableChoice("198"))));
 
+        manager.add(new Section("94")
+                .add(new GoldCrowns(12))
+                .add(new GoldCrowns(4)));
+
         manager.add(new Section("105").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.AnimalKinship).then(new DisableChoice("298"))));
 
         manager.add(new Section("112").set(new Combat()
                 .add(new Enemy("Giak 1", 13, 10))
                 .add(new Enemy("Giak 2", 12, 10))));
+
+        manager.add(new Section("113").add(new Meal("Laumspur"), 2));
+
+        manager.add(new Section("124")
+                .add(new GoldCrowns(15))
+                .add(new Item("Silver Key")));
 
         manager.add(new Section("125").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.Tracking).then(new DisableChoice("301"))));
 
@@ -172,9 +201,13 @@ public class MainActivity extends BaseActivity
                 .add(new Enemy("Giak 2", 12, 10))
                 .add(new ModifyCombatSkill(1))));
 
+        manager.add(new Section("137").add(new Item("20 Tomb Guardian Gems")));
+
         manager.add(new Section("138").set(new Combat()
                 .add(new Enemy("Giak 1", 13, 10))
                 .add(new Enemy("Giak 2", 12, 10))));
+
+        manager.add(new Section("148").add(new Weapon("Warhammer")));
 
         manager.add(new Section("151").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.MindOverMatter).then(new DisableChoice("87"))));
 
@@ -182,7 +215,11 @@ public class MainActivity extends BaseActivity
                 .when(new RandomNumberIsNotBetween(0, 4).then(new DisableChoice("286")))
                 .when(new RandomNumberIsNotBetween(5, 9).then(new DisableChoice("10"))));
 
+        manager.add(new Section("161").add(new Item("Golden Key")));
+
         manager.add(new Section("162").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.MindOverMatter).then(new DisableChoice("258"))));
+
+        manager.add(new Section("164").add(new Potion("Alether, Potion of Strength"))); // TODO: increase your COMBAT SKILL by 2 points for the duration of your fight
 
         manager.add(new Section("167").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.SixthSense).then(new DisableChoice("178"))));
 
@@ -205,7 +242,20 @@ public class MainActivity extends BaseActivity
                 .add(new Enemy("Soldier 1", 13, 20))
                 .add(new Enemy("Soldier 2", 12, 20))));
 
+        manager.add(new Section("184")
+                .add(new GoldCrowns(40))
+                .add(new Weapon("Sword"))
+                .add(new Meal("Food"), 4));
+
         manager.add(new Section("191").set(new Combat().add(new Enemy("Bodyguard", 11, 21))));
+
+        manager.add(new Section("193").add(new Item("Scroll")));
+
+        manager.add(new Section("197")
+                .add(new Weapon("Short Sword"))
+                .add(new GoldCrowns(6)));
+
+        manager.add(new Section("199").add(new Meal("Fruit")));
 
         manager.add(new Section("200").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.Camouflage).then(new DisableChoice("168"))));
 
@@ -245,6 +295,8 @@ public class MainActivity extends BaseActivity
 
         manager.add(new Section("242").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.Mindshield).then(new DisableChoice("166"))));
 
+        manager.add(new Section("243").add(new Weapon("Mace")));
+
         manager.add(new Section("246").set(new Combat().add(new Enemy("Drakkar", 15, 23))));
 
         manager.add(new Section("253").set(new Combat()
@@ -253,12 +305,20 @@ public class MainActivity extends BaseActivity
                 .add(new Enemy("Doomwolf 2", 14, 23))
                 .add(new Enemy("Doomwolf 4", 15, 21))));
 
-        manager.add(new Section("255").set(new Combat().add(new Enemy("Gourgaz", 20, 30))));
+        manager.add(new Section("255")
+                .add(new Weapon("Prince Pelatar's Sword"))
+                .set(new Combat().add(new Enemy("Gourgaz", 20, 30))));
 
         manager.add(new Section("260").set(new Combat()
                 .add(new Enemy("Giak 1", 11, 18))
                 .add(new Enemy("Giak 2", 12, 17))
                 .add(new ModifyCombatSkill(-4))));
+
+        manager.add(new Section("263").add(new GoldCrowns(3)));
+
+        manager.add(new Section("267")
+                .add(new Item("Message"))
+                .add(new Weapon("Dagger")));
 
         manager.add(new Section("272").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.Tracking).then(new DisableChoice("134"))));
 
@@ -275,6 +335,13 @@ public class MainActivity extends BaseActivity
                 .when(new OnRound(1).then(new ModifyCombatSkill(2)))
                 .when(new AggregateCombatRule(new FromRound(2), combatWithout(KaiDiscipline.Mindshield)).then(new ModifyCombatSkill(-2)))));
 
+        manager.add(new Section("290").add(new Weapon("Quarterstaff")));
+
+        manager.add(new Section("291")
+                .add(new GoldCrowns(6))
+                .add(new Weapon("Spear"), 2)
+                .add(new Weapon("Dagger")));
+
         manager.add(new Section("294")
                 .when(new RandomNumberIsNotBetween(0, 2).then(new DisableChoice("230")))
                 .when(new RandomNumberIsNotBetween(3, 6).then(new DisableChoice("190")))
@@ -286,6 +353,14 @@ public class MainActivity extends BaseActivity
 
         manager.add(new Section("303").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.Camouflage).then(new DisableChoice("237"))));
 
+        manager.add(new Section("304").add(new Item("Vordak Gem")));
+
+        manager.add(new Section("305").add(new Weapon("Giak Spear")));
+
+        manager.add(new Section("307")
+                .add(new Meal("Fruit"))
+                .add(new Weapon("Warhammer"))); // TODO: You may take this Weapon only if you exchange it for another Weapon already in your possession
+
         manager.add(new Section("308").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.AnimalKinship).then(new DisableChoice("122"))));
 
         manager.add(new Section("311").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.Camouflage).then(new DisableChoice("324"))));
@@ -293,6 +368,14 @@ public class MainActivity extends BaseActivity
         manager.add(new Section("314")
                 .when(new RandomNumberIsNotBetween(0, 6).then(new DisableChoice("341")))
                 .when(new RandomNumberIsNotBetween(7, 9).then(new DisableChoice("98"))));
+
+        manager.add(new Section("315")
+                .add(new GoldCrowns(6))
+                .add(new Item("Tablet of Perfumed Soap")));
+
+        manager.add(new Section("315")
+                .add(new Weapon("Dagger"))
+                .add(new GoldCrowns(20)));
 
         manager.add(new Section("334").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.SixthSense).then(new DisableChoice("48"))));
 
@@ -315,5 +398,14 @@ public class MainActivity extends BaseActivity
         manager.add(new Section("342").set(new Combat()
                 .add(new Enemy("Vordak", 18, 26))
                 .when(combatWithout(KaiDiscipline.Mindshield).then(new ModifyCombatSkill(-2)))));
+
+        manager.add(new Section("346").add(new Weapon("Spear")));
+
+        manager.add(new Section("347")
+                .add(new Item("Torch"))
+                .add(new Weapon("Short Sword"))
+                .add(new Item("Tinderbox")));
+
+        manager.add(new Section("349").add(new Item("Crystal Star Pendant")));
     }
 }

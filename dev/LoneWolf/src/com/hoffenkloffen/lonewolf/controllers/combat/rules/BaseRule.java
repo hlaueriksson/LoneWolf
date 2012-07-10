@@ -3,7 +3,7 @@ package com.hoffenkloffen.lonewolf.controllers.combat.rules;
 import com.hoffenkloffen.lonewolf.controllers.combat.CombatState;
 import com.hoffenkloffen.lonewolf.controllers.combat.modifiers.CombatModifier;
 import com.hoffenkloffen.lonewolf.models.combat.CombatRound;
-import com.hoffenkloffen.lonewolf.models.Item;
+import com.hoffenkloffen.lonewolf.models.items.Item;
 import com.hoffenkloffen.lonewolf.models.KaiDiscipline;
 import com.hoffenkloffen.lonewolf.models.LoneWolf;
 

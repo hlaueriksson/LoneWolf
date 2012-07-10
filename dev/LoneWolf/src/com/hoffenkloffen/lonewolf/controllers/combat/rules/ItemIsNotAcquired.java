@@ -1,7 +1,7 @@
 package com.hoffenkloffen.lonewolf.controllers.combat.rules;
 
 import com.hoffenkloffen.lonewolf.controllers.combat.CombatState;
-import com.hoffenkloffen.lonewolf.models.Item;
+import com.hoffenkloffen.lonewolf.models.items.Item;
 
 import java.util.Collection;
 
