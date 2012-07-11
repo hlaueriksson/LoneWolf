@@ -2,11 +2,13 @@ package com.hoffenkloffen.lonewolf.models;
 
 import com.hoffenkloffen.lonewolf.controllers.combat.CombatState;
 import com.hoffenkloffen.lonewolf.controllers.section.SectionState;
+import com.hoffenkloffen.lonewolf.models.character.Inventory;
+import com.hoffenkloffen.lonewolf.models.items.GoldCrowns;
 import com.hoffenkloffen.lonewolf.models.items.Item;
+import com.hoffenkloffen.lonewolf.models.items.SpecialItem;
+import com.hoffenkloffen.lonewolf.models.items.Weapon;
 
-import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
 import java.util.Map;
 
 public class LoneWolf implements SectionState, CombatState {
@@ -19,9 +21,7 @@ public class LoneWolf implements SectionState, CombatState {
 
     private Hashtable<KaiDiscipline, Boolean> disciplines = new Hashtable<KaiDiscipline, Boolean>();
 
-    private List<Item> items = new ArrayList<Item>();
-
-    private int goldCrowns;
+    private Inventory inventory = new Inventory();
 
     public int getCombatSkill() {
         return combatSkill;
@@ -57,28 +57,44 @@ public class LoneWolf implements SectionState, CombatState {
         return disciplines.containsKey(discipline) && disciplines.get(discipline);
     }
 
-    public LoneWolf add(Item item) {
-        items.add(item);
+    public LoneWolf add(Weapon weapon) { // TODO: delete, used only by specs
+        inventory.add(weapon);
 
         return this;
     }
 
+    public LoneWolf add(GoldCrowns crowns) {
+        inventory.add(crowns);
+
+        return this;
+    }
+
+    public LoneWolf add(Item item) {
+        inventory.add(item);
+
+        return this;
+    }
+
+    public LoneWolf add(SpecialItem item) {
+        inventory.add(item);
+
+        return this;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
     public boolean possess(String item) {
-        for (Item i : items) {
+        for (Item i : inventory.getBackpackItems()) {
+            if(i.getName().equals(item)) return true;
+        }
+
+        for (Item i : inventory.getSpecialItems()) {
             if(i.getName().equals(item)) return true;
         }
 
         return false;
-    }
-
-    public int getGoldCrowns() {
-        return goldCrowns;
-    }
-
-    public LoneWolf setGoldCrowns(int value) {
-        this.goldCrowns = value;
-
-        return this;
     }
 
     @Override

@@ -19,7 +19,7 @@ public class GoldCrownsLessThan extends BaseRule {
 
         if(character == null) return false;
 
-        return character.getGoldCrowns() < value;
+        return character.getInventory().getGoldCrowns().getQuantity() < value;
     }
 
     @Override
