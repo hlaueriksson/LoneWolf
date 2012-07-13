@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">LoneWolf</string>
+    <string name="html_title"></string>
+    <string name="html_title_action_chart">: Action Chart</string>
 </resources>

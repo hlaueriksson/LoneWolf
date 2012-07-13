@@ -4,27 +4,29 @@ import android.app.Activity;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.util.Base64;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.*;
 import android.widget.Toast;
-import com.hoffenkloffen.lonewolf.controllers.*;
-import com.hoffenkloffen.lonewolf.controllers.events.AggregatedEventHandler;
+import com.hoffenkloffen.lonewolf.controllers.ActionChartResourceHandler;
+import com.hoffenkloffen.lonewolf.controllers.ConfigurationManager;
+import com.hoffenkloffen.lonewolf.controllers.VersionManager;
+import com.hoffenkloffen.lonewolf.controllers.events.ActionChartEventHandler;
 import com.hoffenkloffen.lonewolf.controllers.events.DebugEventHandler;
-import com.hoffenkloffen.lonewolf.controllers.interfaces.*;
+import com.hoffenkloffen.lonewolf.controllers.events.SectionEventHandler;
+import com.hoffenkloffen.lonewolf.controllers.interfaces.ActionChartJavascriptInterface;
+import com.hoffenkloffen.lonewolf.controllers.interfaces.JavascriptInterface;
+import com.hoffenkloffen.lonewolf.controllers.interfaces.SectionJavascriptInterface;
 import com.hoffenkloffen.lonewolf.controllers.section.Section;
 import com.hoffenkloffen.lonewolf.controllers.section.SectionManager;
-import com.hoffenkloffen.lonewolf.models.Illustration;
 import com.hoffenkloffen.lonewolf.views.SectionRenderer;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BaseActivity extends Activity implements ConfigurationManager, VersionManager, SectionResourceManager, SectionRenderer, AggregatedEventHandler, DebugEventHandler {
+public abstract class BaseActivity extends Activity implements ConfigurationManager, VersionManager, SectionRenderer, SectionEventHandler, ActionChartEventHandler, DebugEventHandler {
 
     private static final String TAG = BaseActivity.class.getSimpleName();
 
@@ -74,7 +76,7 @@ public abstract class BaseActivity extends Activity implements ConfigurationMana
         if(isDebugMode()) Log.d(TAG, "Configuration: Debug");
         else Log.d(TAG, "Configuration: Release");
 
-        manager = new SectionManager(this, this);
+        manager = new SectionManager(new DebugSectionResourceHandler(this), this);
         initSections(manager);
 
         // DEBUG: GestureDetection
@@ -86,10 +88,8 @@ public abstract class BaseActivity extends Activity implements ConfigurationMana
     protected Iterable<JavascriptInterface> getJavascriptInterfaces()
     {
         List<JavascriptInterface> result = new ArrayList<JavascriptInterface>();
+        result.add(new SectionJavascriptInterface(this));
         result.add(new ActionChartJavascriptInterface(this));
-        result.add(new ChoiceJavascriptInterface(this));
-        result.add(new CombatJavascriptInterface(this));
-        result.add(new RandomNumberJavascriptInterface(this));
 
         return result;
     }
@@ -147,41 +147,6 @@ public abstract class BaseActivity extends Activity implements ConfigurationMana
 
     //</editor-fold>
 
-    //<editor-fold desc="SectionResourceManager">
-
-    @Override
-    public String getHtmlTemplate() {
-        return readFileToString(R.raw.html_section_template);
-    }
-
-    public abstract String getHtmlTitle();
-
-    @Override
-    public String getHtmlStyle() {
-        return readFileToString(R.raw.css_section);
-    }
-
-    @Override
-    public String getHtmlScript() {
-        return readFileToString(R.raw.js_section);
-    }
-
-    @Override
-    public String getHtmlContent(String section) {
-        String filename = "sect" + padSection(section);
-
-        return readFileToString(getResId(filename, "raw"));
-    }
-
-    @Override
-    public String getBase64Image(Illustration illustration) {
-        byte[] bytes = readFileToBytes(getResId(illustration.getResourceName(), "raw"));
-
-        return Base64.encodeToString(bytes, Base64.DEFAULT);
-    }
-
-    //</editor-fold>
-
     //<editor-fold desc="SectionRenderer">
 
     @Override
@@ -193,9 +158,7 @@ public abstract class BaseActivity extends Activity implements ConfigurationMana
 
     //</editor-fold>
 
-    //<editor-fold desc="Events">
-
-    // ChoiceEventHandler
+    //<editor-fold desc="SectionEventHandler">
 
     @Override
     public void turnTo(final String section) {
@@ -207,8 +170,6 @@ public abstract class BaseActivity extends Activity implements ConfigurationMana
             }
         });
     }
-
-    // RandomNumberEventHandler
 
     @Override
     public void roll() {
@@ -232,8 +193,6 @@ public abstract class BaseActivity extends Activity implements ConfigurationMana
         });
     }
 
-    // CombatEventHandler
-
     @Override
     public void fight() {
         runOnUiThread(new Runnable() {
@@ -256,14 +215,59 @@ public abstract class BaseActivity extends Activity implements ConfigurationMana
         });
     }
 
-    // ActionChartEventHandler
-
     @Override
     public void display() {
-        // TODO: implement
+
+        final ActionChartResourceHandler resourceHandler = new DebugActionChartResourceHandler(this);
+
+        runOnUiThread(new Runnable() {
+            public void run() {
+                Log.d(TAG, "Display action chart");
+
+                manager.displayActionChart(resourceHandler);
+            }
+        });
     }
 
     //</editor-fold>
+
+    //<editor-fold desc="ActionChartEventHandler">
+
+    @Override
+    public void take(final String name) {
+
+        final ActionChartResourceHandler resourceHandler = new DebugActionChartResourceHandler(this);
+
+        runOnUiThread(new Runnable() {
+            public void run() {
+                Log.d(TAG, "Take item: " + name);
+
+                manager.take(name);
+                manager.displayActionChart(resourceHandler);
+            }
+        });
+    }
+
+    @Override
+    public void discard(final String name) {
+
+        final ActionChartResourceHandler resourceHandler = new DebugActionChartResourceHandler(this);
+
+        runOnUiThread(new Runnable() {
+            public void run() {
+                Log.d(TAG, "Discard item: " + name);
+
+                manager.discard(name);
+                manager.displayActionChart(resourceHandler);
+            }
+        });
+    }
+
+    //</editor-fold>
+
+    @Override
+    public void use(String name) {
+    }
 
     //<editor-fold desc="DebugEventHandler">
 
@@ -289,66 +293,6 @@ public abstract class BaseActivity extends Activity implements ConfigurationMana
 
     @Override
     public void goTo(String section) { // TODO
-    }
-
-    //</editor-fold>
-
-    //<editor-fold desc="Resources">
-
-    private String readFileToString(int resId) {
-        StringBuffer result = new StringBuffer();
-
-        InputStream stream = getResources().openRawResource(resId);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-        String line;
-
-        try {
-            if (stream != null) {
-                while ((line = reader.readLine()) != null) {
-                    result.append(line);
-                }
-            }
-            stream.close();
-        } catch (IOException ex) {
-            Log.e(TAG, "Read file failed.", ex);
-        }
-
-        return result.toString();
-    }
-
-    private byte[] readFileToBytes(int resId) {
-        ByteArrayOutputStream result = new ByteArrayOutputStream();
-
-        InputStream stream = getResources().openRawResource(resId);
-        int i;
-
-        try {
-            i = stream.read();
-            while (i != -1)
-            {
-                result.write(i);
-                i = stream.read();
-            }
-            stream.close();
-        } catch (IOException ex) {
-            Log.e(TAG, "Read file failed.", ex);
-        }
-
-        return result.toByteArray();
-    }
-
-    private String padSection(String section)
-    {
-        return String.format("%3s", section).replace(' ', '0');
-    }
-
-    private int getResId(String filename, String type) {
-
-        return getApplicationContext().getResources().getIdentifier(filename, type, getPackage());
-    }
-
-    protected String getPackage() {
-        return getApplication().getPackageName();
     }
 
     //</editor-fold>

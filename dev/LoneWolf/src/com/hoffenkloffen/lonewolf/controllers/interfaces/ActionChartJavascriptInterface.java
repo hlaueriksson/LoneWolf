@@ -15,7 +15,15 @@ public class ActionChartJavascriptInterface implements JavascriptInterface {
         return "ActionChart";
     }
 
-    public void display() {
-        eventHandler.display();
+    public void take(String name) {
+        eventHandler.take(name);
+    }
+
+    public void discard(String name) {
+        eventHandler.discard(name);
+    }
+
+    public void use(String name) {
+        eventHandler.use(name);
     }
 }

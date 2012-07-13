@@ -1,8 +1,9 @@
 package com.hoffenkloffen.lonewolf.controllers.section;
 
 import android.util.Log;
+import com.hoffenkloffen.lonewolf.controllers.ActionChartResourceHandler;
 import com.hoffenkloffen.lonewolf.controllers.RandomNumberTable;
-import com.hoffenkloffen.lonewolf.controllers.SectionResourceManager;
+import com.hoffenkloffen.lonewolf.controllers.SectionResourceHandler;
 import com.hoffenkloffen.lonewolf.controllers.combat.Combat;
 import com.hoffenkloffen.lonewolf.controllers.section.injections.*;
 import com.hoffenkloffen.lonewolf.controllers.section.rules.*;
@@ -11,15 +12,17 @@ import com.hoffenkloffen.lonewolf.models.RandomNumberResult;
 import com.hoffenkloffen.lonewolf.models.RandomNumberResultList;
 import com.hoffenkloffen.lonewolf.models.combat.CombatResult;
 import com.hoffenkloffen.lonewolf.models.combat.CombatResultList;
+import com.hoffenkloffen.lonewolf.models.items.Item;
 import com.hoffenkloffen.lonewolf.views.SectionRenderer;
 
+import java.util.Collection;
 import java.util.Hashtable;
 
 public class SectionManager {
 
     private Hashtable<String, Section> sections = new Hashtable<String, Section>();
 
-    private SectionResourceManager resourceManager;
+    private SectionResourceHandler resourceHandler;
     private SectionRenderer renderer;
 
     private Section current;
@@ -29,8 +32,8 @@ public class SectionManager {
     // Models
     protected LoneWolf character;
 
-    public SectionManager(SectionResourceManager resourceManager, SectionRenderer renderer) {
-        this.resourceManager = resourceManager;
+    public SectionManager(SectionResourceHandler resourceHandler, SectionRenderer renderer) {
+        this.resourceHandler = resourceHandler;
         this.renderer = renderer;
 
         random = new RandomNumberTable();
@@ -165,12 +168,32 @@ public class SectionManager {
         renderer.loadData(section.getContent(), section.getMimeType(), section.getEncoding());
     }
 
+    public void displayActionChart(ActionChartResourceHandler resourceHandler) { // TODO: introduce GameManager?
+
+        Section section = getCurrent();
+
+        Collection<Item> items = section.getItems();
+
+        String template = resourceHandler.getHtmlTemplate();
+        String title = resourceHandler.getHtmlTitle();
+        String revised = Long.toString(System.currentTimeMillis());
+        String style = resourceHandler.getHtmlStyle();
+        String script = resourceHandler.getHtmlScript();
+        String content = resourceHandler.getHtmlContent(character.getInventory(), items);
+
+        // NOTE: %1=title, %2=revised, %3=style, %4=script, %5=content
+        String result = String.format(template, title, revised, style, script, content);
+
+        // Render
+        renderer.loadData(result, section.getMimeType(), section.getEncoding());
+    }
+
     private Section fallback(String section) {
         return defaults(new Section(section));
     }
 
     private Section defaults(Section section) {
-        section.set(resourceManager);
+        section.set(resourceHandler);
 
         if(section.omitDefaultRules()) return section;
 
@@ -229,5 +252,35 @@ public class SectionManager {
         }
 
         return result.toString();
+    }
+
+    public void take(String item) {
+
+        Section section = getCurrent();
+
+        for (Item i : section.getItems()) {
+            if(i.getName().equals(item)) {
+                character.add(i);
+                section.getItems().remove(i);
+            }
+        }
+    }
+
+    public void discard(String item) {
+        Section section = getCurrent();
+
+        for (Item i : character.getInventory().getBackpackItems()) {
+            if(i.getName().equals(item)) {
+                character.getInventory().getBackpackItems().remove(i);
+                section.getItems().add(i);
+            }
+        }
+
+        for (Item i : character.getInventory().getSpecialItems()) {
+            if(i.getName().equals(item)) {
+                character.getInventory().getSpecialItems().remove(i);
+                section.getItems().add(i);
+            }
+        }
     }
 }

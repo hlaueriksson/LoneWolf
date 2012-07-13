@@ -5,7 +5,7 @@ import specs.junit.BaseSpec;
 import specs.support.AlwaysFalse;
 import specs.support.AlwaysTrue;
 import specs.support.Inject;
-import specs.support.TestSectionResourceManager;
+import specs.support.TestSectionResourceHandler;
 
 public class Given_Section extends BaseSpec {
     protected Section section;
@@ -13,7 +13,7 @@ public class Given_Section extends BaseSpec {
     protected void given() throws Exception {
 
         section = new Section("1");
-        section.set(new TestSectionResourceManager());
+        section.set(new TestSectionResourceHandler());
         section.when(new AlwaysTrue().then(new Inject("ThisScriptWasInjected")));
         section.when(new AlwaysFalse().then(new Inject("ThisScriptWasNotInjected")));
     }

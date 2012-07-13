@@ -1,6 +1,6 @@
 package specs.junit.lonewolf.controllers.section.sectionmanager;
 
-import com.hoffenkloffen.lonewolf.controllers.SectionResourceManager;
+import com.hoffenkloffen.lonewolf.controllers.SectionResourceHandler;
 import com.hoffenkloffen.lonewolf.controllers.section.Section;
 import com.hoffenkloffen.lonewolf.controllers.section.SectionManager;
 import com.hoffenkloffen.lonewolf.controllers.section.rules.SectionRule;
@@ -11,14 +11,14 @@ import static junit.framework.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
 public class Given_SectionManager extends BaseSpec {
-    protected SectionResourceManager resourceManager;
+    protected SectionResourceHandler resourceHandler;
     protected SectionRenderer renderer;
     protected SectionManager manager;
 
     protected void given() {
-        resourceManager = mock(SectionResourceManager.class);
+        resourceHandler = mock(SectionResourceHandler.class);
         renderer = mock(SectionRenderer.class);
-        manager = new SectionManager(resourceManager, renderer);
+        manager = new SectionManager(resourceHandler, renderer);
     }
 
     public void assertContainsSectionRule(Section section, Class type) {

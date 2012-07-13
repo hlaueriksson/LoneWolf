@@ -1,6 +1,6 @@
 package com.hoffenkloffen.lonewolf.controllers.section;
 
-import com.hoffenkloffen.lonewolf.controllers.SectionResourceManager;
+import com.hoffenkloffen.lonewolf.controllers.SectionResourceHandler;
 import com.hoffenkloffen.lonewolf.controllers.combat.Combat;
 import com.hoffenkloffen.lonewolf.controllers.section.injections.JavascriptInjection;
 import com.hoffenkloffen.lonewolf.controllers.section.rules.SectionRule;
@@ -16,7 +16,7 @@ public class Section {
     private String number;
     private boolean omitDefaultRules = false;
 
-    private SectionResourceManager resourceManager;
+    private SectionResourceHandler resourceHandler;
 
     private Map<String, SectionState> states = new Hashtable<String, SectionState>();
     private List<SectionRule> rules = new ArrayList<SectionRule>();
@@ -44,8 +44,8 @@ public class Section {
         return omitDefaultRules;
     }
 
-    public Section set(SectionResourceManager resourceManager) {
-        this.resourceManager = resourceManager;
+    public Section set(SectionResourceHandler resourceHandler) {
+        this.resourceHandler = resourceHandler;
 
         return this;
     }
@@ -105,7 +105,7 @@ public class Section {
     public List<String> getChoices() {
         List<String> result = new ArrayList<String>();
 
-        String content = resourceManager.getHtmlContent(number);
+        String content = resourceHandler.getHtmlContent(number);
 
         Pattern p = Pattern.compile("javascript:Choice.turnTo\\((.+)\\);", Pattern.MULTILINE);
         Matcher m = p.matcher(content);
@@ -120,7 +120,7 @@ public class Section {
     public List<Illustration> getIllustrations() {
         List<Illustration> result = new ArrayList<Illustration>();
 
-        String content = resourceManager.getHtmlContent(number);
+        String content = resourceHandler.getHtmlContent(number);
 
         if(content == null) return result;
 
@@ -136,19 +136,19 @@ public class Section {
 
     public String getContent()
     {
-        String template = resourceManager.getHtmlTemplate();
-        String title = resourceManager.getHtmlTitle() + ": " + number;
+        String template = resourceHandler.getHtmlTemplate();
+        String title = resourceHandler.getHtmlTitle(number);
         String revised = Long.toString(System.currentTimeMillis());
-        String style = resourceManager.getHtmlStyle();
-        String script = resourceManager.getHtmlScript();
-        String content = resourceManager.getHtmlContent(number);
+        String style = resourceHandler.getHtmlStyle();
+        String script = resourceHandler.getHtmlScript();
+        String content = resourceHandler.getHtmlContent(number);
 
         if(template == null) return null;
 
         // Base64 images
         if(true) { // TODO: config
             for (Illustration illustration : getIllustrations()) {
-                String data = resourceManager.getBase64Image(illustration);
+                String data = resourceHandler.getBase64Image(illustration);
                 content = content.replace(illustration.getFilename(), "data:image/png;base64," + data);
             }
         }

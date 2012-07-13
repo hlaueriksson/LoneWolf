@@ -44,11 +44,6 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
-    public String getHtmlTitle() {
-        return "Flight from the Dark";
-    }
-
-    @Override
     public String getApplicationVersion() {
         return "0.0.1";
     }

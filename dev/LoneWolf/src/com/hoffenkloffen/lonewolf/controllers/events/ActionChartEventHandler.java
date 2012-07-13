@@ -2,5 +2,7 @@ package com.hoffenkloffen.lonewolf.controllers.events;
 
 public interface ActionChartEventHandler extends EventHandler {
 
-    void display();
+    void take(String name);
+    void discard(String name);
+    void use(String name);
 }
