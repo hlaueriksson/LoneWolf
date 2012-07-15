@@ -2,6 +2,7 @@ package com.hoffenkloffen.lonewolf.controllers;
 
 import com.hoffenkloffen.lonewolf.controllers.section.SectionManager;
 import com.hoffenkloffen.lonewolf.models.LoneWolf;
+import com.hoffenkloffen.lonewolf.models.Preferences;
 
 public class GameContext {
 
@@ -17,11 +18,20 @@ public class GameContext {
 
     //</editor-fold>
 
+    private Preferences preferences;
     private LoneWolf character;
     private SectionManager sectionManager;
     private RandomNumberManager randomNumberManager;
     private CombatManager combatManager;
     private ActionChartManager actionChartManager;
+
+    public Preferences getPreferences() {
+        return preferences;
+    }
+
+    public void setPreferences(Preferences preferences) {
+        this.preferences = preferences;
+    }
 
     public LoneWolf getCharacter() {
         return character;

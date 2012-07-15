@@ -1,5 +1,6 @@
 package com.hoffenkloffen.lonewolf.controllers.section;
 
+import com.hoffenkloffen.lonewolf.controllers.GameContext;
 import com.hoffenkloffen.lonewolf.controllers.SectionResourceHandler;
 import com.hoffenkloffen.lonewolf.controllers.combat.Combat;
 import com.hoffenkloffen.lonewolf.controllers.section.injections.JavascriptInjection;
@@ -13,6 +14,8 @@ import java.util.regex.Pattern;
 
 public class Section {
 
+    private GameContext context;
+
     private String number;
     private boolean omitDefaultRules = false;
 
@@ -25,10 +28,11 @@ public class Section {
 
     public Section(String number) {
         setNumber(number);
+        context = GameContext.getInstance();
     }
 
     public Section(String number, boolean omitDefaultRules) {
-        setNumber(number);
+        this(number);
         this.omitDefaultRules = omitDefaultRules;
     }
 
@@ -91,7 +95,7 @@ public class Section {
     }
 
     public Section add(Item item, int quantity) {
-        for(int i = 0; i < quantity; i++) {
+        for (int i = 0; i < quantity; i++) {
             items.add((Item) item.clone());
         }
 
@@ -122,7 +126,7 @@ public class Section {
 
         String content = resourceHandler.getHtmlContent(number);
 
-        if(content == null) return result;
+        if (content == null) return result;
 
         Pattern p = Pattern.compile("<img alt=\"\" src=\"(.+)\" />", Pattern.MULTILINE);
         Matcher m = p.matcher(content);
@@ -134,8 +138,7 @@ public class Section {
         return result;
     }
 
-    public String getContent()
-    {
+    public String getContent() {
         String template = resourceHandler.getHtmlTemplate();
         String title = resourceHandler.getHtmlTitle(number);
         String revised = Long.toString(System.currentTimeMillis());
@@ -143,10 +146,10 @@ public class Section {
         String script = resourceHandler.getHtmlScript();
         String content = resourceHandler.getHtmlContent(number);
 
-        if(template == null) return null;
+        if (template == null) return null;
 
         // Base64 images
-        if(true) { // TODO: config
+        if (context.getPreferences().getIllustrations()) {
             for (Illustration illustration : getIllustrations()) {
                 String data = resourceHandler.getBase64Image(illustration);
                 content = content.replace(illustration.getFilename(), "data:image/png;base64," + data);
@@ -164,31 +167,25 @@ public class Section {
         return String.format(template, title, revised, style, script, content, injections);
     }
 
-    public String getMimeType()
-    {
+    public String getMimeType() {
         return "text/html; charset=UTF-8";
     }
 
-    public String getEncoding()
-    {
+    public String getEncoding() {
         return "UTF-8";
     }
 
-    public void enter()
-    {
-        // TODO: execute on enter commands
+    public void enter() {
     }
 
-    public void exit()
-    {
-        // TODO: execute on exit commands
+    public void exit() {
     }
 
     private Iterable<SectionRule> getJavascriptInjectionRules() {
         List<SectionRule> result = new ArrayList<SectionRule>();
 
         for (SectionRule rule : getRules()) {
-            if(rule.getJavascriptInjection() == null) continue;
+            if (rule.getJavascriptInjection() == null) continue;
 
             result.add(rule);
         }
@@ -200,7 +197,7 @@ public class Section {
         List<JavascriptInjection> result = new ArrayList<JavascriptInjection>();
 
         for (SectionRule rule : getJavascriptInjectionRules()) {
-            if(!rule.match(getStates())) continue;
+            if (!rule.match(getStates())) continue;
 
             result.add(rule.getJavascriptInjection());
         }
@@ -209,14 +206,13 @@ public class Section {
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         StringBuilder result = new StringBuilder();
 
         result.append(getNumber());
         result.append("\n");
 
-        if(!getRules().isEmpty()) {
+        if (!getRules().isEmpty()) {
             result.append("\tRules; ");
             for (SectionRule rule : getRules()) {
                 result.append(rule.toString());
@@ -225,7 +221,7 @@ public class Section {
             result.append("\n");
         }
 
-        if(!getIllustrations().isEmpty()) {
+        if (!getIllustrations().isEmpty()) {
             result.append("\tIllustrations; ");
             for (Illustration illustration : getIllustrations()) {
                 result.append(illustration.getFilename());

@@ -10,6 +10,7 @@ import android.view.View;
 import com.hoffenkloffen.lonewolf.controllers.*;
 import com.hoffenkloffen.lonewolf.controllers.section.SectionManager;
 import com.hoffenkloffen.lonewolf.models.LoneWolf;
+import com.hoffenkloffen.lonewolf.models.Preferences;
 
 public abstract class BaseActivity extends Activity implements ConfigurationManager, VersionManager {
 
@@ -32,6 +33,8 @@ public abstract class BaseActivity extends Activity implements ConfigurationMana
         else Log.d(TAG, "Configuration: Release");
 
         context = GameContext.getInstance();
+
+        context.setPreferences(getPreferences());
         context.setCharacter(getCharacter());
         context.setSectionManager(new SectionManager());
         context.setRandomNumberManager(new RandomNumberManager());
@@ -42,6 +45,13 @@ public abstract class BaseActivity extends Activity implements ConfigurationMana
         context.getSectionManager().setCurrent(context.getSectionManager().get("1"));
 
         //Log.d(TAG, context.getSectionManager().toString());
+    }
+
+    protected Preferences getPreferences() {
+        Preferences preferences = new Preferences();
+        preferences.setIllustrations(true);
+
+        return preferences;
     }
 
     protected LoneWolf getCharacter() {
