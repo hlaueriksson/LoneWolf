@@ -2,7 +2,6 @@ package com.hoffenkloffen.lonewolf.book01;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.webkit.WebView;
 import com.hoffenkloffen.lonewolf.BaseActivity;
 import com.hoffenkloffen.lonewolf.controllers.combat.Combat;
 import com.hoffenkloffen.lonewolf.controllers.combat.modifiers.ModifyCombatSkill;
@@ -23,22 +22,19 @@ import com.hoffenkloffen.lonewolf.models.items.*;
 
 import static com.hoffenkloffen.lonewolf.controllers.combat.rules.BaseRule.combatWithout;
 
-public class MainActivity extends BaseActivity
-{
+public class MainActivity extends BaseActivity {
+
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    /** Called when the activity is first created. */
+    /**
+     * Called when the activity is first created.
+     */
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        browser = (WebView)findViewById(R.id.section);
-
         init();
-
-        turnTo("1");
 
         Log.d(TAG, "Done");
     }
@@ -53,8 +49,7 @@ public class MainActivity extends BaseActivity
         return "0.0.1";
     }
 
-    protected void initSections(SectionManager manager)
-    {
+    protected void initSections(SectionManager manager) {
         Log.d(TAG, "initSections");
 
         manager.add(new Section("1").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.SixthSense).then(new DisableChoice("141"))));

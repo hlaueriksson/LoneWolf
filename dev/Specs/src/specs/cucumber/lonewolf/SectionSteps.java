@@ -2,7 +2,7 @@ package specs.cucumber.lonewolf;
 
 import com.hoffenkloffen.lonewolf.controllers.SectionResourceHandler;
 import com.hoffenkloffen.lonewolf.controllers.section.SectionManager;
-import com.hoffenkloffen.lonewolf.views.SectionRenderer;
+import com.hoffenkloffen.lonewolf.views.BrowserRenderer;
 import cucumber.annotation.en.Given;
 import cucumber.annotation.en.Then;
 import cucumber.annotation.en.When;
@@ -14,14 +14,16 @@ import static org.mockito.Mockito.verify;
 public class SectionSteps {
 
     private SectionResourceHandler resourceHandler;
-    private SectionRenderer renderer;
+    private BrowserRenderer renderer;
     private SectionManager manager;
 
     @Given("^the sections are initiated$")
     public void the_sections_are_initiated() throws Throwable {
         resourceHandler = mock(SectionResourceHandler.class);
-        renderer = mock(SectionRenderer.class);
-        manager = new SectionManager(resourceHandler, renderer);
+        renderer = mock(BrowserRenderer.class);
+        manager = new SectionManager();
+        manager.setResourceHandler(resourceHandler);
+        manager.setRenderer(renderer);
     }
 
     // View a section

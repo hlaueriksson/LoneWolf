@@ -1,47 +1,32 @@
 package com.hoffenkloffen.lonewolf.controllers.section;
 
-import android.util.Log;
-import com.hoffenkloffen.lonewolf.controllers.ActionChartResourceHandler;
-import com.hoffenkloffen.lonewolf.controllers.RandomNumberTable;
+import com.hoffenkloffen.lonewolf.controllers.GameContext;
 import com.hoffenkloffen.lonewolf.controllers.SectionResourceHandler;
-import com.hoffenkloffen.lonewolf.controllers.combat.Combat;
 import com.hoffenkloffen.lonewolf.controllers.section.injections.*;
 import com.hoffenkloffen.lonewolf.controllers.section.rules.*;
-import com.hoffenkloffen.lonewolf.models.LoneWolf;
-import com.hoffenkloffen.lonewolf.models.RandomNumberResult;
-import com.hoffenkloffen.lonewolf.models.RandomNumberResultList;
-import com.hoffenkloffen.lonewolf.models.combat.CombatResult;
-import com.hoffenkloffen.lonewolf.models.combat.CombatResultList;
-import com.hoffenkloffen.lonewolf.models.items.Item;
-import com.hoffenkloffen.lonewolf.views.SectionRenderer;
+import com.hoffenkloffen.lonewolf.views.BrowserRenderer;
 
-import java.util.Collection;
 import java.util.Hashtable;
 
 public class SectionManager {
 
-    private Hashtable<String, Section> sections = new Hashtable<String, Section>();
-
+    private GameContext context;
     private SectionResourceHandler resourceHandler;
-    private SectionRenderer renderer;
+    private BrowserRenderer renderer;
 
+    private Hashtable<String, Section> sections = new Hashtable<String, Section>();
     private Section current;
 
-    private RandomNumberTable random;
+    public SectionManager() {
+        context = GameContext.getInstance();
+    }
 
-    // Models
-    protected LoneWolf character;
-
-    public SectionManager(SectionResourceHandler resourceHandler, SectionRenderer renderer) {
+    public void setResourceHandler(SectionResourceHandler resourceHandler) {
         this.resourceHandler = resourceHandler;
+    }
+
+    public void setRenderer(BrowserRenderer renderer) {
         this.renderer = renderer;
-
-        random = new RandomNumberTable();
-
-        character = new LoneWolf(); // TODO
-        character.setCombatSkill(20);
-        character.setEndurance(20);
-        character.getInventory().getGoldCrowns().setQuantity(20);
     }
 
     public void add(Section section) {
@@ -73,119 +58,14 @@ public class SectionManager {
         setCurrent(section);
 
         // State
-        section.add(character);
+        section.add(context.getCharacter());
 
         // On enter commands
         section.enter();
 
         // Render
+        section.set(resourceHandler);
         renderer.loadData(section.getContent(), section.getMimeType(), section.getEncoding());
-    }
-
-    public void roll() {
-
-        Section section = getCurrent();
-
-        RandomNumberResult result = random.getResult();
-
-        // State
-        section.add(result);
-
-        // Render
-        renderer.loadData(section.getContent(), section.getMimeType(), section.getEncoding());
-    }
-
-    public void roll(String index) {
-
-        Section section = getCurrent();
-
-        RandomNumberResult result = random.getResult();
-
-        // State
-        RandomNumberResultList list;
-
-        if(index.equals("0")) // NOTE: First roll
-        {
-            list = new RandomNumberResultList();
-            section.add(list);
-        }
-        else
-        {
-            list = (RandomNumberResultList) section.getState(RandomNumberResultList.class.getSimpleName());
-        }
-
-        list.add(result);
-
-        // Render
-        renderer.loadData(section.getContent(), section.getMimeType(), section.getEncoding());
-    }
-
-    public void fight() {
-
-        Section section = getCurrent();
-
-        Combat combat = section.getCombat();
-        combat.set(character);
-
-        CombatResult result = combat.fight(0);
-
-        Log.d(SectionManager.class.getSimpleName(), "CombatResult: " + result.getOutcome());
-
-        // State
-        section.add(result);
-
-        // Render
-        renderer.loadData(section.getContent(), section.getMimeType(), section.getEncoding());
-    }
-
-    public void fight(String index) {
-
-        Section section = getCurrent();
-
-        Combat combat = section.getCombat();
-        combat.set(character);
-
-        CombatResult result = combat.fight(Integer.parseInt(index));
-
-        Log.d(SectionManager.class.getSimpleName(), "CombatResult: " + result.getOutcome());
-
-        // State
-        CombatResultList list;
-
-        if(index.equals("0")) // NOTE: First fight
-        {
-            list = new CombatResultList(combat.getEnemyCount());
-            section.add(list);
-        }
-        else
-        {
-            list = (CombatResultList) section.getState(CombatResultList.class.getSimpleName());
-        }
-
-        list.add(result);
-
-        // Render
-        renderer.loadData(section.getContent(), section.getMimeType(), section.getEncoding());
-    }
-
-    public void displayActionChart(ActionChartResourceHandler resourceHandler) { // TODO: introduce GameManager?
-
-        Section section = getCurrent();
-
-        Collection<Item> items = section.getItems();
-
-        String template = resourceHandler.getHtmlTemplate();
-        String title = resourceHandler.getHtmlTitle();
-        String revised = Long.toString(System.currentTimeMillis());
-        String style = resourceHandler.getHtmlStyle();
-        String script = resourceHandler.getHtmlScript();
-        String content = resourceHandler.getHtmlContent(character.getInventory(), items);
-
-        // NOTE: %1=title, %2=revised, %3=style, %4=script, %5=content
-        String result = String.format(template, title, revised, style, script, content);
-
-        // Render
-        renderer.loadData(result, section.getMimeType(), section.getEncoding());
     }
 
     private Section fallback(String section) {
@@ -193,8 +73,6 @@ public class SectionManager {
     }
 
     private Section defaults(Section section) {
-        section.set(resourceHandler);
-
         if(section.omitDefaultRules()) return section;
 
         if(hasRandomNumber(section)) {
@@ -252,35 +130,5 @@ public class SectionManager {
         }
 
         return result.toString();
-    }
-
-    public void take(String item) {
-
-        Section section = getCurrent();
-
-        for (Item i : section.getItems()) {
-            if(i.getName().equals(item)) {
-                character.add(i);
-                section.getItems().remove(i);
-            }
-        }
-    }
-
-    public void discard(String item) {
-        Section section = getCurrent();
-
-        for (Item i : character.getInventory().getBackpackItems()) {
-            if(i.getName().equals(item)) {
-                character.getInventory().getBackpackItems().remove(i);
-                section.getItems().add(i);
-            }
-        }
-
-        for (Item i : character.getInventory().getSpecialItems()) {
-            if(i.getName().equals(item)) {
-                character.getInventory().getSpecialItems().remove(i);
-                section.getItems().add(i);
-            }
-        }
     }
 }
