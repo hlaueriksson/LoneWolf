@@ -14,5 +14,5 @@ public interface SectionEventHandler extends EventHandler {
     void roll(String index);
 
     // ActionChart
-    void display();
+    void inventory();
 }

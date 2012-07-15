@@ -35,7 +35,7 @@ public class SectionJavascriptInterface implements JavascriptInterface {
         eventHandler.roll(index);
     }
 
-    public void display() {
-        eventHandler.display();
+    public void inventory() {
+        eventHandler.inventory();
     }
 }

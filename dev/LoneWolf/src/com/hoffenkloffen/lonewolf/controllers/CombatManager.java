@@ -5,26 +5,15 @@ import com.hoffenkloffen.lonewolf.controllers.combat.Combat;
 import com.hoffenkloffen.lonewolf.controllers.section.Section;
 import com.hoffenkloffen.lonewolf.models.combat.CombatResult;
 import com.hoffenkloffen.lonewolf.models.combat.CombatResultList;
-import com.hoffenkloffen.lonewolf.views.BrowserRenderer;
 
 public class CombatManager {
 
     private static final String TAG = CombatManager.class.getSimpleName();
 
     private GameContext context;
-    private SectionResourceHandler resourceHandler;
-    private BrowserRenderer renderer;
 
     public CombatManager() {
         context = GameContext.getInstance();
-    }
-
-    public void setResourceHandler(SectionResourceHandler resourceHandler) {
-        this.resourceHandler = resourceHandler;
-    }
-
-    public void setRenderer(BrowserRenderer renderer) {
-        this.renderer = renderer;
     }
 
     public void fight() {
@@ -40,10 +29,6 @@ public class CombatManager {
 
         // State
         section.add(result);
-
-        // Render
-        section.set(resourceHandler);
-        renderer.loadData(section.getContent(), section.getMimeType(), section.getEncoding());
     }
 
     public void fight(String index) {
@@ -71,9 +56,5 @@ public class CombatManager {
         }
 
         list.add(result);
-
-        // Render
-        section.set(resourceHandler);
-        renderer.loadData(section.getContent(), section.getMimeType(), section.getEncoding());
     }
 }

@@ -39,6 +39,7 @@ public abstract class BaseActivity extends Activity implements ConfigurationMana
         context.setActionChartManager(new ActionChartManager());
 
         initSections(context.getSectionManager());
+        context.getSectionManager().setCurrent(context.getSectionManager().get("1"));
 
         //Log.d(TAG, context.getSectionManager().toString());
     }

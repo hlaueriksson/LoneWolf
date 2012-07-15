@@ -35,7 +35,7 @@ public class SectionActivity extends BaseBrowserActivity implements SectionEvent
         browser = (WebView) findViewById(R.id.browser);
 
         init();
-        turnTo("1"); // TODO: display
+        display();
 
         Log.d(TAG, "Done");
     }
@@ -50,10 +50,6 @@ public class SectionActivity extends BaseBrowserActivity implements SectionEvent
         context = GameContext.getInstance();
         context.getSectionManager().setResourceHandler(new DebugSectionResourceHandler(this));
         context.getSectionManager().setRenderer(this);
-        context.getRandomNumberManager().setResourceHandler(new DebugSectionResourceHandler(this));
-        context.getRandomNumberManager().setRenderer(this);
-        context.getCombatManager().setResourceHandler(new DebugSectionResourceHandler(this));
-        context.getCombatManager().setRenderer(this);
     }
 
     protected Iterable<JavascriptInterface> getJavascriptInterfaces()
@@ -86,6 +82,12 @@ public class SectionActivity extends BaseBrowserActivity implements SectionEvent
 
     //</editor-fold>
 
+    private void display() {
+        Log.d(TAG, "Display");
+
+        context.getSectionManager().enter(context.getSectionManager().getCurrent().getNumber());
+    }
+
     //<editor-fold desc="SectionEventHandler">
 
     @Override
@@ -106,6 +108,7 @@ public class SectionActivity extends BaseBrowserActivity implements SectionEvent
                 Log.d(TAG, "Roll a random number");
 
                 context.getRandomNumberManager().roll();
+                display();
             }
         });
     }
@@ -117,6 +120,7 @@ public class SectionActivity extends BaseBrowserActivity implements SectionEvent
                 Log.d(TAG, "Roll a random number: " + index);
 
                 context.getRandomNumberManager().roll(index);
+                display();
             }
         });
     }
@@ -128,6 +132,7 @@ public class SectionActivity extends BaseBrowserActivity implements SectionEvent
                 Log.d(TAG, "Fight enemy");
 
                 context.getCombatManager().fight();
+                display();
             }
         });
     }
@@ -139,12 +144,13 @@ public class SectionActivity extends BaseBrowserActivity implements SectionEvent
                 Log.d(TAG, "Fight enemy: " + index);
 
                 context.getCombatManager().fight(index);
+                display();
             }
         });
     }
 
     @Override
-    public void display() {
+    public void inventory() {
         runOnUiThread(new Runnable() {
             public void run() {
                 Log.d(TAG, "Display action chart");
@@ -179,7 +185,10 @@ public class SectionActivity extends BaseBrowserActivity implements SectionEvent
     }
 
     @Override
-    public void goTo(String section) { // TODO
+    public void goTo(String section) {
+        Log.d(TAG, "goTo: " + section);
+
+        context.getSectionManager().enter(section);
     }
 
     //</editor-fold>
