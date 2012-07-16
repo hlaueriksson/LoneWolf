@@ -2,10 +2,9 @@ package com.hoffenkloffen.lonewolf.controllers.combat.rules;
 
 import com.hoffenkloffen.lonewolf.controllers.combat.CombatState;
 import com.hoffenkloffen.lonewolf.controllers.combat.modifiers.CombatModifier;
-import com.hoffenkloffen.lonewolf.models.combat.CombatRound;
-import com.hoffenkloffen.lonewolf.models.items.Item;
 import com.hoffenkloffen.lonewolf.models.KaiDiscipline;
 import com.hoffenkloffen.lonewolf.models.LoneWolf;
+import com.hoffenkloffen.lonewolf.models.combat.CombatRound;
 
 import java.util.Collection;
 
@@ -37,12 +36,12 @@ public abstract class BaseRule implements CombatRule {
         return new KaiDisciplineIsNotAcquired(discipline);
     }
 
-    public static ItemIsAcquired combatWith(Item item) {
-        return new ItemIsAcquired(item);
+    public static ItemIsInPossession combatWith(String item) {
+        return new ItemIsInPossession(item);
     }
 
-    public static ItemIsNotAcquired combatWithout(Item item) {
-        return new ItemIsNotAcquired(item);
+    public static ItemIsNotInPossession combatWithout(String item) {
+        return new ItemIsNotInPossession(item);
     }
 
     protected LoneWolf getLoneWolf(Collection<CombatState> states) {

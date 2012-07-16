@@ -219,7 +219,7 @@ public class MainActivity extends BaseActivity {
                 .add(new Enemy("Burrowcrawler", 17, 7)
                         .add(new Immunity(KaiDiscipline.Mindblast))
                         .add(new Immunity(KaiDiscipline.AnimalKinship)))
-                .when(combatWithout(new Item("Torch")).then(new ModifyCombatSkill(-3)))));
+                .when(combatWithout("Torch").then(new ModifyCombatSkill(-3)))));
 
         manager.add(new Section("172").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.Camouflage).then(new DisableChoice("114"))));
 
