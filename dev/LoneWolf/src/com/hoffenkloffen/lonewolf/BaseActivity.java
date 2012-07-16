@@ -20,14 +20,6 @@ public abstract class BaseActivity extends Activity implements ConfigurationMana
     protected GameContext context;
 
     protected void init() {
-        /*
-        browser.setWebViewClient(new WebViewClient() {
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                // Inject JavaScript into the page which just finished loading.
-                browser.loadUrl(js.toString());
-            }
-        });*/
 
         if (isDebugMode()) Log.d(TAG, "Configuration: Debug");
         else Log.d(TAG, "Configuration: Release");

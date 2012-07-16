@@ -3,6 +3,9 @@
     <string name="app_name">LoneWolf</string>
     <string name="activity_action_chart">Action Chart</string>
     <string name="activity_section">Section</string>
+    <string name="menu_debug_go_to">Go to</string>
+    <string name="menu_debug_go_to_previous">Previous</string>
+    <string name="menu_debug_go_to_next">Next</string>
     <string name="html_title"></string>
     <string name="html_title_action_chart">: Action Chart</string>
 </resources>

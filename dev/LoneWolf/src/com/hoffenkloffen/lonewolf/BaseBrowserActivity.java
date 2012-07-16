@@ -34,6 +34,15 @@ public abstract class BaseBrowserActivity extends Activity implements BrowserRen
             }
         });
 
+        /*
+        browser.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                // Inject JavaScript into the page which just finished loading.
+                browser.loadUrl(js.toString());
+            }
+        });*/
+
         for (JavascriptInterface javascriptInterface : getJavascriptInterfaces()) {
             browser.addJavascriptInterface(javascriptInterface, javascriptInterface.getInterfaceName());
         }
