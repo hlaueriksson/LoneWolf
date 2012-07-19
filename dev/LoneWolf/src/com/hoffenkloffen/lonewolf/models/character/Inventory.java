@@ -4,6 +4,7 @@ import com.hoffenkloffen.lonewolf.models.items.GoldCrowns;
 import com.hoffenkloffen.lonewolf.models.items.Item;
 import com.hoffenkloffen.lonewolf.models.items.SpecialItem;
 import com.hoffenkloffen.lonewolf.models.items.Weapon;
+import com.hoffenkloffen.lonewolf.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,5 +69,29 @@ public class Inventory {
 
     public List<SpecialItem> getSpecialItems() {
         return specialItems;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+
+        if (!weapons.isEmpty()) {
+            result.append("Weapons; ");
+            result.append(StringUtil.toString(weapons));
+        }
+
+        result.append(goldCrowns);
+
+        if (!backpackItems.isEmpty()) {
+            result.append("BackpackItems; ");
+            result.append(StringUtil.toString(backpackItems));
+        }
+
+        if (!specialItems.isEmpty()) {
+            result.append("SpecialItems; ");
+            result.append(StringUtil.toString(specialItems));
+        }
+
+        return result.toString();
     }
 }

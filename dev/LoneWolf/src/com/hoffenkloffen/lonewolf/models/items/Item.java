@@ -1,7 +1,7 @@
 package com.hoffenkloffen.lonewolf.models.items;
 
 public class Item implements Cloneable {
-    private String name;
+    protected String name;
 
     public Item(String name) {
         this.name = name;
@@ -22,5 +22,10 @@ public class Item implements Cloneable {
         } catch (CloneNotSupportedException e) {
             return null;
         }
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

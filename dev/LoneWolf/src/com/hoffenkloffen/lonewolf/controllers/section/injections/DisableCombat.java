@@ -4,7 +4,7 @@ import com.hoffenkloffen.lonewolf.controllers.section.SectionState;
 
 import java.util.Collection;
 
-public class DisableCombat implements JavascriptInjection {
+public class DisableCombat extends BaseInjection {
     private int index = -1;
 
     public DisableCombat() {

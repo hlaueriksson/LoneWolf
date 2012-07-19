@@ -4,7 +4,7 @@ import com.hoffenkloffen.lonewolf.controllers.section.SectionState;
 
 import java.util.Collection;
 
-public class DisableRandomNumber implements JavascriptInjection {
+public class DisableRandomNumber extends BaseInjection {
     private int index = -1;
 
     public DisableRandomNumber() {

@@ -42,4 +42,16 @@ public class Enemy {
     public void reduceEndurance(int delta) {
         endurance -= delta;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder(name);
+        result.append(" CS; ");
+        result.append(getCombatSkill());
+        result.append(" EP; ");
+        result.append(getEndurance());
+        result.append(" ");
+
+        return result.toString();
+    }
 }

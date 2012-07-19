@@ -87,27 +87,31 @@ public class LoneWolf implements SectionState, CombatState {
 
     public boolean possess(String item) {
         for (Item i : inventory.getBackpackItems()) {
-            if(i.getName().equals(item)) return true;
+            if (i.getName().equals(item)) return true;
         }
 
         for (Item i : inventory.getSpecialItems()) {
-            if(i.getName().equals(item)) return true;
+            if (i.getName().equals(item)) return true;
         }
 
         return false;
     }
 
     @Override
-    public String toString()
-    {
-        StringBuilder result = new StringBuilder("Lone Wolf:\n");
+    public String toString() {
+        StringBuilder result = new StringBuilder("Lone Wolf:");
+        result.append(" CS; ");
+        result.append(getCombatSkill());
+        result.append(" EP; ");
+        result.append(getEndurance());
+        result.append(" ");
 
         for (Map.Entry<KaiDiscipline, Boolean> entry : disciplines.entrySet()) {
             result.append(entry.getKey());
-            result.append(": ");
-            result.append(entry.getValue());
-            result.append("\n");
+            result.append(", ");
         }
+
+        result.append(inventory);
 
         return result.toString();
     }

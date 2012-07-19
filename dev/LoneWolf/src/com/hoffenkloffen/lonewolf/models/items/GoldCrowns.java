@@ -22,4 +22,9 @@ public class GoldCrowns extends Item {
     private static String getName(int quantity) {
         return quantity + " Gold Crowns";
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + ": " + quantity;
+    }
 }

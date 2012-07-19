@@ -57,6 +57,8 @@ public class SectionManager {
         Section section = get(number);
         setCurrent(section);
 
+        section.set(resourceHandler); // TODO: should be injected
+
         // State
         section.add(context.getCharacter());
 
@@ -64,7 +66,6 @@ public class SectionManager {
         section.enter();
 
         // Render
-        section.set(resourceHandler);
         renderer.loadData(section.getContent(), section.getMimeType(), section.getEncoding());
     }
 

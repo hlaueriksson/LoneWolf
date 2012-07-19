@@ -10,14 +10,12 @@ public class RandomNumberResult implements SectionState {
         this.value = value;
     }
 
-    public int getValue()
-    {
+    public int getValue() {
         return value;
     }
 
     @Override
-    public String toString()
-    {
-        return "Random number result: " + getValue();
+    public String toString() {
+        return getClass().getSimpleName() + ": " + getValue();
     }
 }

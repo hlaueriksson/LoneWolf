@@ -26,6 +26,7 @@ public abstract class BaseActivity extends Activity implements VersionManager {
 
         context = GameContext.getInstance();
 
+        context.setLogger(new Logger());
         context.setPreferences(getPreferences());
         context.setCharacter(getCharacter());
         context.setSectionManager(new SectionManager());

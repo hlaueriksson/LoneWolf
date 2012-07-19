@@ -1,6 +1,5 @@
 package com.hoffenkloffen.lonewolf.controllers;
 
-import android.util.Log;
 import com.hoffenkloffen.lonewolf.controllers.combat.Combat;
 import com.hoffenkloffen.lonewolf.controllers.section.Section;
 import com.hoffenkloffen.lonewolf.models.combat.CombatResult;
@@ -25,10 +24,10 @@ public class CombatManager {
 
         CombatResult result = combat.fight(0);
 
-        Log.d(TAG, "CombatResult: " + result.getOutcome());
-
         // State
         section.add(result);
+
+        context.getLogger().verbose("CombatResult: " + result.getOutcome());
     }
 
     public void fight(String index) {
@@ -39,8 +38,6 @@ public class CombatManager {
         combat.set(context.getCharacter());
 
         CombatResult result = combat.fight(Integer.parseInt(index));
-
-        Log.d(TAG, "CombatResult: " + result.getOutcome());
 
         // State
         CombatResultList list;
@@ -56,5 +53,7 @@ public class CombatManager {
         }
 
         list.add(result);
+
+        context.getLogger().verbose("CombatResult: " + result.getOutcome());
     }
 }

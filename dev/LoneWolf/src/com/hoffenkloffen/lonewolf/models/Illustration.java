@@ -15,4 +15,9 @@ public class Illustration {
     public String getResourceName() {
         return filename.replace(".png", "");
     }
+
+    @Override
+    public String toString() {
+        return getFilename();
+    }
 }

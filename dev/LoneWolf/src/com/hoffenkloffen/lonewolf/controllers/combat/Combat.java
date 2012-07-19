@@ -9,6 +9,7 @@ import com.hoffenkloffen.lonewolf.models.combat.CombatResult;
 import com.hoffenkloffen.lonewolf.models.combat.CombatRound;
 import com.hoffenkloffen.lonewolf.models.combat.Enemy;
 import com.hoffenkloffen.lonewolf.models.combat.Outcome;
+import com.hoffenkloffen.lonewolf.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -94,5 +95,24 @@ public class Combat {
         states.add(round);
 
         return states;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+
+        result.append(StringUtil.toString(enemies));
+
+        if (!modifiers.isEmpty()) {
+            result.append("Modifiers; ");
+            result.append(StringUtil.toString(modifiers));
+        }
+
+        if (!rules.isEmpty()) {
+            result.append("Rules; ");
+            result.append(StringUtil.toString(rules));
+        }
+
+        return result.toString();
     }
 }

@@ -7,6 +7,7 @@ import com.hoffenkloffen.lonewolf.controllers.section.injections.JavascriptInjec
 import com.hoffenkloffen.lonewolf.controllers.section.rules.SectionRule;
 import com.hoffenkloffen.lonewolf.models.Illustration;
 import com.hoffenkloffen.lonewolf.models.items.Item;
+import com.hoffenkloffen.lonewolf.util.StringUtil;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -176,6 +177,7 @@ public class Section {
     }
 
     public void enter() {
+        context.getLogger().verbose(toString());
     }
 
     public void exit() {
@@ -210,23 +212,41 @@ public class Section {
         StringBuilder result = new StringBuilder();
 
         result.append(getNumber());
-        result.append("\n");
+        result.append(":\n");
+
+        if (!getStates().isEmpty()) {
+            result.append("\tStates; ");
+            result.append(StringUtil.toString(getStates()));
+            result.append("\n");
+        }
 
         if (!getRules().isEmpty()) {
             result.append("\tRules; ");
-            for (SectionRule rule : getRules()) {
-                result.append(rule.toString());
-                result.append(", ");
-            }
+            result.append(StringUtil.toString(getRules()));
+            result.append("\n");
+        }
+
+        if (combat != null) {
+            result.append("\tCombat; ");
+            result.append(combat.toString());
+            result.append("\n");
+        }
+
+        if (!getItems().isEmpty()) {
+            result.append("\tItems; ");
+            result.append(StringUtil.toString(getItems()));
             result.append("\n");
         }
 
         if (!getIllustrations().isEmpty()) {
             result.append("\tIllustrations; ");
-            for (Illustration illustration : getIllustrations()) {
-                result.append(illustration.getFilename());
-                result.append(", ");
-            }
+            result.append(StringUtil.toString(getIllustrations()));
+            result.append("\n");
+        }
+
+        if (getJavascriptInjections().iterator().hasNext()) {
+            result.append("\tInjections; ");
+            result.append(StringUtil.toString(getJavascriptInjections()));
             result.append("\n");
         }
 

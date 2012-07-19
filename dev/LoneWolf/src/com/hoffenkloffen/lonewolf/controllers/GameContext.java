@@ -18,12 +18,21 @@ public class GameContext {
 
     //</editor-fold>
 
+    private Logger logger;
     private Preferences preferences;
     private LoneWolf character;
     private SectionManager sectionManager;
     private RandomNumberManager randomNumberManager;
     private CombatManager combatManager;
     private ActionChartManager actionChartManager;
+
+    public Logger getLogger() {
+        return logger;
+    }
+
+    public void setLogger(Logger logger) {
+        this.logger = logger;
+    }
 
     public Preferences getPreferences() {
         return preferences;

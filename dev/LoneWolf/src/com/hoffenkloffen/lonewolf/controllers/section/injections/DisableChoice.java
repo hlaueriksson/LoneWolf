@@ -4,7 +4,7 @@ import com.hoffenkloffen.lonewolf.controllers.section.SectionState;
 
 import java.util.Collection;
 
-public class DisableChoice implements JavascriptInjection {
+public class DisableChoice extends BaseInjection {
 
     private String section;
 

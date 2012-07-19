@@ -6,7 +6,7 @@ import com.hoffenkloffen.lonewolf.models.RandomNumberResultList;
 
 import java.util.Collection;
 
-public class DisplayRandomNumber implements JavascriptInjection {
+public class DisplayRandomNumber extends BaseInjection {
     private int index = -1;
 
     public DisplayRandomNumber() {
