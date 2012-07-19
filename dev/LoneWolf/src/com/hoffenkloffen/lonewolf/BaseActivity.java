@@ -12,7 +12,7 @@ import com.hoffenkloffen.lonewolf.controllers.section.SectionManager;
 import com.hoffenkloffen.lonewolf.models.LoneWolf;
 import com.hoffenkloffen.lonewolf.models.Preferences;
 
-public abstract class BaseActivity extends Activity implements ConfigurationManager, VersionManager {
+public abstract class BaseActivity extends Activity implements VersionManager {
 
     private static final String TAG = BaseActivity.class.getSimpleName();
 
@@ -41,6 +41,7 @@ public abstract class BaseActivity extends Activity implements ConfigurationMana
 
     protected Preferences getPreferences() {
         Preferences preferences = new Preferences();
+        preferences.setDebugMode(isDebugMode());
         preferences.setIllustrations(true);
 
         return preferences;
@@ -63,8 +64,6 @@ public abstract class BaseActivity extends Activity implements ConfigurationMana
         startActivity(new Intent(getBaseContext(), SectionActivity.class));
     }
 
-    //<editor-fold desc="ConfigurationManager">
-
     public boolean isDebugMode() {
         try {
             PackageInfo packageInfo = getPackageManager().getPackageInfo(getApplication().getPackageName(), PackageManager.GET_CONFIGURATIONS);
@@ -76,12 +75,6 @@ public abstract class BaseActivity extends Activity implements ConfigurationMana
 
         return false;
     }
-
-    public boolean isReleaseMode() {
-        return !isDebugMode();
-    }
-
-    //</editor-fold>
 
     //<editor-fold desc="VersionManager">
 

@@ -15,6 +15,8 @@ import com.hoffenkloffen.lonewolf.controllers.events.SectionEventHandler;
 import com.hoffenkloffen.lonewolf.controllers.interfaces.JavascriptInterface;
 import com.hoffenkloffen.lonewolf.controllers.interfaces.SectionJavascriptInterface;
 import com.hoffenkloffen.lonewolf.controllers.section.Section;
+import com.hoffenkloffen.lonewolf.models.KaiDiscipline;
+import com.hoffenkloffen.lonewolf.models.LoneWolf;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +63,8 @@ public class SectionActivity extends BaseBrowserActivity implements SectionEvent
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.section_meny, menu);
 
+        menu.setGroupVisible(R.id.menu_group_debug, context.getPreferences().getDebugMode());
+
         return true;
     }
 
@@ -89,6 +93,14 @@ public class SectionActivity extends BaseBrowserActivity implements SectionEvent
 
     public void debugGoToNext(MenuItem item) {
         goToNext();
+    }
+
+    public void debugNoobWolf(MenuItem item) {
+        noobWolf();
+    }
+
+    public void debugLeetWolf(MenuItem item) {
+        leetWolf();
     }
 
     //</editor-fold>
@@ -200,6 +212,46 @@ public class SectionActivity extends BaseBrowserActivity implements SectionEvent
         Log.d(TAG, "goTo: " + section);
 
         context.getSectionManager().enter(section);
+    }
+
+    public void noobWolf() {
+        Log.d(TAG, "noobWolf");
+
+        context.setCharacter(getNoobWolf());
+    }
+
+    public void leetWolf() {
+        Log.d(TAG, "leetWolf");
+
+        context.setCharacter(getLeetWolf());
+    }
+
+    private LoneWolf getNoobWolf() {
+        LoneWolf character = new LoneWolf();
+        character.setCombatSkill(10);
+        character.setEndurance(10);
+        character.getInventory().getGoldCrowns().setQuantity(1);
+
+        return character;
+    }
+
+    private LoneWolf getLeetWolf() {
+        LoneWolf character = new LoneWolf();
+        character.setCombatSkill(40);
+        character.setEndurance(40);
+        character.add(KaiDiscipline.Camouflage);
+        character.add(KaiDiscipline.Hunting);
+        character.add(KaiDiscipline.SixthSense);
+        character.add(KaiDiscipline.Tracking);
+        character.add(KaiDiscipline.Healing);
+        character.add(KaiDiscipline.Weaponskill);
+        character.add(KaiDiscipline.Mindshield);
+        character.add(KaiDiscipline.Mindblast);
+        character.add(KaiDiscipline.AnimalKinship);
+        character.add(KaiDiscipline.MindOverMatter);
+        character.getInventory().getGoldCrowns().setQuantity(40);
+
+        return character;
     }
 
     //</editor-fold>

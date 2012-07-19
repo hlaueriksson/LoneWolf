@@ -6,6 +6,8 @@
     <string name="menu_debug_go_to">Go to</string>
     <string name="menu_debug_go_to_previous">Previous</string>
     <string name="menu_debug_go_to_next">Next</string>
+    <string name="menu_debug_noob_wolf">Noob</string>
+    <string name="menu_debug_leet_wolf">Leet</string>
     <string name="html_title"></string>
     <string name="html_title_action_chart">: Action Chart</string>
 </resources>
