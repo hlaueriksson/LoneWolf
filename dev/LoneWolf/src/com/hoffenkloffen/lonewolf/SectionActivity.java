@@ -103,6 +103,12 @@ public class SectionActivity extends BaseBrowserActivity implements SectionEvent
         leetWolf();
     }
 
+    public void debugLog(MenuItem item) {
+        Log.d(TAG, "Debug log");
+
+        startActivity(new Intent(getBaseContext(), LogActivity.class));
+    }
+
     //</editor-fold>
 
     private void display() {

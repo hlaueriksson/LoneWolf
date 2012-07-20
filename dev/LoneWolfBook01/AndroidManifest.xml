@@ -18,5 +18,7 @@
                   android:label="@string/activity_action_chart"/>
         <activity android:name="com.hoffenkloffen.lonewolf.SectionActivity"
                   android:label="@string/activity_section"/>
+        <activity android:name="com.hoffenkloffen.lonewolf.LogActivity"
+                  android:label="@string/activity_log"/>
     </application>
 </manifest> 
