@@ -2,7 +2,7 @@ package com.hoffenkloffen.lonewolf;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.text.Html;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.widget.TextView;
 import com.hoffenkloffen.lonewolf.controllers.GameContext;
@@ -31,11 +31,14 @@ public class LogActivity extends Activity {
 
     private void init() {
         context = GameContext.getInstance();
+
+        log.setMovementMethod(new ScrollingMovementMethod());
     }
 
     private void display() {
         Log.d(TAG, "Display");
 
-        log.append(Html.fromHtml(context.getLogger().getText().toString()));
+        // Html.fromHtml()
+        log.append(context.getLogger().getText());
     }
 }

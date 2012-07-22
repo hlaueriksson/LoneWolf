@@ -27,7 +27,7 @@ public class CombatManager {
         // State
         section.add(result);
 
-        context.getLogger().verbose("CombatResult: " + result.getOutcome());
+        context.getLogger().debug("CombatResult: " + result.getOutcome());
     }
 
     public void fight(String index) {
@@ -54,6 +54,6 @@ public class CombatManager {
 
         list.add(result);
 
-        context.getLogger().verbose("CombatResult: " + result.getOutcome());
+        context.getLogger().debug("CombatResult: " + result.getOutcome());
     }
 }

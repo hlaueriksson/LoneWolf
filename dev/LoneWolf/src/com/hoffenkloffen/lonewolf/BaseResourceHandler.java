@@ -16,7 +16,7 @@ public abstract class BaseResourceHandler {
     }
 
     protected String readFileToString(int resId) {
-        StringBuffer result = new StringBuffer();
+        StringBuilder result = new StringBuilder();
 
         InputStream stream = context.getResources().openRawResource(resId);
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));

@@ -177,7 +177,7 @@ public class Section {
     }
 
     public void enter() {
-        context.getLogger().verbose(toString());
+        context.getLogger().debug(toString());
     }
 
     public void exit() {

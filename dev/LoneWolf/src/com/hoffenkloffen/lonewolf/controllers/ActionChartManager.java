@@ -54,7 +54,7 @@ public class ActionChartManager {
             }
         }
 
-        context.getLogger().verbose("Take: " + item);
+        context.getLogger().debug("Take: " + item);
     }
 
     public void discard(String item) {
@@ -76,6 +76,6 @@ public class ActionChartManager {
             }
         }
 
-        context.getLogger().verbose("Discard: " + item);
+        context.getLogger().debug("Discard: " + item);
     }
 }
