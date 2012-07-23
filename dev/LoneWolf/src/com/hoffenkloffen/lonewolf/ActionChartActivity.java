@@ -57,7 +57,6 @@ public class ActionChartActivity extends BaseBrowserActivity implements ActionCh
 
     @Override
     public void take(final String name) {
-
         runOnUiThread(new Runnable() {
             public void run() {
                 Log.d(TAG, "Take item: " + name);
@@ -70,7 +69,6 @@ public class ActionChartActivity extends BaseBrowserActivity implements ActionCh
 
     @Override
     public void discard(final String name) {
-
         runOnUiThread(new Runnable() {
             public void run() {
                 Log.d(TAG, "Discard item: " + name);
@@ -82,7 +80,16 @@ public class ActionChartActivity extends BaseBrowserActivity implements ActionCh
     }
 
     @Override
-    public void use(String name) {
+    public void use(final String name) {
+
+        runOnUiThread(new Runnable() {
+            public void run() {
+                Log.d(TAG, "Use item: " + name);
+
+                context.getActionChartManager().use(name);
+                display();
+            }
+        });
     }
 
     //</editor-fold>

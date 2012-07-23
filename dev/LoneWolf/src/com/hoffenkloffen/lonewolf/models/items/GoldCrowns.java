@@ -10,6 +10,10 @@ public class GoldCrowns extends Item {
         setQuantity(quantity);
     }
 
+    public GoldCrowns(String name, String description) {
+        super(name, description);
+    }
+
     public int getQuantity() {
         return quantity;
     }

@@ -47,6 +47,10 @@ public class LoneWolf implements SectionState, CombatState {
         endurance -= delta;
     }
 
+    public void increaseEndurance(int delta) {
+        endurance += delta;
+    }
+
     public LoneWolf add(KaiDiscipline discipline) {
         disciplines.put(discipline, true);
 
@@ -114,5 +118,9 @@ public class LoneWolf implements SectionState, CombatState {
         result.append(inventory);
 
         return result.toString();
+    }
+
+    public void use(Item item) {
+        item.getModifier().modify(this);
     }
 }

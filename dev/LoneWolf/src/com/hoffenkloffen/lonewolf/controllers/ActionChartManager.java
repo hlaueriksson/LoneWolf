@@ -78,4 +78,25 @@ public class ActionChartManager {
 
         context.getLogger().debug("Discard: " + item);
     }
+
+    public void use(String item) {
+
+        LoneWolf character = context.getCharacter();
+
+        for (Item i : character.getInventory().getBackpackItems()) {
+            if(i.getName().equals(item)) {
+                character.use(i);
+                character.getInventory().getBackpackItems().remove(i);
+            }
+        }
+
+        for (Item i : character.getInventory().getSpecialItems()) {
+            if(i.getName().equals(item)) {
+                character.use(i);
+                character.getInventory().getSpecialItems().remove(i);
+            }
+        }
+
+        context.getLogger().debug("Use: " + item);
+    }
 }
