@@ -16,11 +16,12 @@ import com.hoffenkloffen.lonewolf.controllers.section.injections.DisableRandomNu
 import com.hoffenkloffen.lonewolf.controllers.section.injections.DisplayRandomNumber;
 import com.hoffenkloffen.lonewolf.controllers.section.rules.*;
 import com.hoffenkloffen.lonewolf.models.KaiDiscipline;
+import com.hoffenkloffen.lonewolf.models.character.states.AletherPotionDrunken;
 import com.hoffenkloffen.lonewolf.models.combat.Enemy;
 import com.hoffenkloffen.lonewolf.models.combat.Immunity;
 import com.hoffenkloffen.lonewolf.models.items.*;
-import com.hoffenkloffen.lonewolf.models.items.modifiers.ModifyCombatSkillNextFight;
 import com.hoffenkloffen.lonewolf.models.items.modifiers.ModifyEndurance;
+import com.hoffenkloffen.lonewolf.models.items.modifiers.ModifyState;
 
 import static com.hoffenkloffen.lonewolf.controllers.combat.rules.BaseRule.combatWithout;
 
@@ -77,7 +78,7 @@ public class MainActivity extends BaseActivity {
                 .add(new Meal("Food", "This is some food you can eat whenever you want; this will restore 3 Endurance points."))
                 .add(new Potion("Healing Potion", "This healing potion will restore 4 Endurance points when drank.", new ModifyEndurance(4)))
                 .add(new Meal("Laumspur (Meal)", "A rare and beautiful herb much prized for its healing properties. Easting some leaves of Laumspur will restore 3 Endurance points."))
-                .add(new Potion("Alether Potion", "This is a potion that enhances your Combat Skill for one fight, giving you a bonus of +4.", new ModifyCombatSkillNextFight(4)))
+                .add(new Potion("Alether Potion", "This is a potion that enhances your Combat Skill for one fight, giving you a bonus of +4.", new ModifyState(new AletherPotionDrunken())))
                 .add(new Item("Tinderbox", "This can be used to light a fire or a torch."))
                 .add(new Item("Torch", "This is a torch that can be used to bring light in dark tunnels and rooms."))
                 .add(new Item("Vordak Gem", "A big gem you have retrieved from the remains of a Vordak."))

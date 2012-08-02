@@ -1,7 +1,8 @@
 package com.hoffenkloffen.lonewolf.models.items;
 
+import com.hoffenkloffen.lonewolf.models.character.states.MealEaten;
 import com.hoffenkloffen.lonewolf.models.items.modifiers.ItemModifier;
-import com.hoffenkloffen.lonewolf.models.items.modifiers.ModifyEndurance;
+import com.hoffenkloffen.lonewolf.models.items.modifiers.ModifyState;
 
 public class Meal extends Item {
 
@@ -15,6 +16,6 @@ public class Meal extends Item {
 
     @Override
     public ItemModifier getModifier() {
-        return new ModifyEndurance(3);
+        return new ModifyState(new MealEaten());
     }
 }
