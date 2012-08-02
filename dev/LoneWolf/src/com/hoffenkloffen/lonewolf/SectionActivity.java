@@ -68,6 +68,23 @@ public class SectionActivity extends BaseBrowserActivity implements SectionEvent
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d(TAG, "onOptionsItemSelected");
+
+        int id = item.getItemId();
+
+        if (id == R.id.menu_debug_go_to_previous) debugGoToPrevious(item);
+        else if (id == R.id.menu_debug_go_to_next) debugGoToNext(item);
+        else if (id == R.id.menu_debug_go_to) debugGoTo(item);
+        else if (id == R.id.menu_debug_noob_wolf) debugNoobWolf(item);
+        else if (id == R.id.menu_debug_leet_wolf) debugLeetWolf(item);
+        else if (id == R.id.menu_debug_log) debugLog(item);
+        else super.onOptionsItemSelected(item);
+
+        return true;
+    }
+
     public void debugGoTo(MenuItem item) {
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -216,6 +233,10 @@ public class SectionActivity extends BaseBrowserActivity implements SectionEvent
     @Override
     public void goTo(String section) {
         Log.d(TAG, "goTo: " + section);
+
+        int number = Integer.parseInt(section);
+
+        if (number < 1 || number > 350) return;
 
         context.getSectionManager().enter(section);
     }
