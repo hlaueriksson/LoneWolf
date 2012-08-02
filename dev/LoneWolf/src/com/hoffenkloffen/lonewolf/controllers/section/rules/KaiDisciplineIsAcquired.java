@@ -25,6 +25,6 @@ public class KaiDisciplineIsAcquired extends BaseRule {
 
     @Override
     public String toString() {
-        return super.toString() + ": " + discipline;
+        return super.toString(discipline);
     }
 }

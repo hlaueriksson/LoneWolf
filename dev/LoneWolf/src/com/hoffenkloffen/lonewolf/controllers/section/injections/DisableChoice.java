@@ -19,6 +19,6 @@ public class DisableChoice extends BaseInjection {
 
     @Override
     public String toString() {
-        return super.toString() + ": " + section;
+        return super.toString(section);
     }
 }

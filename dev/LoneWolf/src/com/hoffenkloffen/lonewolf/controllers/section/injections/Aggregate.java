@@ -1,6 +1,7 @@
 package com.hoffenkloffen.lonewolf.controllers.section.injections;
 
 import com.hoffenkloffen.lonewolf.controllers.section.SectionState;
+import com.hoffenkloffen.lonewolf.util.StringUtil;
 
 import java.util.Collection;
 
@@ -25,12 +26,11 @@ public class Aggregate extends BaseInjection {
 
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder(super.toString());
+        StringBuilder result = new StringBuilder();
 
-        for (JavascriptInjection injection : injections) {
-            result.append(injection.toString());
-            result.append(", ");
-        }
+        result.append("(");
+        result.append(StringUtil.toString(injections));
+        result.append(")");
 
         return result.toString();
     }

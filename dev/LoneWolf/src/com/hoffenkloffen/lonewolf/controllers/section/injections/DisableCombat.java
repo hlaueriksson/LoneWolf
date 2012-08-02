@@ -25,6 +25,6 @@ public class DisableCombat extends BaseInjection {
     public String toString() {
         if(index == -1) return super.toString();
 
-        return super.toString() + ": " + index;
+        return super.toString(index);
     }
 }

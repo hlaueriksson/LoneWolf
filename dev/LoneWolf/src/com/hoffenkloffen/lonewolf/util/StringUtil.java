@@ -12,4 +12,15 @@ public class StringUtil {
 
         return result.toString();
     }
+
+    public static String toString(Object[] array) {
+        StringBuilder result = new StringBuilder();
+
+        for (Object object : array) {
+            if(result.length() > 0) result.append(", ");
+            result.append(object.toString());
+        }
+
+        return result.toString();
+    }
 }

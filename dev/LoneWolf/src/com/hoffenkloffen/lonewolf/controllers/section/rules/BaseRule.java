@@ -28,7 +28,11 @@ public abstract class BaseRule implements SectionRule {
 
     @Override
     public String toString() {
-        return getClass().getSimpleName();
+        return getClass().getSimpleName() + " > " + javascriptInjection.toString();
+    }
+
+    public String toString(Object value) {
+        return getClass().getSimpleName() + ": " + value.toString() + " > " + javascriptInjection.toString();
     }
 
     protected LoneWolf getLoneWolf(Collection<SectionState> states) {

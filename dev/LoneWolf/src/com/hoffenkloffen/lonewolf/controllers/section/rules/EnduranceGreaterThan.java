@@ -24,6 +24,6 @@ public class EnduranceGreaterThan extends BaseRule {
 
     @Override
     public String toString() {
-        return super.toString() + ": " + value;
+        return super.toString(value);
     }
 }

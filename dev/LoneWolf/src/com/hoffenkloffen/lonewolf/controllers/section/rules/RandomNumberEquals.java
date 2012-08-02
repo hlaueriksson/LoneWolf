@@ -40,8 +40,8 @@ public class RandomNumberEquals extends BaseRule implements RandomNumberRule {
 
     @Override
     public String toString() {
-        if(index == -1) return super.toString() + ": " + value;
+        if(index == -1) return super.toString(value);
 
-        return super.toString() + ": " + value + " (" + index + ")";
+        return super.toString(value + " (" + index + ")");
     }
 }

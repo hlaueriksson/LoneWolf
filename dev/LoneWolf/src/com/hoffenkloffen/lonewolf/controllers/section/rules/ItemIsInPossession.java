@@ -24,6 +24,6 @@ public class ItemIsInPossession extends BaseRule {
 
     @Override
     public String toString() {
-        return super.toString() + ": " + item;
+        return super.toString(item);
     }
 }

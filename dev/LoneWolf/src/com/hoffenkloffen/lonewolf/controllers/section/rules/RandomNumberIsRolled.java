@@ -33,6 +33,6 @@ public class RandomNumberIsRolled extends BaseRule implements RandomNumberRule {
     public String toString() {
         if(index == -1) return super.toString();
 
-        return super.toString() + " (" + index + ")";
+        return super.toString(index);
     }
 }

@@ -43,8 +43,8 @@ public class RandomNumberIsBetween extends BaseRule implements RandomNumberRule 
 
     @Override
     public String toString() {
-        if(index == -1) return super.toString() + ": " + min + "-" + max;
+        if(index == -1) return super.toString(min + "-" + max);
 
-        return super.toString() + ": " + min + "-" + max + " (" + index + ")";
+        return super.toString(min + "-" + max + " (" + index + ")");
     }
 }

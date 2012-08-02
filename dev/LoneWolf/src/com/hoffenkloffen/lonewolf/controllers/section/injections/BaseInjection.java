@@ -6,4 +6,8 @@ public abstract class BaseInjection implements JavascriptInjection {
     public String toString() {
         return getClass().getSimpleName();
     }
+
+    public String toString(Object value) {
+        return getClass().getSimpleName() + ": " + value.toString();
+    }
 }
