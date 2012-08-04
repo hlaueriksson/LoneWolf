@@ -3,6 +3,7 @@ package com.hoffenkloffen.lonewolf.book01;
 import android.os.Bundle;
 import android.util.Log;
 import com.hoffenkloffen.lonewolf.BaseActivity;
+import com.hoffenkloffen.lonewolf.controllers.ItemManager;
 import com.hoffenkloffen.lonewolf.controllers.combat.Combat;
 import com.hoffenkloffen.lonewolf.controllers.combat.modifiers.ModifyCombatSkill;
 import com.hoffenkloffen.lonewolf.controllers.combat.rules.AggregateCombatRule;
@@ -52,14 +53,7 @@ public class MainActivity extends BaseActivity {
         return "0.0.1";
     }
 
-    public class ItemManager {
-        public ItemManager add(Item item) {
-            return this;
-        }
-    }
-
-    protected void initItems() {
-        ItemManager manager = new ItemManager();
+    protected void initItems(ItemManager manager) {
 
         manager
                 .add(new SpecialItem("Map of Sommerlund", "A map of the northern part of Sommerlund."))

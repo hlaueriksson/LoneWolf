@@ -71,6 +71,29 @@ public class Inventory {
         return specialItems;
     }
 
+    public Item get(String item) {
+
+        for (Item i : weapons) {
+            if(i.getName().equals(item)) return i;
+        }
+
+        for (Item i : backpackItems) {
+            if(i.getName().equals(item)) return i;
+        }
+
+        for (Item i : specialItems) {
+            if(i.getName().equals(item)) return i;
+        }
+
+        return null;
+    }
+
+    public void remove(Item item) {
+        weapons.remove(item);
+        backpackItems.remove(item);
+        specialItems.remove(item);
+    }
+
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();

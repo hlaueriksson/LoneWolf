@@ -30,11 +30,13 @@ public abstract class BaseActivity extends Activity implements VersionManager {
         context.setPreferences(getPreferences());
         context.setCharacter(getCharacter());
         context.setSectionManager(new SectionManager());
+        context.setItemManager(new ItemManager());
         context.setRandomNumberManager(new RandomNumberManager());
         context.setCombatManager(new CombatManager());
         context.setActionChartManager(new ActionChartManager());
 
         initSections(context.getSectionManager());
+        initItems(context.getItemManager());
         context.getSectionManager().setCurrent(context.getSectionManager().get("1"));
 
         //Log.d(TAG, context.getSectionManager().toString());
@@ -58,6 +60,7 @@ public abstract class BaseActivity extends Activity implements VersionManager {
     }
 
     protected abstract void initSections(SectionManager manager);
+    protected abstract void initItems(ItemManager manager);
 
     public void play(View view) {
         Log.d(TAG, "Play");

@@ -27,6 +27,7 @@ public class ActionChartManager {
 
         LoneWolf character = context.getCharacter();
         Section section = context.getSectionManager().getCurrent();
+        //Collection<Item> items = context.getItemManager().get(section.getItems());
 
         String template = resourceHandler.getHtmlTemplate();
         String title = resourceHandler.getHtmlTitle();
@@ -47,11 +48,10 @@ public class ActionChartManager {
         LoneWolf character = context.getCharacter();
         Section section = context.getSectionManager().getCurrent();
 
-        for (Item i : section.getItems()) {
-            if(i.getName().equals(item)) {
-                character.add(i);
-                section.getItems().remove(i);
-            }
+        Item i = section.getItem(item);
+        if(i != null) {
+            character.add(i);
+            section.getItems().remove(i);
         }
 
         context.getLogger().debug("Take: " + item);
@@ -62,19 +62,9 @@ public class ActionChartManager {
         LoneWolf character = context.getCharacter();
         Section section = context.getSectionManager().getCurrent();
 
-        for (Item i : character.getInventory().getBackpackItems()) {
-            if(i.getName().equals(item)) {
-                character.getInventory().getBackpackItems().remove(i);
-                section.getItems().add(i);
-            }
-        }
-
-        for (Item i : character.getInventory().getSpecialItems()) {
-            if(i.getName().equals(item)) {
-                character.getInventory().getSpecialItems().remove(i);
-                section.getItems().add(i);
-            }
-        }
+        Item i = character.getInventory().get(item);
+        character.getInventory().remove(i);
+        section.getItems().add(i);
 
         context.getLogger().debug("Discard: " + item);
     }
@@ -83,19 +73,9 @@ public class ActionChartManager {
 
         LoneWolf character = context.getCharacter();
 
-        for (Item i : character.getInventory().getBackpackItems()) {
-            if(i.getName().equals(item)) {
-                character.use(i);
-                character.getInventory().getBackpackItems().remove(i);
-            }
-        }
-
-        for (Item i : character.getInventory().getSpecialItems()) {
-            if(i.getName().equals(item)) {
-                character.use(i);
-                character.getInventory().getSpecialItems().remove(i);
-            }
-        }
+        Item i = character.getInventory().get(item);
+        character.use(i);
+        character.getInventory().remove(i); // TODO: maybe?
 
         context.getLogger().debug("Use: " + item);
     }

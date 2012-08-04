@@ -107,6 +107,14 @@ public class Section {
         return items;
     }
 
+    public Item getItem(String item) {
+        for (Item i : items) {
+            if(i.getName().equals(item)) return i;
+        }
+
+        return null;
+    }
+
     public List<String> getChoices() {
         List<String> result = new ArrayList<String>();
 

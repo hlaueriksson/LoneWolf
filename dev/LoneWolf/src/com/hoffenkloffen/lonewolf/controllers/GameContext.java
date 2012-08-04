@@ -22,6 +22,7 @@ public class GameContext {
     private Preferences preferences;
     private LoneWolf character;
     private SectionManager sectionManager;
+    private ItemManager itemManager;
     private RandomNumberManager randomNumberManager;
     private CombatManager combatManager;
     private ActionChartManager actionChartManager;
@@ -56,6 +57,14 @@ public class GameContext {
 
     public void setSectionManager(SectionManager sectionManager) {
         this.sectionManager = sectionManager;
+    }
+
+    public ItemManager getItemManager() {
+        return itemManager;
+    }
+
+    public void setItemManager(ItemManager itemManager) {
+        this.itemManager = itemManager;
     }
 
     public RandomNumberManager getRandomNumberManager() {
