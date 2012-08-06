@@ -9,7 +9,7 @@ function init() {
 
     initBackpackItems();
     initSpecialItems();
-    initLoot();
+    initSectionItems();
 }
 function initWeapons() {
     var weapons = document.getElementById("weapons");
@@ -18,8 +18,13 @@ function initWeapons() {
         var weapon = inventory.weapons[i];
         var li = document.createElement("li");
         li.innerHTML = weapon.name;
-        li.onclick = function() { ActionChart.discard(this.innerHTML); };
         ul.appendChild(li);
+
+        var button = document.createElement("button");
+        button.innerHTML = "Discard";
+        button.title = weapon.name;
+        button.onclick = function() { ActionChart.discard(this.title); };
+        li.appendChild(button);
     }
 }
 function initBackpackItems() {
@@ -29,8 +34,19 @@ function initBackpackItems() {
         var item = inventory.backpackItems[i];
         var li = document.createElement("li");
         li.innerHTML = item.name;
-        li.onclick = function() { ActionChart.discard(this.innerHTML); };
         ul.appendChild(li);
+
+        var button = document.createElement("button");
+        button.innerHTML = "Use";
+        button.title = item.name;
+        button.onclick = function() { ActionChart.use(this.title); };
+        li.appendChild(button);
+
+        button = document.createElement("button");
+        button.innerHTML = "Discard";
+        button.title = item.name;
+        button.onclick = function() { ActionChart.discard(this.title); };
+        li.appendChild(button);
     }
 }
 function initSpecialItems() {
@@ -40,18 +56,34 @@ function initSpecialItems() {
         var item = inventory.specialItems[i];
         var li = document.createElement("li");
         li.innerHTML = item.name;
-        li.onclick = function() { ActionChart.discard(this.innerHTML); };
         ul.appendChild(li);
+
+        var button = document.createElement("button");
+        button.innerHTML = "Use";
+        button.title = item.name;
+        button.onclick = function() { ActionChart.use(this.title); };
+        li.appendChild(button);
+
+        button = document.createElement("button");
+        button.innerHTML = "Discard";
+        button.title = item.name;
+        button.onclick = function() { ActionChart.discard(this.title); };
+        li.appendChild(button);
     }
 }
-function initLoot() {
-    var loot = document.getElementById("loot");
+function initSectionItems() {
+    var loot = document.getElementById("section-items");
     var ul = loot.getElementsByTagName("ul")[0];
     for (i in items) {
         var item = items[i];
         var li = document.createElement("li");
         li.innerHTML = item.name;
-        li.onclick = function() { ActionChart.take(this.innerHTML); };
         ul.appendChild(li);
+
+        var button = document.createElement("button");
+        button.innerHTML = "Take";
+        button.title = item.name;
+        button.onclick = function() { ActionChart.take(this.title); };
+        li.appendChild(button);
     }
 }
