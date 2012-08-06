@@ -1,7 +1,7 @@
 package specs.support;
 
-import com.hoffenkloffen.lonewolf.controllers.section.SectionState;
-import com.hoffenkloffen.lonewolf.controllers.section.rules.BaseRule;
+import com.hoffenkloffen.lonewolf.core.abstractions.SectionState;
+import com.hoffenkloffen.lonewolf.core.section.rules.BaseRule;
 
 import java.util.Collection;
 

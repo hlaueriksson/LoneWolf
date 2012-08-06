@@ -1,8 +1,8 @@
 package specs.support.combat;
 
 
-import com.hoffenkloffen.lonewolf.controllers.combat.CombatState;
-import com.hoffenkloffen.lonewolf.controllers.combat.rules.BaseRule;
+import com.hoffenkloffen.lonewolf.core.abstractions.CombatState;
+import com.hoffenkloffen.lonewolf.core.combat.rules.BaseRule;
 
 import java.util.Collection;
 

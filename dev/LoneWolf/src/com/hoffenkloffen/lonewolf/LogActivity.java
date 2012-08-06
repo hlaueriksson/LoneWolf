@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.widget.TextView;
-import com.hoffenkloffen.lonewolf.controllers.GameContext;
+import com.hoffenkloffen.lonewolf.core.GameContext;
 
 public class LogActivity extends Activity {
 

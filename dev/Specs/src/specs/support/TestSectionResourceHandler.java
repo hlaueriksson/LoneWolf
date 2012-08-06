@@ -1,7 +1,7 @@
 package specs.support;
 
-import com.hoffenkloffen.lonewolf.controllers.SectionResourceHandler;
-import com.hoffenkloffen.lonewolf.models.Illustration;
+import com.hoffenkloffen.lonewolf.abstractions.SectionResourceHandler;
+import com.hoffenkloffen.lonewolf.core.section.Illustration;
 
 import java.io.IOException;
 

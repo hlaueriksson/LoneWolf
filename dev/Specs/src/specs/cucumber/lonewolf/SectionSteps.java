@@ -1,8 +1,8 @@
 package specs.cucumber.lonewolf;
 
-import com.hoffenkloffen.lonewolf.controllers.SectionResourceHandler;
-import com.hoffenkloffen.lonewolf.controllers.section.SectionManager;
-import com.hoffenkloffen.lonewolf.views.BrowserRenderer;
+import com.hoffenkloffen.lonewolf.abstractions.SectionResourceHandler;
+import com.hoffenkloffen.lonewolf.core.section.SectionManager;
+import com.hoffenkloffen.lonewolf.abstractions.BrowserRenderer;
 import cucumber.annotation.en.Given;
 import cucumber.annotation.en.Then;
 import cucumber.annotation.en.When;

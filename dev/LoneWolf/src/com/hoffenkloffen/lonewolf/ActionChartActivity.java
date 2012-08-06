@@ -3,10 +3,11 @@ package com.hoffenkloffen.lonewolf;
 import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebView;
-import com.hoffenkloffen.lonewolf.controllers.GameContext;
-import com.hoffenkloffen.lonewolf.controllers.events.ActionChartEventHandler;
-import com.hoffenkloffen.lonewolf.controllers.interfaces.ActionChartJavascriptInterface;
-import com.hoffenkloffen.lonewolf.controllers.interfaces.JavascriptInterface;
+import com.hoffenkloffen.lonewolf.context.DebugActionChartResourceHandler;
+import com.hoffenkloffen.lonewolf.core.GameContext;
+import com.hoffenkloffen.lonewolf.core.events.ActionChartEventHandler;
+import com.hoffenkloffen.lonewolf.core.interfaces.ActionChartJavascriptInterface;
+import com.hoffenkloffen.lonewolf.core.interfaces.JavascriptInterface;
 
 import java.util.ArrayList;
 import java.util.List;

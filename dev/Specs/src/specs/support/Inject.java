@@ -1,7 +1,7 @@
 package specs.support;
 
-import com.hoffenkloffen.lonewolf.controllers.section.SectionState;
-import com.hoffenkloffen.lonewolf.controllers.section.injections.JavascriptInjection;
+import com.hoffenkloffen.lonewolf.core.abstractions.SectionState;
+import com.hoffenkloffen.lonewolf.core.abstractions.JavascriptInjection;
 
 import java.util.Collection;
 

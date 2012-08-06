@@ -7,10 +7,13 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
 import android.view.View;
-import com.hoffenkloffen.lonewolf.controllers.*;
-import com.hoffenkloffen.lonewolf.controllers.section.SectionManager;
-import com.hoffenkloffen.lonewolf.models.LoneWolf;
-import com.hoffenkloffen.lonewolf.models.Preferences;
+import com.hoffenkloffen.lonewolf.abstractions.VersionManager;
+import com.hoffenkloffen.lonewolf.core.*;
+import com.hoffenkloffen.lonewolf.core.combat.CombatManager;
+import com.hoffenkloffen.lonewolf.core.random.RandomNumberManager;
+import com.hoffenkloffen.lonewolf.core.section.SectionManager;
+import com.hoffenkloffen.lonewolf.core.character.LoneWolf;
+import com.hoffenkloffen.lonewolf.core.common.Preferences;
 
 public abstract class BaseActivity extends Activity implements VersionManager {
 

@@ -1,6 +1,6 @@
 package specs.cucumber.lonewolf;
 
-import com.hoffenkloffen.lonewolf.controllers.section.Section;
+import com.hoffenkloffen.lonewolf.core.section.Section;
 import cucumber.annotation.en.Given;
 import cucumber.annotation.en.Then;
 

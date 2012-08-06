@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.util.Log;
 import android.webkit.*;
 import android.widget.Toast;
-import com.hoffenkloffen.lonewolf.controllers.interfaces.JavascriptInterface;
-import com.hoffenkloffen.lonewolf.views.BrowserRenderer;
+import com.hoffenkloffen.lonewolf.core.interfaces.JavascriptInterface;
+import com.hoffenkloffen.lonewolf.abstractions.BrowserRenderer;
 
 public abstract class BaseBrowserActivity extends Activity implements BrowserRenderer {
 
