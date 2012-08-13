@@ -16,17 +16,20 @@ import static org.mockito.Mockito.mock;
 public class Given_SectionManager extends BaseSpec {
     protected SectionManager manager;
 
-    protected SectionResourceHandler resourceHandler;
-    protected BrowserRenderer renderer;
-
     protected LoneWolf character;
     protected Preferences preferences;
     protected Logger logger;
 
+    protected SectionResourceHandler resourceHandler;
+    protected BrowserRenderer renderer;
+
     protected void given() {
+        character = new LoneWolf();
+        preferences = new Preferences();
+        logger = mock(Logger.class);
         resourceHandler = mock(SectionResourceHandler.class);
         renderer = mock(BrowserRenderer.class);
-        manager = new SectionManager();
+        manager = new SectionManager(character, preferences, logger);
         manager.set(resourceHandler);
         manager.set(renderer);
     }

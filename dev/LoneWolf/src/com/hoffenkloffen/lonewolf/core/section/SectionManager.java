@@ -16,15 +16,22 @@ import java.util.Hashtable;
 
 public class SectionManager implements ISectionManager {
 
+    private final LoneWolf character;
+    private final Preferences preferences;
+    private final Logger logger;
+
     private SectionResourceHandler resourceHandler;
     private BrowserRenderer renderer;
 
-    @Inject LoneWolf character;
-    @Inject Preferences preferences;
-    @Inject Logger logger;
-
     private Hashtable<String, Section> sections = new Hashtable<String, Section>();
     private Section current;
+
+    @Inject
+    public SectionManager(LoneWolf character, Preferences preferences, Logger logger) {
+        this.character = character;
+        this.preferences = preferences;
+        this.logger = logger;
+    }
 
     public ISectionManager set(SectionResourceHandler resourceHandler) {
         this.resourceHandler = resourceHandler;
