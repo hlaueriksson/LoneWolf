@@ -1,11 +1,12 @@
 package com.hoffenkloffen.lonewolf.core.section;
 
-import com.hoffenkloffen.lonewolf.core.GameContext;
+import com.hoffenkloffen.lonewolf.abstractions.Logger;
 import com.hoffenkloffen.lonewolf.abstractions.SectionResourceHandler;
-import com.hoffenkloffen.lonewolf.core.abstractions.SectionState;
-import com.hoffenkloffen.lonewolf.core.combat.Combat;
 import com.hoffenkloffen.lonewolf.core.abstractions.JavascriptInjection;
 import com.hoffenkloffen.lonewolf.core.abstractions.SectionRule;
+import com.hoffenkloffen.lonewolf.core.abstractions.SectionState;
+import com.hoffenkloffen.lonewolf.core.combat.Combat;
+import com.hoffenkloffen.lonewolf.core.common.Preferences;
 import com.hoffenkloffen.lonewolf.core.items.Item;
 import com.hoffenkloffen.lonewolf.util.StringUtil;
 
@@ -15,12 +16,12 @@ import java.util.regex.Pattern;
 
 public class Section {
 
-    private GameContext context;
+    private SectionResourceHandler resourceHandler;
+    private Preferences preferences;
+    private Logger logger;
 
     private String number;
     private boolean omitDefaultRules = false;
-
-    private SectionResourceHandler resourceHandler;
 
     private Map<String, SectionState> states = new Hashtable<String, SectionState>();
     private List<SectionRule> rules = new ArrayList<SectionRule>();
@@ -29,7 +30,6 @@ public class Section {
 
     public Section(String number) {
         setNumber(number);
-        context = GameContext.getInstance();
     }
 
     public Section(String number, boolean omitDefaultRules) {
@@ -51,6 +51,18 @@ public class Section {
 
     public Section set(SectionResourceHandler resourceHandler) {
         this.resourceHandler = resourceHandler;
+
+        return this;
+    }
+
+    public Section set(Preferences preferences) {
+        this.preferences = preferences;
+
+        return this;
+    }
+
+    public Section set(Logger logger) {
+        this.logger = logger;
 
         return this;
     }
@@ -158,7 +170,7 @@ public class Section {
         if (template == null) return null;
 
         // Base64 images
-        if (context.getPreferences().getIllustrations()) {
+        if (preferences.getIllustrations()) {
             for (Illustration illustration : getIllustrations()) {
                 String data = resourceHandler.getBase64Image(illustration);
                 content = content.replace(illustration.getFilename(), "data:image/png;base64," + data);
@@ -185,7 +197,7 @@ public class Section {
     }
 
     public void enter() {
-        context.getLogger().debug(toString());
+        logger.debug(toString());
     }
 
     public void exit() {

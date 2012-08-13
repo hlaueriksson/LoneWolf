@@ -6,18 +6,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
-import android.view.*;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.webkit.WebView;
 import android.widget.EditText;
+import com.google.inject.Inject;
 import com.hoffenkloffen.lonewolf.context.DebugSectionResourceHandler;
-import com.hoffenkloffen.lonewolf.core.GameContext;
+import com.hoffenkloffen.lonewolf.core.abstractions.ISectionManager;
+import com.hoffenkloffen.lonewolf.core.character.KaiDiscipline;
+import com.hoffenkloffen.lonewolf.core.character.LoneWolf;
+import com.hoffenkloffen.lonewolf.core.combat.CombatManager;
+import com.hoffenkloffen.lonewolf.core.common.Preferences;
 import com.hoffenkloffen.lonewolf.core.events.DebugEventHandler;
 import com.hoffenkloffen.lonewolf.core.events.SectionEventHandler;
 import com.hoffenkloffen.lonewolf.core.interfaces.JavascriptInterface;
 import com.hoffenkloffen.lonewolf.core.interfaces.SectionJavascriptInterface;
+import com.hoffenkloffen.lonewolf.core.random.RandomNumberManager;
 import com.hoffenkloffen.lonewolf.core.section.Section;
-import com.hoffenkloffen.lonewolf.core.character.KaiDiscipline;
-import com.hoffenkloffen.lonewolf.core.character.LoneWolf;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +32,11 @@ public class SectionActivity extends BaseBrowserActivity implements SectionEvent
 
     private static final String TAG = SectionActivity.class.getSimpleName();
 
-    // Controllers
-    protected GameContext context;
+    @Inject ISectionManager sectionManager;
+    @Inject RandomNumberManager randomNumberManager;
+    @Inject CombatManager combatManager;
+    @Inject LoneWolf character;
+    @Inject Preferences preferences;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,9 +54,9 @@ public class SectionActivity extends BaseBrowserActivity implements SectionEvent
     protected void init() {
         super.init();
 
-        context = GameContext.getInstance();
-        context.getSectionManager().setResourceHandler(new DebugSectionResourceHandler(this));
-        context.getSectionManager().setRenderer(this);
+        sectionManager
+                .set(new DebugSectionResourceHandler(this))
+                .set(this);
     }
 
     protected Iterable<JavascriptInterface> getJavascriptInterfaces() {
@@ -64,7 +73,7 @@ public class SectionActivity extends BaseBrowserActivity implements SectionEvent
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.section_meny, menu);
 
-        menu.setGroupVisible(R.id.menu_group_debug, context.getPreferences().getDebugMode());
+        menu.setGroupVisible(R.id.menu_group_debug, preferences.getDebugMode());
 
         return true;
     }
@@ -132,7 +141,7 @@ public class SectionActivity extends BaseBrowserActivity implements SectionEvent
     private void display() {
         Log.d(TAG, "Display");
 
-        context.getSectionManager().enter(context.getSectionManager().getCurrent().getNumber());
+        sectionManager.enter(sectionManager.getCurrent().getNumber());
     }
 
     //<editor-fold desc="SectionEventHandler">
@@ -143,7 +152,7 @@ public class SectionActivity extends BaseBrowserActivity implements SectionEvent
             public void run() {
                 Log.d(TAG, "Turn to section: " + section);
 
-                context.getSectionManager().enter(section);
+                sectionManager.enter(section);
             }
         });
     }
@@ -154,7 +163,7 @@ public class SectionActivity extends BaseBrowserActivity implements SectionEvent
             public void run() {
                 Log.d(TAG, "Roll a random number");
 
-                context.getRandomNumberManager().roll();
+                randomNumberManager.roll();
                 display();
             }
         });
@@ -166,7 +175,7 @@ public class SectionActivity extends BaseBrowserActivity implements SectionEvent
             public void run() {
                 Log.d(TAG, "Roll a random number: " + index);
 
-                context.getRandomNumberManager().roll(index);
+                randomNumberManager.roll(index);
                 display();
             }
         });
@@ -178,7 +187,7 @@ public class SectionActivity extends BaseBrowserActivity implements SectionEvent
             public void run() {
                 Log.d(TAG, "Fight enemy");
 
-                context.getCombatManager().fight();
+                combatManager.fight();
                 display();
             }
         });
@@ -190,7 +199,7 @@ public class SectionActivity extends BaseBrowserActivity implements SectionEvent
             public void run() {
                 Log.d(TAG, "Fight enemy: " + index);
 
-                context.getCombatManager().fight(index);
+                combatManager.fight(index);
                 display();
             }
         });
@@ -215,20 +224,20 @@ public class SectionActivity extends BaseBrowserActivity implements SectionEvent
     public void goToPrevious() {
         Log.d(TAG, "goToPrevious");
 
-        Section section = context.getSectionManager().getCurrent();
+        Section section = sectionManager.getCurrent();
         int number = Integer.parseInt(section.getNumber());
 
-        if (number > 1) context.getSectionManager().enter(Integer.toString(--number));
+        if (number > 1) sectionManager.enter(Integer.toString(--number));
     }
 
     @Override
     public void goToNext() {
         Log.d(TAG, "goToNext");
 
-        Section section = context.getSectionManager().getCurrent();
+        Section section = sectionManager.getCurrent();
         int number = Integer.parseInt(section.getNumber());
 
-        if (number < 350) context.getSectionManager().enter(Integer.toString(++number));
+        if (number < 350) sectionManager.enter(Integer.toString(++number));
     }
 
     @Override
@@ -239,32 +248,29 @@ public class SectionActivity extends BaseBrowserActivity implements SectionEvent
 
         if (number < 1 || number > 350) return;
 
-        context.getSectionManager().enter(section);
+        sectionManager.enter(section);
     }
 
     public void noobWolf() {
         Log.d(TAG, "noobWolf");
 
-        context.setCharacter(getNoobWolf());
+        initNoobWolf(character);
     }
 
     public void leetWolf() {
         Log.d(TAG, "leetWolf");
 
-        context.setCharacter(getLeetWolf());
+        initLeetWolf(character);
     }
 
-    private LoneWolf getNoobWolf() {
-        LoneWolf character = new LoneWolf();
+    private void initNoobWolf(LoneWolf character) {
         character.setCombatSkill(10);
         character.setEndurance(10);
+        // TODO: clear KaiDisciplines
         character.getInventory().getGoldCrowns().setQuantity(1);
-
-        return character;
     }
 
-    private LoneWolf getLeetWolf() {
-        LoneWolf character = new LoneWolf();
+    private void initLeetWolf(LoneWolf character) {
         character.setCombatSkill(40);
         character.setEndurance(40);
         character.add(KaiDiscipline.Camouflage);
@@ -278,8 +284,6 @@ public class SectionActivity extends BaseBrowserActivity implements SectionEvent
         character.add(KaiDiscipline.AnimalKinship);
         character.add(KaiDiscipline.MindOverMatter);
         character.getInventory().getGoldCrowns().setQuantity(40);
-
-        return character;
     }
 
     //</editor-fold>

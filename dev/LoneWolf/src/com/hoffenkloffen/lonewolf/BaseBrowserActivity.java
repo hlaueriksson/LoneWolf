@@ -1,13 +1,13 @@
 package com.hoffenkloffen.lonewolf;
 
-import android.app.Activity;
 import android.util.Log;
 import android.webkit.*;
 import android.widget.Toast;
-import com.hoffenkloffen.lonewolf.core.interfaces.JavascriptInterface;
 import com.hoffenkloffen.lonewolf.abstractions.BrowserRenderer;
+import com.hoffenkloffen.lonewolf.core.interfaces.JavascriptInterface;
+import roboguice.activity.RoboActivity;
 
-public abstract class BaseBrowserActivity extends Activity implements BrowserRenderer {
+public abstract class BaseBrowserActivity extends RoboActivity implements BrowserRenderer {
 
     private static final String TAG = BaseBrowserActivity.class.getSimpleName();
 

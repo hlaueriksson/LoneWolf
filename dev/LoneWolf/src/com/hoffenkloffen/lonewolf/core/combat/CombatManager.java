@@ -1,39 +1,40 @@
 package com.hoffenkloffen.lonewolf.core.combat;
 
-import com.hoffenkloffen.lonewolf.core.GameContext;
+import com.google.inject.Inject;
+import com.hoffenkloffen.lonewolf.abstractions.Logger;
+import com.hoffenkloffen.lonewolf.core.abstractions.ISectionManager;
+import com.hoffenkloffen.lonewolf.core.character.LoneWolf;
 import com.hoffenkloffen.lonewolf.core.section.Section;
 
 public class CombatManager {
 
     private static final String TAG = CombatManager.class.getSimpleName();
 
-    private GameContext context;
-
-    public CombatManager() {
-        context = GameContext.getInstance();
-    }
+    @Inject ISectionManager sectionManager;
+    @Inject LoneWolf character;
+    @Inject Logger logger;
 
     public void fight() {
 
-        Section section = context.getSectionManager().getCurrent();
+        Section section = sectionManager.getCurrent();
 
         Combat combat = section.getCombat();
-        combat.set(context.getCharacter());
+        combat.set(character);
 
         CombatResult result = combat.fight(0);
 
         // State
         section.add(result);
 
-        context.getLogger().debug("CombatResult: " + result.getOutcome());
+        logger.debug("CombatResult: " + result.getOutcome());
     }
 
     public void fight(String index) {
 
-        Section section = context.getSectionManager().getCurrent();
+        Section section = sectionManager.getCurrent();
 
         Combat combat = section.getCombat();
-        combat.set(context.getCharacter());
+        combat.set(character);
 
         CombatResult result = combat.fight(Integer.parseInt(index));
 
@@ -52,6 +53,6 @@ public class CombatManager {
 
         list.add(result);
 
-        context.getLogger().debug("CombatResult: " + result.getOutcome());
+        logger.debug("CombatResult: " + result.getOutcome());
     }
 }

@@ -22,8 +22,8 @@ public class SectionSteps {
         resourceHandler = mock(SectionResourceHandler.class);
         renderer = mock(BrowserRenderer.class);
         manager = new SectionManager();
-        manager.setResourceHandler(resourceHandler);
-        manager.setRenderer(renderer);
+        manager.set(resourceHandler);
+        manager.set(renderer);
     }
 
     // View a section

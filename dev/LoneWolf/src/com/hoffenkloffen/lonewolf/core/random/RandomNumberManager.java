@@ -1,22 +1,18 @@
 package com.hoffenkloffen.lonewolf.core.random;
 
-import com.hoffenkloffen.lonewolf.core.GameContext;
+import com.google.inject.Inject;
+import com.hoffenkloffen.lonewolf.core.abstractions.ISectionManager;
 import com.hoffenkloffen.lonewolf.core.section.Section;
 
 public class RandomNumberManager {
 
-    private GameContext context;
+    @Inject ISectionManager sectionManager;
 
-    private RandomNumberTable random;
-
-    public RandomNumberManager() {
-        context = GameContext.getInstance();
-        random = new RandomNumberTable();
-    }
+    private RandomNumberTable random = new RandomNumberTable();
 
     public void roll() {
 
-        Section section = context.getSectionManager().getCurrent();
+        Section section = sectionManager.getCurrent();
 
         RandomNumberResult result = random.getResult();
 
@@ -26,7 +22,7 @@ public class RandomNumberManager {
 
     public void roll(String index) {
 
-        Section section = context.getSectionManager().getCurrent();
+        Section section = sectionManager.getCurrent();
 
         RandomNumberResult result = random.getResult();
 

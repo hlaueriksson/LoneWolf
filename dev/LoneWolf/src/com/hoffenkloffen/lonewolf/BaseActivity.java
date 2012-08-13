@@ -1,72 +1,54 @@
 package com.hoffenkloffen.lonewolf;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
 import android.view.View;
+import com.google.inject.Inject;
 import com.hoffenkloffen.lonewolf.abstractions.VersionManager;
-import com.hoffenkloffen.lonewolf.core.*;
-import com.hoffenkloffen.lonewolf.core.combat.CombatManager;
-import com.hoffenkloffen.lonewolf.core.random.RandomNumberManager;
-import com.hoffenkloffen.lonewolf.core.section.SectionManager;
+import com.hoffenkloffen.lonewolf.core.ItemManager;
+import com.hoffenkloffen.lonewolf.core.abstractions.ISectionManager;
 import com.hoffenkloffen.lonewolf.core.character.LoneWolf;
 import com.hoffenkloffen.lonewolf.core.common.Preferences;
+import roboguice.activity.RoboActivity;
 
-public abstract class BaseActivity extends Activity implements VersionManager {
+public abstract class BaseActivity extends RoboActivity implements VersionManager {
 
     private static final String TAG = BaseActivity.class.getSimpleName();
 
     // Controllers
-    protected GameContext context;
+    @Inject ISectionManager sectionManager;
+    @Inject ItemManager itemManager;
+    @Inject LoneWolf character;
+    @Inject Preferences preferences;
 
     protected void init() {
 
-        if (isDebugMode()) Log.d(TAG, "Configuration: Debug");
-        else Log.d(TAG, "Configuration: Release");
+        initSections(sectionManager);
+        initItems(itemManager);
+        initCharacter(character);
+        initPreferences(preferences);
 
-        context = GameContext.getInstance();
-
-        context.setLogger(new Logger());
-        context.setPreferences(getPreferences());
-        context.setCharacter(getCharacter());
-        context.setSectionManager(new SectionManager());
-        context.setItemManager(new ItemManager());
-        context.setRandomNumberManager(new RandomNumberManager());
-        context.setCombatManager(new CombatManager());
-        context.setActionChartManager(new ActionChartManager());
-
-        initSections(context.getSectionManager());
-        initItems(context.getItemManager());
-        context.getSectionManager().setCurrent(context.getSectionManager().get("1"));
-
-        //Log.d(TAG, context.getSectionManager().toString());
+        sectionManager.setCurrent(sectionManager.get("1"));
     }
 
-    protected Preferences getPreferences() {
-        Preferences preferences = new Preferences();
+    protected void initPreferences(Preferences preferences) {
         preferences.setDebugMode(isDebugMode());
         preferences.setIllustrations(true);
-
-        return preferences;
     }
 
-    protected LoneWolf getCharacter() {
-        LoneWolf character = new LoneWolf();
+    protected void initCharacter(LoneWolf character) {
         character.setCombatSkill(20);
         character.setEndurance(20);
         character.getInventory().getGoldCrowns().setQuantity(20);
-
-        return character;
     }
 
-    protected abstract void initSections(SectionManager manager);
+    protected abstract void initSections(ISectionManager manager);
     protected abstract void initItems(ItemManager manager);
 
     public void play(View view) {
-        Log.d(TAG, "Play");
 
         startActivity(new Intent(getBaseContext(), SectionActivity.class));
     }

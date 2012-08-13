@@ -1,10 +1,11 @@
-package com.hoffenkloffen.lonewolf.core;
+package com.hoffenkloffen.lonewolf.context;
 
 import android.util.Log;
+import com.hoffenkloffen.lonewolf.abstractions.Logger;
 
-public class Logger {
+public class DebugLogger implements Logger {
 
-    private static final String TAG = Logger.class.getSimpleName();
+    private static final String TAG = DebugLogger.class.getSimpleName();
 
     private StringBuilder text = new StringBuilder();
     private static final String newLine = "\n";

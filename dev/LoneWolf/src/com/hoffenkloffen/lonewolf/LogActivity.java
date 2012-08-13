@@ -1,18 +1,18 @@
 package com.hoffenkloffen.lonewolf;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.widget.TextView;
-import com.hoffenkloffen.lonewolf.core.GameContext;
+import com.google.inject.Inject;
+import com.hoffenkloffen.lonewolf.abstractions.Logger;
+import roboguice.activity.RoboActivity;
 
-public class LogActivity extends Activity {
+public class LogActivity extends RoboActivity {
 
     private static final String TAG = LogActivity.class.getSimpleName();
 
-    // Controllers
-    private GameContext context;
+    @Inject Logger logger;
 
     // View
     private TextView log;
@@ -30,8 +30,6 @@ public class LogActivity extends Activity {
     }
 
     private void init() {
-        context = GameContext.getInstance();
-
         log.setMovementMethod(new ScrollingMovementMethod());
     }
 
@@ -39,6 +37,6 @@ public class LogActivity extends Activity {
         Log.d(TAG, "Display");
 
         // Html.fromHtml()
-        log.append(context.getLogger().getText());
+        log.append(logger.getText());
     }
 }

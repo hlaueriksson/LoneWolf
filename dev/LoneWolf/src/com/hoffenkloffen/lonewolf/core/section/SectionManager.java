@@ -1,34 +1,41 @@
 package com.hoffenkloffen.lonewolf.core.section;
 
-import com.hoffenkloffen.lonewolf.core.GameContext;
+import com.google.inject.Inject;
+import com.hoffenkloffen.lonewolf.abstractions.BrowserRenderer;
+import com.hoffenkloffen.lonewolf.abstractions.Logger;
 import com.hoffenkloffen.lonewolf.abstractions.SectionResourceHandler;
+import com.hoffenkloffen.lonewolf.core.abstractions.ISectionManager;
 import com.hoffenkloffen.lonewolf.core.abstractions.RandomNumberRule;
 import com.hoffenkloffen.lonewolf.core.abstractions.SectionRule;
+import com.hoffenkloffen.lonewolf.core.character.LoneWolf;
+import com.hoffenkloffen.lonewolf.core.common.Preferences;
 import com.hoffenkloffen.lonewolf.core.section.injections.*;
 import com.hoffenkloffen.lonewolf.core.section.rules.*;
-import com.hoffenkloffen.lonewolf.abstractions.BrowserRenderer;
 
 import java.util.Hashtable;
 
-public class SectionManager {
+public class SectionManager implements ISectionManager {
 
-    private GameContext context;
     private SectionResourceHandler resourceHandler;
     private BrowserRenderer renderer;
+
+    @Inject LoneWolf character;
+    @Inject Preferences preferences;
+    @Inject Logger logger;
 
     private Hashtable<String, Section> sections = new Hashtable<String, Section>();
     private Section current;
 
-    public SectionManager() {
-        context = GameContext.getInstance();
-    }
-
-    public void setResourceHandler(SectionResourceHandler resourceHandler) {
+    public ISectionManager set(SectionResourceHandler resourceHandler) {
         this.resourceHandler = resourceHandler;
+
+        return this;
     }
 
-    public void setRenderer(BrowserRenderer renderer) {
+    public ISectionManager set(BrowserRenderer renderer) {
         this.renderer = renderer;
+
+        return this;
     }
 
     public void add(Section section) {
@@ -59,10 +66,14 @@ public class SectionManager {
         Section section = get(number);
         setCurrent(section);
 
-        section.set(resourceHandler); // TODO: should be injected
+        // Init
+        section
+                .set(resourceHandler)
+                .set(preferences)
+                .set(logger);
 
         // State
-        section.add(context.getCharacter());
+        section.add(character);
 
         // On enter commands
         section.enter();

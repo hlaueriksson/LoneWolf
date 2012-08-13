@@ -1,6 +1,12 @@
 package com.hoffenkloffen.lonewolf.core;
 
+import com.google.inject.Inject;
 import com.hoffenkloffen.lonewolf.abstractions.ActionChartResourceHandler;
+import com.hoffenkloffen.lonewolf.abstractions.Logger;
+import com.hoffenkloffen.lonewolf.core.abstractions.ISectionManager;
+import com.hoffenkloffen.lonewolf.core.items.GoldCrowns;
+import com.hoffenkloffen.lonewolf.core.items.SpecialItem;
+import com.hoffenkloffen.lonewolf.core.items.Weapon;
 import com.hoffenkloffen.lonewolf.core.section.Section;
 import com.hoffenkloffen.lonewolf.core.character.LoneWolf;
 import com.hoffenkloffen.lonewolf.core.items.Item;
@@ -8,26 +14,28 @@ import com.hoffenkloffen.lonewolf.abstractions.BrowserRenderer;
 
 public class ActionChartManager {
 
-    private GameContext context;
     private ActionChartResourceHandler resourceHandler;
     private BrowserRenderer renderer;
 
-    public ActionChartManager() {
-        context = GameContext.getInstance(); // TODO: OK?
-    }
+    @Inject ISectionManager sectionManager;
+    @Inject LoneWolf character;
+    @Inject Logger logger;
 
-    public void setResourceHandler(ActionChartResourceHandler resourceHandler) {
+    public ActionChartManager set(ActionChartResourceHandler resourceHandler) {
         this.resourceHandler = resourceHandler;
+
+        return this;
     }
 
-    public void setRenderer(BrowserRenderer renderer) {
+    public ActionChartManager set(BrowserRenderer renderer) {
         this.renderer = renderer;
+
+        return this;
     }
 
     public void display() {
 
-        LoneWolf character = context.getCharacter();
-        Section section = context.getSectionManager().getCurrent();
+        Section section = sectionManager.getCurrent();
         //Collection<Item> items = context.getItemManager().get(section.getItems());
 
         String template = resourceHandler.getHtmlTemplate();
@@ -46,38 +54,37 @@ public class ActionChartManager {
 
     public void take(String item) {
 
-        LoneWolf character = context.getCharacter();
-        Section section = context.getSectionManager().getCurrent();
+        Section section = sectionManager.getCurrent();
 
         Item i = section.getItem(item);
         if(i != null) {
-            character.add(i);
+            if (i instanceof Weapon) character.add((Weapon) i);
+            else if (i instanceof GoldCrowns) character.add((GoldCrowns) i);
+            else if (i instanceof SpecialItem) character.add((SpecialItem) i);
+            else character.add(i);
             section.getItems().remove(i);
         }
 
-        context.getLogger().debug("Take: " + item);
+        logger.debug("Take: " + item);
     }
 
     public void discard(String item) {
 
-        LoneWolf character = context.getCharacter();
-        Section section = context.getSectionManager().getCurrent();
+        Section section = sectionManager.getCurrent();
 
         Item i = character.getInventory().get(item);
         character.getInventory().remove(i);
         section.getItems().add(i);
 
-        context.getLogger().debug("Discard: " + item);
+        logger.debug("Discard: " + item);
     }
 
     public void use(String item) {
-
-        LoneWolf character = context.getCharacter();
 
         Item i = character.getInventory().get(item);
         character.use(i);
         character.getInventory().remove(i); // TODO: maybe?
 
-        context.getLogger().debug("Use: " + item);
+        logger.debug("Use: " + item);
     }
 }

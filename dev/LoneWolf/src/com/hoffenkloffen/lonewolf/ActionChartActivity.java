@@ -3,8 +3,9 @@ package com.hoffenkloffen.lonewolf;
 import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebView;
+import com.google.inject.Inject;
 import com.hoffenkloffen.lonewolf.context.DebugActionChartResourceHandler;
-import com.hoffenkloffen.lonewolf.core.GameContext;
+import com.hoffenkloffen.lonewolf.core.ActionChartManager;
 import com.hoffenkloffen.lonewolf.core.events.ActionChartEventHandler;
 import com.hoffenkloffen.lonewolf.core.interfaces.ActionChartJavascriptInterface;
 import com.hoffenkloffen.lonewolf.core.interfaces.JavascriptInterface;
@@ -16,8 +17,7 @@ public class ActionChartActivity extends BaseBrowserActivity implements ActionCh
 
     private static final String TAG = ActionChartActivity.class.getSimpleName();
 
-    // Controllers
-    private GameContext context;
+    @Inject ActionChartManager actionChartManager;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,9 +35,9 @@ public class ActionChartActivity extends BaseBrowserActivity implements ActionCh
     protected void init() {
         super.init();
 
-        context = GameContext.getInstance();
-        context.getActionChartManager().setResourceHandler(new DebugActionChartResourceHandler(this));
-        context.getActionChartManager().setRenderer(this);
+        actionChartManager
+                .set(new DebugActionChartResourceHandler(this))
+                .set(this);
     }
 
     protected Iterable<JavascriptInterface> getJavascriptInterfaces() {
@@ -51,7 +51,7 @@ public class ActionChartActivity extends BaseBrowserActivity implements ActionCh
 
         Log.d(TAG, "Display");
 
-        context.getActionChartManager().display();
+        actionChartManager.display();
     }
 
     //<editor-fold desc="ActionChartEventHandler">
@@ -62,7 +62,7 @@ public class ActionChartActivity extends BaseBrowserActivity implements ActionCh
             public void run() {
                 Log.d(TAG, "Take item: " + name);
 
-                context.getActionChartManager().take(name);
+                actionChartManager.take(name);
                 display();
             }
         });
@@ -74,7 +74,7 @@ public class ActionChartActivity extends BaseBrowserActivity implements ActionCh
             public void run() {
                 Log.d(TAG, "Discard item: " + name);
 
-                context.getActionChartManager().discard(name);
+                actionChartManager.discard(name);
                 display();
             }
         });
@@ -87,7 +87,7 @@ public class ActionChartActivity extends BaseBrowserActivity implements ActionCh
             public void run() {
                 Log.d(TAG, "Use item: " + name);
 
-                context.getActionChartManager().use(name);
+                actionChartManager.use(name);
                 display();
             }
         });

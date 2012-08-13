@@ -4,39 +4,37 @@ import android.os.Bundle;
 import android.util.Log;
 import com.hoffenkloffen.lonewolf.BaseActivity;
 import com.hoffenkloffen.lonewolf.core.ItemManager;
+import com.hoffenkloffen.lonewolf.core.abstractions.ISectionManager;
+import com.hoffenkloffen.lonewolf.core.character.KaiDiscipline;
+import com.hoffenkloffen.lonewolf.core.character.states.AletherPotionDrunken;
 import com.hoffenkloffen.lonewolf.core.combat.Combat;
+import com.hoffenkloffen.lonewolf.core.combat.Enemy;
+import com.hoffenkloffen.lonewolf.core.combat.Immunity;
 import com.hoffenkloffen.lonewolf.core.combat.modifiers.ModifyCombatSkill;
 import com.hoffenkloffen.lonewolf.core.combat.rules.AggregateCombatRule;
 import com.hoffenkloffen.lonewolf.core.combat.rules.FromRound;
 import com.hoffenkloffen.lonewolf.core.combat.rules.OnRound;
+import com.hoffenkloffen.lonewolf.core.items.*;
+import com.hoffenkloffen.lonewolf.core.items.modifiers.ModifyEndurance;
+import com.hoffenkloffen.lonewolf.core.items.modifiers.ModifyState;
 import com.hoffenkloffen.lonewolf.core.section.Section;
-import com.hoffenkloffen.lonewolf.core.section.SectionManager;
 import com.hoffenkloffen.lonewolf.core.section.injections.Aggregate;
 import com.hoffenkloffen.lonewolf.core.section.injections.DisableChoice;
 import com.hoffenkloffen.lonewolf.core.section.injections.DisableRandomNumber;
 import com.hoffenkloffen.lonewolf.core.section.injections.DisplayRandomNumber;
 import com.hoffenkloffen.lonewolf.core.section.rules.*;
-import com.hoffenkloffen.lonewolf.core.character.KaiDiscipline;
-import com.hoffenkloffen.lonewolf.core.character.states.AletherPotionDrunken;
-import com.hoffenkloffen.lonewolf.core.combat.Enemy;
-import com.hoffenkloffen.lonewolf.core.combat.Immunity;
-import com.hoffenkloffen.lonewolf.core.items.*;
-import com.hoffenkloffen.lonewolf.core.items.modifiers.ModifyEndurance;
-import com.hoffenkloffen.lonewolf.core.items.modifiers.ModifyState;
+import roboguice.inject.ContentView;
 
 import static com.hoffenkloffen.lonewolf.core.combat.rules.BaseRule.combatWithout;
 
+@ContentView(R.layout.main)
 public class MainActivity extends BaseActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    /**
-     * Called when the activity is first created.
-     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
 
         init();
 
@@ -85,7 +83,7 @@ public class MainActivity extends BaseActivity {
                 .add(new SpecialItem("Crystal Star", "The Crystal Star you received from Banedon; this is a proof that you are friend with the Brotherhood of the Crystal Star, the Magicians' Guild of Toran."));
     }
 
-    protected void initSections(SectionManager manager) {
+    protected void initSections(ISectionManager manager) {
         Log.d(TAG, "initSections");
 
         manager.add(new Section("1").when(new KaiDisciplineIsNotAcquired(KaiDiscipline.SixthSense).then(new DisableChoice("141"))));
