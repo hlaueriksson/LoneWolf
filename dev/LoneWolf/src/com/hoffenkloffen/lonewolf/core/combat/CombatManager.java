@@ -2,13 +2,12 @@ package com.hoffenkloffen.lonewolf.core.combat;
 
 import com.google.inject.Inject;
 import com.hoffenkloffen.lonewolf.abstractions.Logger;
+import com.hoffenkloffen.lonewolf.core.abstractions.ICombatManager;
 import com.hoffenkloffen.lonewolf.core.abstractions.ISectionManager;
 import com.hoffenkloffen.lonewolf.core.character.LoneWolf;
 import com.hoffenkloffen.lonewolf.core.section.Section;
 
-public class CombatManager {
-
-    private static final String TAG = CombatManager.class.getSimpleName();
+public class CombatManager implements ICombatManager {
 
     @Inject ISectionManager sectionManager;
     @Inject LoneWolf character;

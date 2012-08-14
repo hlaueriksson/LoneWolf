@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.View;
 import com.google.inject.Inject;
 import com.hoffenkloffen.lonewolf.abstractions.VersionManager;
-import com.hoffenkloffen.lonewolf.core.ItemManager;
+import com.hoffenkloffen.lonewolf.core.abstractions.IItemManager;
 import com.hoffenkloffen.lonewolf.core.abstractions.ISectionManager;
 import com.hoffenkloffen.lonewolf.core.character.LoneWolf;
 import com.hoffenkloffen.lonewolf.core.common.Preferences;
@@ -20,7 +20,7 @@ public abstract class BaseActivity extends RoboActivity implements VersionManage
 
     // Controllers
     @Inject ISectionManager sectionManager;
-    @Inject ItemManager itemManager;
+    @Inject IItemManager itemManager;
     @Inject LoneWolf character;
     @Inject Preferences preferences;
 
@@ -46,7 +46,7 @@ public abstract class BaseActivity extends RoboActivity implements VersionManage
     }
 
     protected abstract void initSections(ISectionManager manager);
-    protected abstract void initItems(ItemManager manager);
+    protected abstract void initItems(IItemManager manager);
 
     public void play(View view) {
 

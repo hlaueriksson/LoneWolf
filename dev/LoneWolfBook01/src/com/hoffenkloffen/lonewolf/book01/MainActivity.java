@@ -3,7 +3,7 @@ package com.hoffenkloffen.lonewolf.book01;
 import android.os.Bundle;
 import android.util.Log;
 import com.hoffenkloffen.lonewolf.BaseActivity;
-import com.hoffenkloffen.lonewolf.core.ItemManager;
+import com.hoffenkloffen.lonewolf.core.abstractions.IItemManager;
 import com.hoffenkloffen.lonewolf.core.abstractions.ISectionManager;
 import com.hoffenkloffen.lonewolf.core.character.KaiDiscipline;
 import com.hoffenkloffen.lonewolf.core.character.states.AletherPotionDrunken;
@@ -51,7 +51,7 @@ public class MainActivity extends BaseActivity {
         return "0.0.1";
     }
 
-    protected void initItems(ItemManager manager) {
+    protected void initItems(IItemManager manager) {
 
         manager
                 .add(new SpecialItem("Map of Sommerlund", "A map of the northern part of Sommerlund."))

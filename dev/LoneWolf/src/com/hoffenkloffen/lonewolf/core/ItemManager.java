@@ -1,16 +1,17 @@
 package com.hoffenkloffen.lonewolf.core;
 
+import com.hoffenkloffen.lonewolf.core.abstractions.IItemManager;
 import com.hoffenkloffen.lonewolf.core.items.Item;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Hashtable;
 
-public class ItemManager {
+public class ItemManager implements IItemManager {
 
     private Hashtable<String, Item> items = new Hashtable<String, Item>();
 
-    public ItemManager add(Item item) {
+    public IItemManager add(Item item) {
         items.put(item.getName(), item);
 
         return this;

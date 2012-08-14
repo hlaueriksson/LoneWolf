@@ -13,16 +13,16 @@ import android.webkit.WebView;
 import android.widget.EditText;
 import com.google.inject.Inject;
 import com.hoffenkloffen.lonewolf.context.DebugSectionResourceHandler;
+import com.hoffenkloffen.lonewolf.core.abstractions.ICombatManager;
+import com.hoffenkloffen.lonewolf.core.abstractions.IRandomNumberManager;
 import com.hoffenkloffen.lonewolf.core.abstractions.ISectionManager;
 import com.hoffenkloffen.lonewolf.core.character.KaiDiscipline;
 import com.hoffenkloffen.lonewolf.core.character.LoneWolf;
-import com.hoffenkloffen.lonewolf.core.combat.CombatManager;
 import com.hoffenkloffen.lonewolf.core.common.Preferences;
 import com.hoffenkloffen.lonewolf.core.events.DebugEventHandler;
 import com.hoffenkloffen.lonewolf.core.events.SectionEventHandler;
 import com.hoffenkloffen.lonewolf.core.interfaces.JavascriptInterface;
 import com.hoffenkloffen.lonewolf.core.interfaces.SectionJavascriptInterface;
-import com.hoffenkloffen.lonewolf.core.random.RandomNumberManager;
 import com.hoffenkloffen.lonewolf.core.section.Section;
 
 import java.util.ArrayList;
@@ -33,8 +33,8 @@ public class SectionActivity extends BaseBrowserActivity implements SectionEvent
     private static final String TAG = SectionActivity.class.getSimpleName();
 
     @Inject ISectionManager sectionManager;
-    @Inject RandomNumberManager randomNumberManager;
-    @Inject CombatManager combatManager;
+    @Inject IRandomNumberManager randomNumberManager;
+    @Inject ICombatManager combatManager;
     @Inject LoneWolf character;
     @Inject Preferences preferences;
 

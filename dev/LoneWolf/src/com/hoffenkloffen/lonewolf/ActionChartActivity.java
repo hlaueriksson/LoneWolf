@@ -5,7 +5,7 @@ import android.util.Log;
 import android.webkit.WebView;
 import com.google.inject.Inject;
 import com.hoffenkloffen.lonewolf.context.DebugActionChartResourceHandler;
-import com.hoffenkloffen.lonewolf.core.ActionChartManager;
+import com.hoffenkloffen.lonewolf.core.abstractions.IActionChartManager;
 import com.hoffenkloffen.lonewolf.core.events.ActionChartEventHandler;
 import com.hoffenkloffen.lonewolf.core.interfaces.ActionChartJavascriptInterface;
 import com.hoffenkloffen.lonewolf.core.interfaces.JavascriptInterface;
@@ -17,7 +17,7 @@ public class ActionChartActivity extends BaseBrowserActivity implements ActionCh
 
     private static final String TAG = ActionChartActivity.class.getSimpleName();
 
-    @Inject ActionChartManager actionChartManager;
+    @Inject IActionChartManager actionChartManager;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -3,6 +3,7 @@ package com.hoffenkloffen.lonewolf.core;
 import com.google.inject.Inject;
 import com.hoffenkloffen.lonewolf.abstractions.ActionChartResourceHandler;
 import com.hoffenkloffen.lonewolf.abstractions.Logger;
+import com.hoffenkloffen.lonewolf.core.abstractions.IActionChartManager;
 import com.hoffenkloffen.lonewolf.core.abstractions.ISectionManager;
 import com.hoffenkloffen.lonewolf.core.items.GoldCrowns;
 import com.hoffenkloffen.lonewolf.core.items.SpecialItem;
@@ -12,7 +13,7 @@ import com.hoffenkloffen.lonewolf.core.character.LoneWolf;
 import com.hoffenkloffen.lonewolf.core.items.Item;
 import com.hoffenkloffen.lonewolf.abstractions.BrowserRenderer;
 
-public class ActionChartManager {
+public class ActionChartManager implements IActionChartManager {
 
     private ActionChartResourceHandler resourceHandler;
     private BrowserRenderer renderer;
@@ -21,13 +22,13 @@ public class ActionChartManager {
     @Inject LoneWolf character;
     @Inject Logger logger;
 
-    public ActionChartManager set(ActionChartResourceHandler resourceHandler) {
+    public IActionChartManager set(ActionChartResourceHandler resourceHandler) {
         this.resourceHandler = resourceHandler;
 
         return this;
     }
 
-    public ActionChartManager set(BrowserRenderer renderer) {
+    public IActionChartManager set(BrowserRenderer renderer) {
         this.renderer = renderer;
 
         return this;

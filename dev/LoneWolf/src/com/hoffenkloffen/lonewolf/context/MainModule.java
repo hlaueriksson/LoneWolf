@@ -4,7 +4,7 @@ import com.google.inject.AbstractModule;
 import com.hoffenkloffen.lonewolf.abstractions.Logger;
 import com.hoffenkloffen.lonewolf.core.ActionChartManager;
 import com.hoffenkloffen.lonewolf.core.ItemManager;
-import com.hoffenkloffen.lonewolf.core.abstractions.ISectionManager;
+import com.hoffenkloffen.lonewolf.core.abstractions.*;
 import com.hoffenkloffen.lonewolf.core.character.LoneWolf;
 import com.hoffenkloffen.lonewolf.core.combat.CombatManager;
 import com.hoffenkloffen.lonewolf.core.common.Preferences;
@@ -18,10 +18,10 @@ public class MainModule extends AbstractModule {
 
         // Managers
         bind(ISectionManager.class).to(SectionManager.class).asEagerSingleton();
-        bind(ItemManager.class).asEagerSingleton(); // TODO: interface
-        bind(RandomNumberManager.class).asEagerSingleton();
-        bind(CombatManager.class).asEagerSingleton();
-        bind(ActionChartManager.class).asEagerSingleton();
+        bind(IItemManager.class).to(ItemManager.class).asEagerSingleton();
+        bind(IRandomNumberManager.class).to(RandomNumberManager.class).asEagerSingleton();
+        bind(ICombatManager.class).to(CombatManager.class).asEagerSingleton();
+        bind(IActionChartManager.class).to(ActionChartManager.class).asEagerSingleton();
 
         bind(LoneWolf.class).asEagerSingleton();
 

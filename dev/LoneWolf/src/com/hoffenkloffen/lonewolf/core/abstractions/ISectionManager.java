@@ -4,7 +4,7 @@ import com.hoffenkloffen.lonewolf.abstractions.BrowserRenderer;
 import com.hoffenkloffen.lonewolf.abstractions.SectionResourceHandler;
 import com.hoffenkloffen.lonewolf.core.section.Section;
 
-public interface ISectionManager { // TODO: rename?
+public interface ISectionManager {
 
     ISectionManager set(SectionResourceHandler resourceHandler);
 
