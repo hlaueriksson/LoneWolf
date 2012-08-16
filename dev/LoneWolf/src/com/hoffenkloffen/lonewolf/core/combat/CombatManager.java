@@ -59,6 +59,6 @@ public class CombatManager implements ICombatManager {
 
         list.add(result);
 
-        logger.debug("Fight: " + result);
+        logger.debug("Fight " + index + ": " + result);
     }
 }

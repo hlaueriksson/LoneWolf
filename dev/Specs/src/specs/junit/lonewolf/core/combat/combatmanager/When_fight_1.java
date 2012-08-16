@@ -21,7 +21,7 @@ public class When_fight_1 extends Given_CombatManager {
     }
 
     @Test
-    public void then_the_section_state_should_contain_a_CombatResultList_with_one_value() {
+    public void then_the_section_state_should_contain_a_CombatResultList_with_two_values() {
         CombatResultList state = sectionManager.getCurrent().getState(CombatResultList.class);
         assertNotNull(state);
         assertNotNull(state.get(1));
