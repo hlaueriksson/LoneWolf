@@ -27,8 +27,10 @@ public class Given_SectionManager extends BaseSpec {
         character = new LoneWolf();
         preferences = new Preferences();
         logger = mock(Logger.class);
+
         resourceHandler = mock(SectionResourceHandler.class);
         renderer = mock(BrowserRenderer.class);
+
         manager = new SectionManager(character, preferences, logger);
         manager.set(resourceHandler);
         manager.set(renderer);

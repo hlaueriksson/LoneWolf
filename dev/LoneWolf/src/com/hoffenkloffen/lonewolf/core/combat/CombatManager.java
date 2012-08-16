@@ -9,9 +9,16 @@ import com.hoffenkloffen.lonewolf.core.section.Section;
 
 public class CombatManager implements ICombatManager {
 
-    @Inject ISectionManager sectionManager;
-    @Inject LoneWolf character;
-    @Inject Logger logger;
+    private final ISectionManager sectionManager;
+    private final LoneWolf character;
+    private final Logger logger;
+
+    @Inject
+    public CombatManager(ISectionManager sectionManager, LoneWolf character, Logger logger) {
+        this.sectionManager = sectionManager;
+        this.character = character;
+        this.logger = logger;
+    }
 
     public void fight() {
 
@@ -25,7 +32,7 @@ public class CombatManager implements ICombatManager {
         // State
         section.add(result);
 
-        logger.debug("CombatResult: " + result.getOutcome());
+        logger.debug("Fight: " + result);
     }
 
     public void fight(String index) {
@@ -47,11 +54,11 @@ public class CombatManager implements ICombatManager {
         }
         else
         {
-            list = (CombatResultList) section.getState(CombatResultList.class.getSimpleName());
+            list = section.getState(CombatResultList.class);
         }
 
         list.add(result);
 
-        logger.debug("CombatResult: " + result.getOutcome());
+        logger.debug("Fight: " + result);
     }
 }

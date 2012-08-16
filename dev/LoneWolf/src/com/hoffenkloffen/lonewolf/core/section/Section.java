@@ -78,7 +78,7 @@ public class Section {
     }
 
     public Section add(SectionState state) {
-        states.put(state.getClass().getSimpleName(), state);
+        states.put(getSectionStateKey(state), state);
 
         return this;
     }
@@ -87,8 +87,16 @@ public class Section {
         return states.values();
     }
 
-    public SectionState getState(String key) {
-        return states.get(key);
+    public <T extends SectionState> T getState(Class<T> type) {
+        return (T) states.get(getSectionStateKey(type));
+    }
+
+    private String getSectionStateKey(SectionState state) {
+        return getSectionStateKey(state.getClass());
+    }
+
+    private String getSectionStateKey(Class<? extends SectionState> type) {
+        return type.getSimpleName();
     }
 
     public Section set(Combat combat) {
@@ -113,6 +121,10 @@ public class Section {
         }
 
         return this;
+    }
+
+    public void remove(Item item) {
+        items.remove(item);
     }
 
     public Collection<Item> getItems() {

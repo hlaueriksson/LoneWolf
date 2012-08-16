@@ -2,25 +2,29 @@ package com.hoffenkloffen.lonewolf.core;
 
 import com.google.inject.Inject;
 import com.hoffenkloffen.lonewolf.abstractions.ActionChartResourceHandler;
+import com.hoffenkloffen.lonewolf.abstractions.BrowserRenderer;
 import com.hoffenkloffen.lonewolf.abstractions.Logger;
 import com.hoffenkloffen.lonewolf.core.abstractions.IActionChartManager;
 import com.hoffenkloffen.lonewolf.core.abstractions.ISectionManager;
-import com.hoffenkloffen.lonewolf.core.items.GoldCrowns;
-import com.hoffenkloffen.lonewolf.core.items.SpecialItem;
-import com.hoffenkloffen.lonewolf.core.items.Weapon;
-import com.hoffenkloffen.lonewolf.core.section.Section;
 import com.hoffenkloffen.lonewolf.core.character.LoneWolf;
 import com.hoffenkloffen.lonewolf.core.items.Item;
-import com.hoffenkloffen.lonewolf.abstractions.BrowserRenderer;
+import com.hoffenkloffen.lonewolf.core.section.Section;
 
 public class ActionChartManager implements IActionChartManager {
+
+    private final ISectionManager sectionManager;
+    private final LoneWolf character;
+    private final Logger logger;
 
     private ActionChartResourceHandler resourceHandler;
     private BrowserRenderer renderer;
 
-    @Inject ISectionManager sectionManager;
-    @Inject LoneWolf character;
-    @Inject Logger logger;
+    @Inject
+    public ActionChartManager(ISectionManager sectionManager, LoneWolf character, Logger logger) {
+        this.sectionManager = sectionManager;
+        this.character = character;
+        this.logger = logger;
+    }
 
     public IActionChartManager set(ActionChartResourceHandler resourceHandler) {
         this.resourceHandler = resourceHandler;
@@ -58,13 +62,11 @@ public class ActionChartManager implements IActionChartManager {
         Section section = sectionManager.getCurrent();
 
         Item i = section.getItem(item);
-        if(i != null) {
-            if (i instanceof Weapon) character.add((Weapon) i);
-            else if (i instanceof GoldCrowns) character.add((GoldCrowns) i);
-            else if (i instanceof SpecialItem) character.add((SpecialItem) i);
-            else character.add(i);
-            section.getItems().remove(i);
-        }
+
+        if (i == null) return;
+
+        character.add(i);
+        section.remove(i);
 
         logger.debug("Take: " + item);
     }
@@ -75,7 +77,7 @@ public class ActionChartManager implements IActionChartManager {
 
         Item i = character.getInventory().get(item);
         character.getInventory().remove(i);
-        section.getItems().add(i);
+        section.add(i);
 
         logger.debug("Discard: " + item);
     }

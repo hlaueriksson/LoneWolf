@@ -7,9 +7,14 @@ import com.hoffenkloffen.lonewolf.core.section.Section;
 
 public class RandomNumberManager implements IRandomNumberManager {
 
-    @Inject ISectionManager sectionManager;
+    private final ISectionManager sectionManager;
 
     private RandomNumberTable random = new RandomNumberTable();
+
+    @Inject
+    public RandomNumberManager(ISectionManager sectionManager) {
+        this.sectionManager = sectionManager;
+    }
 
     public void roll() {
 
@@ -30,14 +35,12 @@ public class RandomNumberManager implements IRandomNumberManager {
         // State
         RandomNumberResultList list;
 
-        if(index.equals("0")) // NOTE: First roll
+        if (index.equals("0")) // NOTE: First roll
         {
             list = new RandomNumberResultList();
             section.add(list);
-        }
-        else
-        {
-            list = (RandomNumberResultList) section.getState(RandomNumberResultList.class.getSimpleName());
+        } else {
+            list = section.getState(RandomNumberResultList.class);
         }
 
         list.add(result);

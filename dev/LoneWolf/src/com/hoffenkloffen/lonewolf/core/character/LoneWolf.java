@@ -73,7 +73,10 @@ public class LoneWolf implements SectionState, CombatState {
     }
 
     public LoneWolf add(Item item) {
-        inventory.add(item);
+        if (item instanceof Weapon) add((Weapon) item);
+        else if (item instanceof GoldCrowns) add((GoldCrowns) item);
+        else if (item instanceof SpecialItem) add((SpecialItem) item);
+        else inventory.add(item);
 
         return this;
     }
