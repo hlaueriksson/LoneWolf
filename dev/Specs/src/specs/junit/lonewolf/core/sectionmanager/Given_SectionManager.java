@@ -1,11 +1,11 @@
-package specs.junit.lonewolf.core.section.sectionmanager;
+package specs.junit.lonewolf.core.sectionmanager;
 
 import com.hoffenkloffen.lonewolf.abstractions.Logger;
 import com.hoffenkloffen.lonewolf.abstractions.SectionResourceHandler;
 import com.hoffenkloffen.lonewolf.core.character.LoneWolf;
 import com.hoffenkloffen.lonewolf.core.common.Preferences;
 import com.hoffenkloffen.lonewolf.core.section.Section;
-import com.hoffenkloffen.lonewolf.core.section.SectionManager;
+import com.hoffenkloffen.lonewolf.core.SectionManager;
 import com.hoffenkloffen.lonewolf.core.abstractions.SectionRule;
 import com.hoffenkloffen.lonewolf.abstractions.BrowserRenderer;
 import specs.junit.BaseSpec;

@@ -1,4 +1,4 @@
-package com.hoffenkloffen.lonewolf.core.section;
+package com.hoffenkloffen.lonewolf.core;
 
 import com.google.inject.Inject;
 import com.hoffenkloffen.lonewolf.abstractions.BrowserRenderer;
@@ -9,6 +9,7 @@ import com.hoffenkloffen.lonewolf.core.abstractions.RandomNumberRule;
 import com.hoffenkloffen.lonewolf.core.abstractions.SectionRule;
 import com.hoffenkloffen.lonewolf.core.character.LoneWolf;
 import com.hoffenkloffen.lonewolf.core.common.Preferences;
+import com.hoffenkloffen.lonewolf.core.section.Section;
 import com.hoffenkloffen.lonewolf.core.section.injections.*;
 import com.hoffenkloffen.lonewolf.core.section.rules.*;
 

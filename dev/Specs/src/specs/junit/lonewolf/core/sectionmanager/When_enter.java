@@ -1,4 +1,4 @@
-package specs.junit.lonewolf.core.section.sectionmanager;
+package specs.junit.lonewolf.core.sectionmanager;
 
 import org.junit.Test;
 

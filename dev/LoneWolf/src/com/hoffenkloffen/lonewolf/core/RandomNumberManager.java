@@ -1,8 +1,11 @@
-package com.hoffenkloffen.lonewolf.core.random;
+package com.hoffenkloffen.lonewolf.core;
 
 import com.google.inject.Inject;
 import com.hoffenkloffen.lonewolf.core.abstractions.IRandomNumberManager;
 import com.hoffenkloffen.lonewolf.core.abstractions.ISectionManager;
+import com.hoffenkloffen.lonewolf.core.random.RandomNumberResult;
+import com.hoffenkloffen.lonewolf.core.random.RandomNumberResultList;
+import com.hoffenkloffen.lonewolf.core.random.RandomNumberTable;
 import com.hoffenkloffen.lonewolf.core.section.Section;
 
 public class RandomNumberManager implements IRandomNumberManager {

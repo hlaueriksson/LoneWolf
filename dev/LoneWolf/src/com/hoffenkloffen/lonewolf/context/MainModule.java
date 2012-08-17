@@ -6,10 +6,10 @@ import com.hoffenkloffen.lonewolf.core.ActionChartManager;
 import com.hoffenkloffen.lonewolf.core.ItemManager;
 import com.hoffenkloffen.lonewolf.core.abstractions.*;
 import com.hoffenkloffen.lonewolf.core.character.LoneWolf;
-import com.hoffenkloffen.lonewolf.core.combat.CombatManager;
+import com.hoffenkloffen.lonewolf.core.CombatManager;
 import com.hoffenkloffen.lonewolf.core.common.Preferences;
-import com.hoffenkloffen.lonewolf.core.random.RandomNumberManager;
-import com.hoffenkloffen.lonewolf.core.section.SectionManager;
+import com.hoffenkloffen.lonewolf.core.RandomNumberManager;
+import com.hoffenkloffen.lonewolf.core.SectionManager;
 
 public class MainModule extends AbstractModule {
 

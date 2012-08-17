@@ -1,10 +1,13 @@
-package com.hoffenkloffen.lonewolf.core.combat;
+package com.hoffenkloffen.lonewolf.core;
 
 import com.google.inject.Inject;
 import com.hoffenkloffen.lonewolf.abstractions.Logger;
 import com.hoffenkloffen.lonewolf.core.abstractions.ICombatManager;
 import com.hoffenkloffen.lonewolf.core.abstractions.ISectionManager;
 import com.hoffenkloffen.lonewolf.core.character.LoneWolf;
+import com.hoffenkloffen.lonewolf.core.combat.Combat;
+import com.hoffenkloffen.lonewolf.core.combat.CombatResult;
+import com.hoffenkloffen.lonewolf.core.combat.CombatResultList;
 import com.hoffenkloffen.lonewolf.core.section.Section;
 
 public class CombatManager implements ICombatManager {
