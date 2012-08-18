@@ -7,7 +7,6 @@ import specs.junit.BaseSpec;
 import specs.support.AlwaysFalse;
 import specs.support.AlwaysTrue;
 import specs.support.Inject;
-import specs.support.TestSectionResourceHandler;
 
 import static org.mockito.Mockito.mock;
 
@@ -27,10 +26,7 @@ public class Given_Section extends BaseSpec {
         section = new Section("1");
 
         // Init
-        section
-                .set(new TestSectionResourceHandler())
-                .set(preferences)
-                .set(logger);
+        section.set(logger);
 
         section.when(new AlwaysTrue().then(new Inject("ThisScriptWasInjected")));
         section.when(new AlwaysFalse().then(new Inject("ThisScriptWasNotInjected")));

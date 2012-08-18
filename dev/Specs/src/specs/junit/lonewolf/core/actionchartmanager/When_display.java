@@ -1,9 +1,10 @@
 package specs.junit.lonewolf.core.actionchartmanager;
 
+import com.hoffenkloffen.lonewolf.core.common.Content;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 
 public class When_display extends Given_ActionChartManager {
@@ -19,6 +20,6 @@ public class When_display extends Given_ActionChartManager {
 
     @Test
     public void then_the_renderer_should_load_the_content_data() {
-        verify(renderer).loadData(anyString(), anyString(), anyString());
+        verify(renderer).load(any(Content.class));
     }
 }

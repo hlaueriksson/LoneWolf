@@ -7,6 +7,7 @@ import com.hoffenkloffen.lonewolf.abstractions.Logger;
 import com.hoffenkloffen.lonewolf.core.abstractions.IActionChartManager;
 import com.hoffenkloffen.lonewolf.core.abstractions.ISectionManager;
 import com.hoffenkloffen.lonewolf.core.character.LoneWolf;
+import com.hoffenkloffen.lonewolf.core.common.Content;
 import com.hoffenkloffen.lonewolf.core.items.Item;
 import com.hoffenkloffen.lonewolf.core.section.Section;
 
@@ -43,18 +44,8 @@ public class ActionChartManager implements IActionChartManager {
         Section section = sectionManager.getCurrent();
         //Collection<Item> items = context.getItemManager().get(section.getItems());
 
-        String template = resourceHandler.getHtmlTemplate();
-        String title = resourceHandler.getHtmlTitle();
-        String revised = Long.toString(System.currentTimeMillis());
-        String style = resourceHandler.getHtmlStyle();
-        String script = resourceHandler.getHtmlScript();
-        String content = resourceHandler.getHtmlContent(character.getInventory(), section.getItems());
-
-        // NOTE: %1=title, %2=revised, %3=style, %4=script, %5=content
-        String result = String.format(template, title, revised, style, script, content);
-
         // Render
-        renderer.loadData(result, section.getMimeType(), section.getEncoding());
+        renderer.load(getContent(section));
     }
 
     public void take(String item) {
@@ -89,5 +80,17 @@ public class ActionChartManager implements IActionChartManager {
         character.getInventory().remove(i); // TODO: maybe?
 
         logger.debug("Use: " + item);
+    }
+
+    private Content getContent(Section section) {
+        String template = resourceHandler.getHtmlTemplate();
+        String title = resourceHandler.getHtmlTitle();
+        String revised = Long.toString(System.currentTimeMillis());
+        String style = resourceHandler.getHtmlStyle();
+        String script = resourceHandler.getHtmlScript();
+        String content = resourceHandler.getHtmlContent(character.getInventory(), section.getItems());
+
+        // NOTE: %1=title, %2=revised, %3=style, %4=script, %5=content
+        return new Content(String.format(template, title, revised, style, script, content));
     }
 }
