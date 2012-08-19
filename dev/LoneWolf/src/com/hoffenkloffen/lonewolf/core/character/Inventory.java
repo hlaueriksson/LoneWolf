@@ -71,17 +71,19 @@ public class Inventory {
         return specialItems;
     }
 
+    public List<Item> getItems() {
+        ArrayList<Item> result = new ArrayList<Item>();
+
+        result.addAll(getWeapons());
+        result.addAll(getBackpackItems());
+        result.addAll(getSpecialItems());
+
+        return result;
+    }
+
     public Item get(String item) {
 
-        for (Item i : weapons) {
-            if(i.getName().equals(item)) return i;
-        }
-
-        for (Item i : backpackItems) {
-            if(i.getName().equals(item)) return i;
-        }
-
-        for (Item i : specialItems) {
+        for (Item i : getItems()) {
             if(i.getName().equals(item)) return i;
         }
 

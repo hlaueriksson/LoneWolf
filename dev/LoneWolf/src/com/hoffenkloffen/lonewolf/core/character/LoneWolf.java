@@ -7,8 +7,7 @@ import com.hoffenkloffen.lonewolf.core.items.Item;
 import com.hoffenkloffen.lonewolf.core.items.SpecialItem;
 import com.hoffenkloffen.lonewolf.core.items.Weapon;
 
-import java.util.Hashtable;
-import java.util.Map;
+import java.util.HashSet;
 
 public class LoneWolf implements SectionState, CombatState {
 
@@ -18,7 +17,8 @@ public class LoneWolf implements SectionState, CombatState {
     // CombatSkill; Initial, Modifier, Total
     // Endurance; Initial, Modifier, Total, Current
 
-    private Hashtable<KaiDiscipline, Boolean> disciplines = new Hashtable<KaiDiscipline, Boolean>();
+    private HashSet<KaiDiscipline> disciplines = new HashSet<KaiDiscipline>();
+    private Weaponskill weaponskill;
 
     private Inventory inventory = new Inventory();
 
@@ -51,13 +51,31 @@ public class LoneWolf implements SectionState, CombatState {
     }
 
     public LoneWolf add(KaiDiscipline discipline) {
-        disciplines.put(discipline, true);
+        disciplines.add(discipline);
+
+        return this;
+    }
+
+    public LoneWolf remove(KaiDiscipline discipline) {
+        disciplines.remove(discipline);
 
         return this;
     }
 
     public boolean acquired(KaiDiscipline discipline) {
-        return disciplines.containsKey(discipline) && disciplines.get(discipline);
+        return disciplines.contains(discipline);
+    }
+
+    public KaiDiscipline[] getKaiDisciplines() {
+        return disciplines.toArray(new KaiDiscipline[0]);
+    }
+
+    public Weaponskill getWeaponskill() {
+        return weaponskill;
+    }
+
+    public void setWeaponskill(Weaponskill weaponskill) {
+        this.weaponskill = weaponskill;
     }
 
     public LoneWolf add(Weapon weapon) { // TODO: delete, used only by specs
@@ -92,6 +110,10 @@ public class LoneWolf implements SectionState, CombatState {
     }
 
     public boolean possess(String item) {
+        for (Item i : inventory.getWeapons()) {
+            if (i.getName().equals(item)) return true;
+        }
+
         for (Item i : inventory.getBackpackItems()) {
             if (i.getName().equals(item)) return true;
         }
@@ -112,8 +134,8 @@ public class LoneWolf implements SectionState, CombatState {
         result.append(getEndurance());
         result.append(" ");
 
-        for (Map.Entry<KaiDiscipline, Boolean> entry : disciplines.entrySet()) {
-            result.append(entry.getKey());
+        for (KaiDiscipline discipline : disciplines) {
+            result.append(discipline);
             result.append(", ");
         }
 
