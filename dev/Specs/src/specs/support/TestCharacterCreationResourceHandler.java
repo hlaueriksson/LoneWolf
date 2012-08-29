@@ -9,7 +9,7 @@ public class TestCharacterCreationResourceHandler implements CharacterCreationRe
 
     @Override
     public String getHtmlTemplate() {
-        String path = "\\LoneWolf\\res\\raw\\html_characterceartion_template.html";
+        String path = "\\LoneWolf\\res\\raw\\html_charactercreation_template.html";
 
         try {
             return TestSupport.readFile(path);

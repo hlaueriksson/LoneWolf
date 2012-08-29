@@ -48,7 +48,12 @@ public abstract class BaseActivity extends RoboActivity implements VersionManage
     protected abstract void initSections(ISectionManager manager);
     protected abstract void initItems(IItemManager manager);
 
-    public void play(View view) {
+    public void newGame(View view) {
+
+        startActivity(new Intent(getBaseContext(), CharacterCreationActivity.class));
+    }
+
+    public void loadGame(View view) {
 
         startActivity(new Intent(getBaseContext(), SectionActivity.class));
     }

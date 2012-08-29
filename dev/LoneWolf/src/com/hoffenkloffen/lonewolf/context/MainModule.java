@@ -2,14 +2,10 @@ package com.hoffenkloffen.lonewolf.context;
 
 import com.google.inject.AbstractModule;
 import com.hoffenkloffen.lonewolf.abstractions.Logger;
-import com.hoffenkloffen.lonewolf.core.ActionChartManager;
-import com.hoffenkloffen.lonewolf.core.ItemManager;
+import com.hoffenkloffen.lonewolf.core.*;
 import com.hoffenkloffen.lonewolf.core.abstractions.*;
 import com.hoffenkloffen.lonewolf.core.character.LoneWolf;
-import com.hoffenkloffen.lonewolf.core.CombatManager;
 import com.hoffenkloffen.lonewolf.core.common.Preferences;
-import com.hoffenkloffen.lonewolf.core.RandomNumberManager;
-import com.hoffenkloffen.lonewolf.core.SectionManager;
 
 public class MainModule extends AbstractModule {
 
@@ -22,6 +18,7 @@ public class MainModule extends AbstractModule {
         bind(IRandomNumberManager.class).to(RandomNumberManager.class).asEagerSingleton();
         bind(ICombatManager.class).to(CombatManager.class).asEagerSingleton();
         bind(IActionChartManager.class).to(ActionChartManager.class).asEagerSingleton();
+        bind(ICharacterCreationManager.class).to(CharacterCreationManager.class).asEagerSingleton();
 
         bind(LoneWolf.class).asEagerSingleton();
 

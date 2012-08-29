@@ -1,10 +1,8 @@
 package com.hoffenkloffen.lonewolf.context;
 
 import android.content.Context;
-import android.util.Base64;
 import com.hoffenkloffen.lonewolf.R;
 import com.hoffenkloffen.lonewolf.abstractions.SectionResourceHandler;
-import com.hoffenkloffen.lonewolf.core.section.Illustration;
 
 public class DebugSectionResourceHandler extends BaseResourceHandler implements SectionResourceHandler {
 
@@ -36,13 +34,6 @@ public class DebugSectionResourceHandler extends BaseResourceHandler implements 
         String filename = "sect" + padSection(section);
 
         return readFileToString(getResId(filename, "raw"));
-    }
-
-    @Override
-    public String getBase64Image(Illustration illustration) {
-        byte[] bytes = readFileToBytes(getResId(illustration.getResourceName(), "raw"));
-
-        return Base64.encodeToString(bytes, Base64.DEFAULT);
     }
 
     private String padSection(String section)

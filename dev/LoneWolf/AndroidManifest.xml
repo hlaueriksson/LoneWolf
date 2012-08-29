@@ -11,5 +11,7 @@
                   android:label="@string/activity_section"/>
         <activity android:name="com.hoffenkloffen.lonewolf.LogActivity"
                   android:label="@string/activity_log"/>
+        <activity android:name="com.hoffenkloffen.lonewolf.CharacterCreationActivity"
+                  android:label="@string/activity_charactercreation"/>
     </application>
 </manifest> 

@@ -15,6 +15,8 @@ public abstract class BaseBrowserActivity extends RoboActivity implements Browse
     // Views
     protected WebView browser;
 
+    protected Content content;
+
     protected void init() {
         WebSettings settings = browser.getSettings();
         settings.setJavaScriptEnabled(true);
@@ -57,7 +59,14 @@ public abstract class BaseBrowserActivity extends RoboActivity implements Browse
     public void load(Content content) {
         Log.d(TAG, content.getHtml());
 
+        this.content = content;
+
         browser.loadData(content.getHtml(), Content.MimeType, Content.Encoding);
+    }
+
+    @Override
+    public Content getContent() {
+        return content;
     }
 
     //</editor-fold>

@@ -13,8 +13,20 @@ import com.hoffenkloffen.lonewolf.core.common.Preferences;
 import com.hoffenkloffen.lonewolf.core.items.*;
 import com.hoffenkloffen.lonewolf.core.random.RandomNumberResult;
 import com.hoffenkloffen.lonewolf.core.random.RandomNumberTable;
+import com.hoffenkloffen.lonewolf.core.section.Illustration;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CharacterCreationManager implements ICharacterCreationManager {
+
+    private enum Page {
+        gamerulz,
+        discplnz,
+        equipmnt
+    }
 
     private final LoneWolf character;
     private final Preferences preferences;
@@ -44,8 +56,14 @@ public class CharacterCreationManager implements ICharacterCreationManager {
         return this;
     }
 
+    public String getFirst() {
+        return Page.gamerulz.toString();
+    }
+
     @Override
     public void enter(String page) {
+
+        logger.debug("Enter: " + page);
 
         // Render
         renderer.load(getContent(page));
@@ -118,12 +136,12 @@ public class CharacterCreationManager implements ICharacterCreationManager {
         if (template == null) return null;
 
         // Base64 images
-        /*if (preferences.getIllustrations()) {
+        if (preferences.getIllustrations()) {
             for (Illustration illustration : getIllustrations(content)) {
                 String data = resourceHandler.getBase64Image(illustration);
                 content = content.replace(illustration.getFilename(), "data:image/png;base64," + data);
             }
-        }*/
+        }
 
         // Javascript injections
         StringBuilder injections = new StringBuilder();
@@ -134,6 +152,21 @@ public class CharacterCreationManager implements ICharacterCreationManager {
 
         // NOTE: %1=title, %2=revised, %3=style, %4=script, %5=content, %6=injections
         return new Content(String.format(template, title, revised, style, script, content, injections));
+    }
+
+    private List<Illustration> getIllustrations(String content) { // TODO: copy'n'paste; refactor
+        List<Illustration> result = new ArrayList<Illustration>();
+
+        if (content == null) return result;
+
+        Pattern p = Pattern.compile("<img.*?src=\"(.*?)\".*?>");
+        Matcher m = p.matcher(content);
+
+        while (m.find()) {
+            result.add(new Illustration(m.group(1)));
+        }
+
+        return result;
     }
 
     private Weaponskill getWeaponskill() {
