@@ -17,6 +17,8 @@ public abstract class BaseBrowserActivity extends RoboActivity implements Browse
 
     protected Content content;
 
+    protected String javascript;
+
     protected void init() {
         WebSettings settings = browser.getSettings();
         settings.setJavaScriptEnabled(true);
@@ -37,14 +39,19 @@ public abstract class BaseBrowserActivity extends RoboActivity implements Browse
             }
         });
 
-        /*
         browser.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
+
+                if(javascript == null) return;
+                if(javascript.isEmpty()) return;
+
+                Log.d(TAG, javascript);
+
                 // Inject JavaScript into the page which just finished loading.
-                browser.loadUrl(js.toString());
+                browser.loadUrl("javascript:" + javascript);
             }
-        });*/
+        });
 
         for (JavascriptInterface javascriptInterface : getJavascriptInterfaces()) {
             browser.addJavascriptInterface(javascriptInterface, javascriptInterface.getInterfaceName());
@@ -62,6 +69,18 @@ public abstract class BaseBrowserActivity extends RoboActivity implements Browse
         this.content = content;
 
         browser.loadData(content.getHtml(), Content.MimeType, Content.Encoding);
+    }
+
+    @Override
+    public void load(String url) {
+        Log.d(TAG, url);
+
+        browser.loadUrl(url);
+    }
+
+    @Override
+    public void inject(String javascript) {
+        this.javascript = javascript;
     }
 
     @Override

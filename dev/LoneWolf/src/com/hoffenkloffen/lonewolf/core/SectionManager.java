@@ -90,8 +90,29 @@ public class SectionManager implements ISectionManager {
         // On enter commands
         section.enter();
 
-        // Render
-        renderer.load(getContent(section));
+        // Render html
+        //renderer.load(getContent(section));
+        renderer.load(getUrl(section));
+
+        // Inject js
+        renderer.inject(getJavascriptInjections(section));
+    }
+
+    private String getUrl(Section section) {
+        String number = String.format("%3s", section.getNumber()).replace(' ', '0');
+        String revised = Long.toString(System.currentTimeMillis());
+
+        return "file:///android_asset/sect" + number + ".html?revised=" + revised;
+    }
+
+    private String getJavascriptInjections(Section section) {
+        StringBuilder injections = new StringBuilder();
+
+        for (JavascriptInjection javascriptInjection : section.getJavascriptInjections()) {
+            injections.append(javascriptInjection.getScript(section.getStates()));
+        }
+
+        return injections.toString();
     }
 
     public Content getContent(Section section) {

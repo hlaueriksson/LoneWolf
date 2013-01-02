@@ -66,7 +66,10 @@ public class CharacterCreationManager implements ICharacterCreationManager {
         logger.debug("Enter: " + page);
 
         // Render
-        renderer.load(getContent(page));
+        //renderer.load(getContent(page));
+        renderer.load(getUrl(page));
+
+        // TODO: inject
     }
 
     @Override
@@ -123,6 +126,12 @@ public class CharacterCreationManager implements ICharacterCreationManager {
     public void rollEquipment() {
 
         character.add(getItem());
+    }
+
+    private String getUrl(String page) {
+        String revised = Long.toString(System.currentTimeMillis());
+
+        return "file:///android_asset/" + page + ".html?revised=" + revised;
     }
 
     public Content getContent(String page) {

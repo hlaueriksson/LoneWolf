@@ -1,15 +1,19 @@
 package com.hoffenkloffen.lonewolf.core;
 
+import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.hoffenkloffen.lonewolf.abstractions.ActionChartResourceHandler;
 import com.hoffenkloffen.lonewolf.abstractions.BrowserRenderer;
 import com.hoffenkloffen.lonewolf.abstractions.Logger;
 import com.hoffenkloffen.lonewolf.core.abstractions.IActionChartManager;
 import com.hoffenkloffen.lonewolf.core.abstractions.ISectionManager;
+import com.hoffenkloffen.lonewolf.core.character.Inventory;
 import com.hoffenkloffen.lonewolf.core.character.LoneWolf;
 import com.hoffenkloffen.lonewolf.core.common.Content;
 import com.hoffenkloffen.lonewolf.core.items.Item;
 import com.hoffenkloffen.lonewolf.core.section.Section;
+
+import java.util.Collection;
 
 public class ActionChartManager implements IActionChartManager {
 
@@ -44,8 +48,12 @@ public class ActionChartManager implements IActionChartManager {
         Section section = sectionManager.getCurrent();
         //Collection<Item> items = context.getItemManager().get(section.getItems());
 
-        // Render
-        renderer.load(getContent(section));
+        // Render html
+        //renderer.load(getContent(section));
+        renderer.load(getUrl());
+
+        // Inject js
+        renderer.inject(getJavascriptInjections(section));
     }
 
     public void take(String item) {
@@ -80,6 +88,23 @@ public class ActionChartManager implements IActionChartManager {
         character.getInventory().remove(i); // TODO: maybe?
 
         logger.debug("Use: " + item);
+    }
+
+    private String getUrl() {
+        String revised = Long.toString(System.currentTimeMillis());
+
+        return "file:///android_asset/actionchart.html?revised=" + revised;
+    }
+
+    private String getJavascriptInjections(Section section) {
+        Inventory inventory = character.getInventory();
+        Collection<Item> items = section.getItems();
+
+        Gson gson = new Gson();
+
+        String result = "var inventory = %s; var items = %s; init();";
+
+        return String.format(result, gson.toJson(inventory), gson.toJson(items));
     }
 
     private Content getContent(Section section) {
