@@ -19,7 +19,6 @@ public class Given_Section extends BaseSpec {
     protected void given() throws Exception {
 
         preferences = new Preferences();
-        preferences.setIllustrations(true);
 
         logger = mock(Logger.class);
 
@@ -28,7 +27,7 @@ public class Given_Section extends BaseSpec {
         // Init
         section.set(logger);
 
-        section.when(new AlwaysTrue().then(new Inject("ThisScriptWasInjected")));
+        section.when(new AlwaysTrue().then(new Inject("ThisScriptWasInjected"))); // TODO: is injections tested?
         section.when(new AlwaysFalse().then(new Inject("ThisScriptWasNotInjected")));
     }
 }

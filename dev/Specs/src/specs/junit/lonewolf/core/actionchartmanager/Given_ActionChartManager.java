@@ -1,6 +1,5 @@
 package specs.junit.lonewolf.core.actionchartmanager;
 
-import com.hoffenkloffen.lonewolf.abstractions.ActionChartResourceHandler;
 import com.hoffenkloffen.lonewolf.abstractions.BrowserRenderer;
 import com.hoffenkloffen.lonewolf.abstractions.Logger;
 import com.hoffenkloffen.lonewolf.core.ActionChartManager;
@@ -19,7 +18,6 @@ public class Given_ActionChartManager extends BaseSpec {
     protected LoneWolf character;
     protected Logger logger;
 
-    protected ActionChartResourceHandler resourceHandler;
     protected BrowserRenderer renderer;
 
     protected void given() {
@@ -29,11 +27,9 @@ public class Given_ActionChartManager extends BaseSpec {
         character = mock(LoneWolf.class);
         logger = mock(Logger.class);
 
-        resourceHandler = Mockito.mock(ActionChartResourceHandler.class);
         renderer = mock(BrowserRenderer.class);
 
         manager = new ActionChartManager(sectionManager, character, logger);
-        manager.set(resourceHandler);
         manager.set(renderer);
     }
 }

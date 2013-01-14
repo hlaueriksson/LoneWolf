@@ -4,7 +4,6 @@ import android.util.Log;
 import android.webkit.*;
 import android.widget.Toast;
 import com.hoffenkloffen.lonewolf.abstractions.BrowserRenderer;
-import com.hoffenkloffen.lonewolf.core.common.Content;
 import com.hoffenkloffen.lonewolf.core.interfaces.JavascriptInterface;
 import roboguice.activity.RoboActivity;
 
@@ -14,8 +13,6 @@ public abstract class BaseBrowserActivity extends RoboActivity implements Browse
 
     // Views
     protected WebView browser;
-
-    protected Content content;
 
     protected String javascript;
 
@@ -63,15 +60,6 @@ public abstract class BaseBrowserActivity extends RoboActivity implements Browse
     //<editor-fold desc="BrowserRenderer">
 
     @Override
-    public void load(Content content) {
-        Log.d(TAG, content.getHtml());
-
-        this.content = content;
-
-        browser.loadData(content.getHtml(), Content.MimeType, Content.Encoding);
-    }
-
-    @Override
     public void load(String url) {
         Log.d(TAG, url);
 
@@ -81,11 +69,6 @@ public abstract class BaseBrowserActivity extends RoboActivity implements Browse
     @Override
     public void inject(String javascript) {
         this.javascript = javascript;
-    }
-
-    @Override
-    public Content getContent() {
-        return content;
     }
 
     //</editor-fold>

@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.webkit.WebView;
 import android.widget.EditText;
 import com.google.inject.Inject;
-import com.hoffenkloffen.lonewolf.context.DebugSectionResourceHandler;
 import com.hoffenkloffen.lonewolf.core.abstractions.ICombatManager;
 import com.hoffenkloffen.lonewolf.core.abstractions.IRandomNumberManager;
 import com.hoffenkloffen.lonewolf.core.abstractions.ISectionManager;
@@ -55,7 +54,6 @@ public class SectionActivity extends BaseBrowserActivity implements SectionEvent
         super.init();
 
         sectionManager
-                .set(new DebugSectionResourceHandler(this))
                 .set(this);
     }
 

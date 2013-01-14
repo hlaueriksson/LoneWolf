@@ -1,6 +1,5 @@
 package specs.junit.lonewolf.core.sectionmanager;
 
-import com.hoffenkloffen.lonewolf.core.common.Content;
 import org.junit.Test;
 
 import static org.mockito.Matchers.any;
@@ -14,7 +13,7 @@ public class When_enter extends Given_SectionManager {
 
     @Test
     public void then_the_renderer_should_load_the_content_data() {
-        verify(renderer).load(any(Content.class));
+        verify(renderer).load(any(String.class));
     }
 
     /* TODO:

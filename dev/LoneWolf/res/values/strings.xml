@@ -11,6 +11,4 @@
     <string name="menu_debug_noob_wolf">Noob</string>
     <string name="menu_debug_leet_wolf">Leet</string>
     <string name="menu_debug_log">Log</string>
-    <string name="html_title"></string>
-    <string name="html_title_action_chart">: Action Chart</string>
 </resources>

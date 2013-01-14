@@ -1,6 +1,5 @@
 package specs.junit.lonewolf.core.actionchartmanager;
 
-import com.hoffenkloffen.lonewolf.core.common.Content;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -11,7 +10,6 @@ public class When_display extends Given_ActionChartManager {
 
     protected void given() {
         super.given();
-        Mockito.when(resourceHandler.getHtmlTemplate()).thenReturn("%1%s, %2%s, %3%s, %4%s, %5%s");
     }
 
     protected void when() {
@@ -20,6 +18,6 @@ public class When_display extends Given_ActionChartManager {
 
     @Test
     public void then_the_renderer_should_load_the_content_data() {
-        verify(renderer).load(any(Content.class));
+        verify(renderer).load(any(String.class));
     }
 }

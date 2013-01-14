@@ -1,13 +1,11 @@
 package com.hoffenkloffen.lonewolf.context;
 
 import android.content.Context;
-import android.util.Base64;
 import android.util.Log;
-import com.hoffenkloffen.lonewolf.core.section.Illustration;
 
 import java.io.*;
 
-public abstract class BaseResourceHandler {
+public abstract class BaseResourceHandler { // TODO: delete if not needed
 
     private static final String TAG = BaseResourceHandler.class.getSimpleName();
 
@@ -15,12 +13,6 @@ public abstract class BaseResourceHandler {
 
     public BaseResourceHandler(Context context) {
         this.context = context;
-    }
-
-    public String getBase64Image(Illustration illustration) {
-        byte[] bytes = readFileToBytes(getResId(illustration.getResourceName(), "raw"));
-
-        return Base64.encodeToString(bytes, Base64.DEFAULT);
     }
 
     protected String readFileToString(int resId) {

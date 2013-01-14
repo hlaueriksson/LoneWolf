@@ -1,12 +1,9 @@
 package com.hoffenkloffen.lonewolf.core.abstractions;
 
 import com.hoffenkloffen.lonewolf.abstractions.BrowserRenderer;
-import com.hoffenkloffen.lonewolf.abstractions.SectionResourceHandler;
 import com.hoffenkloffen.lonewolf.core.section.Section;
 
 public interface ISectionManager {
-
-    ISectionManager set(SectionResourceHandler resourceHandler);
 
     ISectionManager set(BrowserRenderer renderer);
 

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebView;
 import com.google.inject.Inject;
-import com.hoffenkloffen.lonewolf.context.DebugCharacterCreationResourceHandler;
 import com.hoffenkloffen.lonewolf.core.abstractions.ICharacterCreationManager;
 import com.hoffenkloffen.lonewolf.core.character.KaiDiscipline;
 import com.hoffenkloffen.lonewolf.core.events.CharacterCreationEventHandler;
@@ -37,7 +36,6 @@ public class CharacterCreationActivity extends BaseBrowserActivity implements Ch
         super.init();
 
         characterCreationManager
-                .set(new DebugCharacterCreationResourceHandler(this))
                 .set(this);
     }
 

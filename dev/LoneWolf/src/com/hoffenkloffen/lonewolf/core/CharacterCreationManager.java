@@ -2,23 +2,15 @@ package com.hoffenkloffen.lonewolf.core;
 
 import com.google.inject.Inject;
 import com.hoffenkloffen.lonewolf.abstractions.BrowserRenderer;
-import com.hoffenkloffen.lonewolf.abstractions.CharacterCreationResourceHandler;
 import com.hoffenkloffen.lonewolf.abstractions.Logger;
 import com.hoffenkloffen.lonewolf.core.abstractions.ICharacterCreationManager;
 import com.hoffenkloffen.lonewolf.core.character.KaiDiscipline;
 import com.hoffenkloffen.lonewolf.core.character.LoneWolf;
 import com.hoffenkloffen.lonewolf.core.character.Weaponskill;
-import com.hoffenkloffen.lonewolf.core.common.Content;
 import com.hoffenkloffen.lonewolf.core.common.Preferences;
 import com.hoffenkloffen.lonewolf.core.items.*;
 import com.hoffenkloffen.lonewolf.core.random.RandomNumberResult;
 import com.hoffenkloffen.lonewolf.core.random.RandomNumberTable;
-import com.hoffenkloffen.lonewolf.core.section.Illustration;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class CharacterCreationManager implements ICharacterCreationManager {
 
@@ -32,7 +24,6 @@ public class CharacterCreationManager implements ICharacterCreationManager {
     private final Preferences preferences;
     private final Logger logger;
 
-    private CharacterCreationResourceHandler resourceHandler;
     private BrowserRenderer renderer;
 
     private RandomNumberTable random = new RandomNumberTable();
@@ -42,12 +33,6 @@ public class CharacterCreationManager implements ICharacterCreationManager {
         this.character = character;
         this.preferences = preferences;
         this.logger = logger;
-    }
-
-    public ICharacterCreationManager set(CharacterCreationResourceHandler resourceHandler) {
-        this.resourceHandler = resourceHandler;
-
-        return this;
     }
 
     public ICharacterCreationManager set(BrowserRenderer renderer) {
@@ -132,50 +117,6 @@ public class CharacterCreationManager implements ICharacterCreationManager {
         String revised = Long.toString(System.currentTimeMillis());
 
         return "file:///android_asset/" + page + ".html?revised=" + revised;
-    }
-
-    public Content getContent(String page) {
-        String template = resourceHandler.getHtmlTemplate();
-        String title = resourceHandler.getHtmlTitle(page);
-        String revised = Long.toString(System.currentTimeMillis());
-        String style = resourceHandler.getHtmlStyle();
-        String script = resourceHandler.getHtmlScript();
-        String content = resourceHandler.getHtmlContent(page);
-
-        if (template == null) return null;
-
-        // Base64 images
-        if (preferences.getIllustrations()) {
-            for (Illustration illustration : getIllustrations(content)) {
-                String data = resourceHandler.getBase64Image(illustration);
-                content = content.replace(illustration.getFilename(), "data:image/png;base64," + data);
-            }
-        }
-
-        // Javascript injections
-        StringBuilder injections = new StringBuilder();
-
-        /*for (JavascriptInjection javascriptInjection : getJavascriptInjections()) {
-            injections.append(javascriptInjection.getScript(getStates()));
-        }*/
-
-        // NOTE: %1=title, %2=revised, %3=style, %4=script, %5=content, %6=injections
-        return new Content(String.format(template, title, revised, style, script, content, injections));
-    }
-
-    private List<Illustration> getIllustrations(String content) { // TODO: copy'n'paste; refactor
-        List<Illustration> result = new ArrayList<Illustration>();
-
-        if (content == null) return result;
-
-        Pattern p = Pattern.compile("<img.*?src=\"(.*?)\".*?>");
-        Matcher m = p.matcher(content);
-
-        while (m.find()) {
-            result.add(new Illustration(m.group(1)));
-        }
-
-        return result;
     }
 
     private Weaponskill getWeaponskill() {

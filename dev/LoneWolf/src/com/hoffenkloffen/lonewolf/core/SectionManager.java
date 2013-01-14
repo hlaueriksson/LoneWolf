@@ -3,24 +3,17 @@ package com.hoffenkloffen.lonewolf.core;
 import com.google.inject.Inject;
 import com.hoffenkloffen.lonewolf.abstractions.BrowserRenderer;
 import com.hoffenkloffen.lonewolf.abstractions.Logger;
-import com.hoffenkloffen.lonewolf.abstractions.SectionResourceHandler;
 import com.hoffenkloffen.lonewolf.core.abstractions.ISectionManager;
 import com.hoffenkloffen.lonewolf.core.abstractions.JavascriptInjection;
 import com.hoffenkloffen.lonewolf.core.abstractions.RandomNumberRule;
 import com.hoffenkloffen.lonewolf.core.abstractions.SectionRule;
 import com.hoffenkloffen.lonewolf.core.character.LoneWolf;
-import com.hoffenkloffen.lonewolf.core.common.Content;
 import com.hoffenkloffen.lonewolf.core.common.Preferences;
-import com.hoffenkloffen.lonewolf.core.section.Illustration;
 import com.hoffenkloffen.lonewolf.core.section.Section;
 import com.hoffenkloffen.lonewolf.core.section.injections.*;
 import com.hoffenkloffen.lonewolf.core.section.rules.*;
 
-import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class SectionManager implements ISectionManager {
 
@@ -28,7 +21,6 @@ public class SectionManager implements ISectionManager {
     private final Preferences preferences;
     private final Logger logger;
 
-    private SectionResourceHandler resourceHandler;
     private BrowserRenderer renderer;
 
     private Hashtable<String, Section> sections = new Hashtable<String, Section>();
@@ -39,12 +31,6 @@ public class SectionManager implements ISectionManager {
         this.character = character;
         this.preferences = preferences;
         this.logger = logger;
-    }
-
-    public ISectionManager set(SectionResourceHandler resourceHandler) {
-        this.resourceHandler = resourceHandler;
-
-        return this;
     }
 
     public ISectionManager set(BrowserRenderer renderer) {
@@ -113,50 +99,6 @@ public class SectionManager implements ISectionManager {
         }
 
         return injections.toString();
-    }
-
-    public Content getContent(Section section) {
-        String template = resourceHandler.getHtmlTemplate();
-        String title = resourceHandler.getHtmlTitle(section.getNumber());
-        String revised = Long.toString(System.currentTimeMillis());
-        String style = resourceHandler.getHtmlStyle();
-        String script = resourceHandler.getHtmlScript();
-        String content = resourceHandler.getHtmlContent(section.getNumber());
-
-        if (template == null) return null;
-
-        // Base64 images
-        if (preferences.getIllustrations()) {
-            for (Illustration illustration : getIllustrations(content)) {
-                String data = resourceHandler.getBase64Image(illustration);
-                content = content.replace(illustration.getFilename(), "data:image/png;base64," + data);
-            }
-        }
-
-        // Javascript injections
-        StringBuilder injections = new StringBuilder();
-
-        for (JavascriptInjection javascriptInjection : section.getJavascriptInjections()) {
-            injections.append(javascriptInjection.getScript(section.getStates()));
-        }
-
-        // NOTE: %1=title, %2=revised, %3=style, %4=script, %5=content, %6=injections
-        return new Content(String.format(template, title, revised, style, script, content, injections));
-    }
-
-    private List<Illustration> getIllustrations(String content) {
-        List<Illustration> result = new ArrayList<Illustration>();
-
-        if (content == null) return result;
-
-        Pattern p = Pattern.compile("<img alt=\"\" src=\"(.+)\" />", Pattern.MULTILINE);
-        Matcher m = p.matcher(content);
-
-        while (m.find()) {
-            result.add(new Illustration(m.group(1)));
-        }
-
-        return result;
     }
 
     private Section fallback(String section) {

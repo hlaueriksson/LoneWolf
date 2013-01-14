@@ -2,7 +2,6 @@ package specs.junit.lonewolf.core.sectionmanager;
 
 import com.hoffenkloffen.lonewolf.abstractions.BrowserRenderer;
 import com.hoffenkloffen.lonewolf.abstractions.Logger;
-import com.hoffenkloffen.lonewolf.abstractions.SectionResourceHandler;
 import com.hoffenkloffen.lonewolf.core.SectionManager;
 import com.hoffenkloffen.lonewolf.core.abstractions.SectionRule;
 import com.hoffenkloffen.lonewolf.core.character.LoneWolf;
@@ -20,7 +19,6 @@ public class Given_SectionManager extends BaseSpec {
     protected Preferences preferences;
     protected Logger logger;
 
-    protected SectionResourceHandler resourceHandler;
     protected BrowserRenderer renderer;
 
     protected void given() {
@@ -28,11 +26,9 @@ public class Given_SectionManager extends BaseSpec {
         preferences = new Preferences();
         logger = mock(Logger.class);
 
-        resourceHandler = mock(SectionResourceHandler.class);
         renderer = mock(BrowserRenderer.class);
 
         manager = new SectionManager(character, preferences, logger);
-        manager.set(resourceHandler);
         manager.set(renderer);
     }
 

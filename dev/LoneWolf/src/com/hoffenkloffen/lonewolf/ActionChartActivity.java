@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebView;
 import com.google.inject.Inject;
-import com.hoffenkloffen.lonewolf.context.DebugActionChartResourceHandler;
 import com.hoffenkloffen.lonewolf.core.abstractions.IActionChartManager;
 import com.hoffenkloffen.lonewolf.core.events.ActionChartEventHandler;
 import com.hoffenkloffen.lonewolf.core.interfaces.ActionChartJavascriptInterface;
@@ -36,7 +35,6 @@ public class ActionChartActivity extends BaseBrowserActivity implements ActionCh
         super.init();
 
         actionChartManager
-                .set(new DebugActionChartResourceHandler(this))
                 .set(this);
     }
 

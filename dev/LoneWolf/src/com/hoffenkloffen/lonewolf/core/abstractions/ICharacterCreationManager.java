@@ -1,12 +1,9 @@
 package com.hoffenkloffen.lonewolf.core.abstractions;
 
 import com.hoffenkloffen.lonewolf.abstractions.BrowserRenderer;
-import com.hoffenkloffen.lonewolf.abstractions.CharacterCreationResourceHandler;
 import com.hoffenkloffen.lonewolf.core.character.KaiDiscipline;
 
 public interface ICharacterCreationManager {
-
-    ICharacterCreationManager set(CharacterCreationResourceHandler resourceHandler);
 
     ICharacterCreationManager set(BrowserRenderer renderer);
 

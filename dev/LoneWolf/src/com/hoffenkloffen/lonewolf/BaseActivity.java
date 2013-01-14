@@ -36,7 +36,6 @@ public abstract class BaseActivity extends RoboActivity implements VersionManage
 
     protected void initPreferences(Preferences preferences) {
         preferences.setDebugMode(isDebugMode());
-        preferences.setIllustrations(true);
     }
 
     protected void initCharacter(LoneWolf character) {
