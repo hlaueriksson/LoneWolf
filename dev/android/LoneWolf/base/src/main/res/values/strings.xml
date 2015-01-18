@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Base</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string name="app_name">LoneWolf</string>
+    <string name="activity_action_chart">Action Chart</string>
+    <string name="activity_section">Section</string>
+    <string name="activity_log">Log</string>
+    <string name="activity_charactercreation">Character Creation</string>
+    <string name="menu_debug_go_to">Go to</string>
+    <string name="menu_debug_go_to_previous">Previous</string>
+    <string name="menu_debug_go_to_next">Next</string>
+    <string name="menu_debug_noob_wolf">Noob</string>
+    <string name="menu_debug_leet_wolf">Leet</string>
+    <string name="menu_debug_log">Log</string>
 
 </resources>
