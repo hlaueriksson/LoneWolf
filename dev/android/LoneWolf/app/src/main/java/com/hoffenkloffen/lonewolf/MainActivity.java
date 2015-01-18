@@ -1,19 +1,21 @@
 package com.hoffenkloffen.lonewolf;
 
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import roboguice.activity.RoboActivity;
+import roboguice.inject.ContentView;
 
-public class MainActivity extends ActionBarActivity {
+@ContentView(R.layout.activity_main)
+public class MainActivity extends RoboActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -35,5 +37,10 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void book01(View view) {
+        Intent intent = new Intent(this, com.hoffenkloffen.lonewolf.book01.MainActivity.class);
+        startActivity(intent);
     }
 }

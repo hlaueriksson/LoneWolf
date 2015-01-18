@@ -4,7 +4,8 @@ import android.util.Log;
 import android.webkit.*;
 import android.widget.Toast;
 import com.hoffenkloffen.lonewolf.base.abstractions.BrowserRenderer;
-import com.hoffenkloffen.lonewolf.base.core.interfaces.JavascriptInterface;
+import com.hoffenkloffen.lonewolf.base.core.interfaces.IJavascriptInterface;
+
 import roboguice.activity.RoboActivity;
 
 public abstract class BaseBrowserActivity extends RoboActivity implements BrowserRenderer {
@@ -50,12 +51,12 @@ public abstract class BaseBrowserActivity extends RoboActivity implements Browse
             }
         });
 
-        for (JavascriptInterface javascriptInterface : getJavascriptInterfaces()) {
+        for (IJavascriptInterface javascriptInterface : getJavascriptInterfaces()) {
             browser.addJavascriptInterface(javascriptInterface, javascriptInterface.getInterfaceName());
         }
     }
 
-    protected abstract Iterable<JavascriptInterface> getJavascriptInterfaces();
+    protected abstract Iterable<IJavascriptInterface> getJavascriptInterfaces();
 
     //<editor-fold desc="BrowserRenderer">
 

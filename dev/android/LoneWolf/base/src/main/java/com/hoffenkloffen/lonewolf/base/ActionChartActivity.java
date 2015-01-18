@@ -7,7 +7,7 @@ import com.google.inject.Inject;
 import com.hoffenkloffen.lonewolf.base.core.abstractions.IActionChartManager;
 import com.hoffenkloffen.lonewolf.base.core.events.ActionChartEventHandler;
 import com.hoffenkloffen.lonewolf.base.core.interfaces.ActionChartJavascriptInterface;
-import com.hoffenkloffen.lonewolf.base.core.interfaces.JavascriptInterface;
+import com.hoffenkloffen.lonewolf.base.core.interfaces.IJavascriptInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +38,8 @@ public class ActionChartActivity extends BaseBrowserActivity implements ActionCh
                 .set(this);
     }
 
-    protected Iterable<JavascriptInterface> getJavascriptInterfaces() {
-        List<JavascriptInterface> result = new ArrayList<JavascriptInterface>();
+    protected Iterable<IJavascriptInterface> getJavascriptInterfaces() {
+        List<IJavascriptInterface> result = new ArrayList<IJavascriptInterface>();
         result.add(new ActionChartJavascriptInterface(this));
 
         return result;

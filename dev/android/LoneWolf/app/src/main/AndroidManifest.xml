@@ -16,6 +16,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.hoffenkloffen.lonewolf.book01.MainActivity" android:label="@string/book01_name" />
     </application>
 
 </manifest>

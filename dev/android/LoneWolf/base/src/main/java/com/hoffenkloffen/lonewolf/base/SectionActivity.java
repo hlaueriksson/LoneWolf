@@ -20,7 +20,7 @@ import com.hoffenkloffen.lonewolf.base.core.character.LoneWolf;
 import com.hoffenkloffen.lonewolf.base.core.common.Preferences;
 import com.hoffenkloffen.lonewolf.base.core.events.DebugEventHandler;
 import com.hoffenkloffen.lonewolf.base.core.events.SectionEventHandler;
-import com.hoffenkloffen.lonewolf.base.core.interfaces.JavascriptInterface;
+import com.hoffenkloffen.lonewolf.base.core.interfaces.IJavascriptInterface;
 import com.hoffenkloffen.lonewolf.base.core.interfaces.SectionJavascriptInterface;
 import com.hoffenkloffen.lonewolf.base.core.section.Section;
 
@@ -57,8 +57,8 @@ public class SectionActivity extends BaseBrowserActivity implements SectionEvent
                 .set(this);
     }
 
-    protected Iterable<JavascriptInterface> getJavascriptInterfaces() {
-        List<JavascriptInterface> result = new ArrayList<JavascriptInterface>();
+    protected Iterable<IJavascriptInterface> getJavascriptInterfaces() {
+        List<IJavascriptInterface> result = new ArrayList<IJavascriptInterface>();
         result.add(new SectionJavascriptInterface(this));
 
         return result;

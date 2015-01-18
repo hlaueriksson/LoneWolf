@@ -8,7 +8,7 @@ import com.hoffenkloffen.lonewolf.base.core.abstractions.ICharacterCreationManag
 import com.hoffenkloffen.lonewolf.base.core.character.KaiDiscipline;
 import com.hoffenkloffen.lonewolf.base.core.events.CharacterCreationEventHandler;
 import com.hoffenkloffen.lonewolf.base.core.interfaces.CharacterCreationJavascriptInterface;
-import com.hoffenkloffen.lonewolf.base.core.interfaces.JavascriptInterface;
+import com.hoffenkloffen.lonewolf.base.core.interfaces.IJavascriptInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +40,8 @@ public class CharacterCreationActivity extends BaseBrowserActivity implements Ch
     }
 
     @Override
-    protected Iterable<JavascriptInterface> getJavascriptInterfaces() {
-        List<JavascriptInterface> result = new ArrayList<JavascriptInterface>();
+    protected Iterable<IJavascriptInterface> getJavascriptInterfaces() {
+        List<IJavascriptInterface> result = new ArrayList<IJavascriptInterface>();
         result.add(new CharacterCreationJavascriptInterface(this));
 
         return result;

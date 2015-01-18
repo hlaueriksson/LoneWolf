@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-
     <string name="app_name">LoneWolf</string>
     <string name="activity_action_chart">Action Chart</string>
     <string name="activity_section">Section</string>
