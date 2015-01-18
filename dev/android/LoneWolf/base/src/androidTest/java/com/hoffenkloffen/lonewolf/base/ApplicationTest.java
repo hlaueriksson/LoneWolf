@@ -1,4 +1,4 @@
-package com.hoffenkloffen.lonewolf.core;
+package com.hoffenkloffen.lonewolf.base;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

@@ -1,4 +1,4 @@
-package com.hoffenkloffen.lonewolf.core;
+package com.hoffenkloffen.lonewolf.base;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
