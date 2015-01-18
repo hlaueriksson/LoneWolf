@@ -17,6 +17,15 @@ Android 5.0.1 (API 21) SDK Platform
 
 - http://developer.android.com/sdk/installing/adding-packages.html
 
+Content
+-------
+
+The [LoneWolfMigration](https://github.com/hlaueriksson/LoneWolfMigration) project generates content for the app.
+
+Copy the generated output from LoneWolfMigration to:
+
+- \dev\android\LoneWolf\app\src\main\assets\
+
 Installation
 ------------
 
