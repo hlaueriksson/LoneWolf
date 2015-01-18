@@ -1,5 +1,0 @@
-<resources>
-    <string-array name="roboguice_modules">
-        <item>com.hoffenkloffen.lonewolf.context.MainModule</item>
-    </string-array>
-</resources>
