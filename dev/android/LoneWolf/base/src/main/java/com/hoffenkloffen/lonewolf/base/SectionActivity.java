@@ -37,6 +37,7 @@ public class SectionActivity extends BaseBrowserActivity implements SectionEvent
     @Inject LoneWolf character;
     @Inject Preferences preferences;
 
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.browser);
@@ -68,9 +69,9 @@ public class SectionActivity extends BaseBrowserActivity implements SectionEvent
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.section_meny, menu);
+        Log.d(TAG, "onCreateOptionsMenu");
 
+        getMenuInflater().inflate(R.menu.section_meny, menu);
         menu.setGroupVisible(R.id.menu_group_debug, preferences.getDebugMode());
 
         return true;
