@@ -49,6 +49,7 @@
     <Compile Include="Views\SectionPage.xaml.cs">
       <DependentUpon>SectionPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SectionView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GettingStarted.Xamarin" />

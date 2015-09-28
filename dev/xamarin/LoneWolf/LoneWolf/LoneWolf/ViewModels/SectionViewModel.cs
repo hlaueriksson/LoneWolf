@@ -16,13 +16,15 @@ namespace LoneWolf.ViewModels
 
 				_section = value;
 				OnPropertyChanged();
+
+				Source = new HtmlWebViewSource { Html = GetHtml() };
 			}
 			get { return _section; }
 		}
 
 		public HtmlWebViewSource Source
 		{
-			set
+			private set
 			{
 				if (Equals(_source, value)) return;
 
@@ -34,16 +36,21 @@ namespace LoneWolf.ViewModels
 
 		public SectionViewModel()
 		{
-			Section = new Section { Number = "1" };
-			Source = new HtmlWebViewSource
+			Section = new Section
 			{
-				Html =
-@"<html><body>
-<h1>1</h1>
-<p>Your life and your quest end here.</p>
-<p>Turn to <a href='hybrid:section/165'>165</a></p>
-</body></html>"
+				Number = "1",
+				Choices = new[]
+				{
+					new Choice { Number = "165" }
+				}
 			};
+		}
+
+		private string GetHtml()
+		{
+			var template = new SectionView { Model = Section };
+
+			return template.GenerateString();
 		}
 	}
 }

@@ -19,22 +19,17 @@ namespace LoneWolf.Views
 			e.Cancel = true;
 
 			var number = GetSectionNumber(e.Url);
-			var next = new Random().Next(250).ToString();
 
 			var model = BindingContext as SectionViewModel;
 
 			if (model == null) return;
 
-			model.Section = new Section { Number = number };
-			model.Source = new HtmlWebViewSource
-			{
-				Html =
-$@"<html><body>
-<h1>{number}</h1>
-<p>Your life and your quest end here.</p>
-<p>Turn to <a href='hybrid:section/{next}'>{next}</a></p>
-</body></html>"
-			};
+			model.Section = GetSection(number);
+		}
+
+		private void Browser_OnNavigated(object sender, WebNavigatedEventArgs e)
+		{
+			Log("Browser_OnNavigated");
 		}
 
 		private string GetSectionNumber(string url)
@@ -42,9 +37,21 @@ $@"<html><body>
 			return url.Replace("hybrid:section/", string.Empty);
 		}
 
-		private void Browser_OnNavigated(object sender, WebNavigatedEventArgs e)
+		private static Section GetSection(string number)
 		{
-			Log("Browser_OnNavigated");
+			var random = new Random();
+			var max = 250;
+
+			return new Section
+			{
+				Number = number,
+				Choices = new[]
+				{
+					new Choice { Number = random.Next(max).ToString() },
+					new Choice { Number = random.Next(max).ToString() },
+					new Choice { Number = random.Next(max).ToString() }
+				}
+			};
 		}
 
 		private static void Log(string message)
