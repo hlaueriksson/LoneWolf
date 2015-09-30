@@ -71,10 +71,14 @@ namespace LoneWolf.Views
 		{
 			var route = "hybrid:section";
 
+			IChoiceToggle toggle = new ChoiceOn();
+			if (number.Length == 2) toggle = new ChoiceOff();
+
 			return new Choice
 			{
 				Number = number,
-				Body = $"<p class=\"choice\">If you wish to use your Kai Discipline of Sixth Sense, <a href=\"{route}/{number}\">turn to 141</a>.</p>"
+				Body = $"<p class=\"choice\">If you wish to use your Kai Discipline of Sixth Sense, <a href=\"{route}/{number}\">turn to {number}</a>.</p>",
+				Toggle = toggle
 			};
 		}
 

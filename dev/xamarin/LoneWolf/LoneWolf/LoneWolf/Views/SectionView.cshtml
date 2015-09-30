@@ -9,7 +9,16 @@
 	@Model.Body
 	@foreach(var choice in Model.Choices)
 	{
-		@choice.Body
+		if(choice.Toggle.IsEnabled())
+		{
+			@choice.Body
+		}
+		else
+		{
+			<p style="text-decoration: line-through; color: gray; pointer-events: none; cursor: default;">
+				Disabled: @choice.Body
+			</p>
+		}
 	}
 </body>
 </html>

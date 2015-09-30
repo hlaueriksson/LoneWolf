@@ -76,20 +76,48 @@ WriteLiteral("\r\n");
 #line 10 "SectionView.cshtml"
      foreach(var choice in Model.Choices)
 	{
-		
+		if(choice.Toggle.IsEnabled())
+		{
+			
 
 #line default
 #line hidden
 
-#line 12 "SectionView.cshtml"
-   Write(choice.Body);
+#line 14 "SectionView.cshtml"
+       Write(choice.Body);
 
 
 #line default
 #line hidden
 
-#line 12 "SectionView.cshtml"
-                    
+#line 14 "SectionView.cshtml"
+                        
+		}
+		else
+		{
+
+
+#line default
+#line hidden
+WriteLiteral("\t\t\t<p");
+
+WriteLiteral(" style=\"text-decoration: line-through; color: gray; pointer-events: none; cursor:" +
+" default;\"");
+
+WriteLiteral(">\r\n\t\t\t\tDisabled: ");
+
+
+#line 19 "SectionView.cshtml"
+                     Write(choice.Body);
+
+
+#line default
+#line hidden
+WriteLiteral("\r\n\t\t\t</p>\r\n");
+
+
+#line 21 "SectionView.cshtml"
+		}
 	}
 
 

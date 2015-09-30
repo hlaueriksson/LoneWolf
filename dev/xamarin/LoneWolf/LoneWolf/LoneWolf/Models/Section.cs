@@ -16,5 +16,28 @@ namespace LoneWolf.Models
 		public string Number { get; set; }
 
 		public string Body { get; set; }
+
+		public IChoiceToggle Toggle { get; set; }
+	}
+
+	public interface IChoiceToggle
+	{
+		bool IsEnabled();
+	}
+
+	public class ChoiceOn : IChoiceToggle
+	{
+		public bool IsEnabled()
+		{
+			return true;
+		}
+	}
+
+	public class ChoiceOff : IChoiceToggle
+	{
+		public bool IsEnabled()
+		{
+			return false;
+		}
 	}
 }
