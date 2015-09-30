@@ -60,10 +60,21 @@ namespace LoneWolf.Views
 ",
 				Choices = new[]
 				{
-					new Choice { Number = random.Next(max).ToString() },
-					new Choice { Number = random.Next(max).ToString() },
-					new Choice { Number = random.Next(max).ToString() }
+					GetChoice(random.Next(max).ToString()),
+					GetChoice(random.Next(max).ToString()),
+					GetChoice(random.Next(max).ToString())
 				}
+			};
+		}
+
+		private static Choice GetChoice(string number)
+		{
+			var route = "hybrid:section";
+
+			return new Choice
+			{
+				Number = number,
+				Body = $"<p class=\"choice\">If you wish to use your Kai Discipline of Sixth Sense, <a href=\"{route}/{number}\">turn to 141</a>.</p>"
 			};
 		}
 

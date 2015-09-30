@@ -76,35 +76,20 @@ WriteLiteral("\r\n");
 #line 10 "SectionView.cshtml"
      foreach(var choice in Model.Choices)
 	{
-
+		
 
 #line default
 #line hidden
-WriteLiteral("\t\t<p>Turn to <a");
-
-WriteAttribute ("href", " href=\"", "\""
-, Tuple.Create<string,object,bool> ("", "hybrid:section/", true)
 
 #line 12 "SectionView.cshtml"
-    , Tuple.Create<string,object,bool> ("", choice.Number
+   Write(choice.Body);
+
 
 #line default
 #line hidden
-, false)
-);
-WriteLiteral(">");
-
 
 #line 12 "SectionView.cshtml"
-                                                      Write(choice.Number);
-
-
-#line default
-#line hidden
-WriteLiteral("</a></p>\r\n");
-
-
-#line 13 "SectionView.cshtml"
+                    
 	}
 
 

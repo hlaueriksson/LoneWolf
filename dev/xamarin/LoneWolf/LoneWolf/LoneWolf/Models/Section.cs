@@ -14,5 +14,7 @@ namespace LoneWolf.Models
 	public class Choice
 	{
 		public string Number { get; set; }
+
+		public string Body { get; set; }
 	}
 }

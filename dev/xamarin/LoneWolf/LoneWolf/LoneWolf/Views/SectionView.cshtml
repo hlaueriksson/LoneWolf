@@ -9,7 +9,7 @@
 	@Model.Body
 	@foreach(var choice in Model.Choices)
 	{
-		<p>Turn to <a href="hybrid:section/@choice.Number">@choice.Number</a></p>
+		@choice.Body
 	}
 </body>
 </html>
