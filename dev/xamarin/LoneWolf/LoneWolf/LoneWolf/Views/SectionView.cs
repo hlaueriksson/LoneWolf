@@ -53,9 +53,18 @@ WriteLiteral(" />\r\n</head>\r\n<body>\r\n\t<h1>");
 
 #line default
 #line hidden
-WriteLiteral(@"</h1>
-	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-");
+WriteLiteral("</h1>\r\n");
+
+WriteLiteral("\t");
+
+
+#line 9 "SectionView.cshtml"
+Write(Model.Body);
+
+
+#line default
+#line hidden
+WriteLiteral("\r\n");
 
 
 #line 10 "SectionView.cshtml"

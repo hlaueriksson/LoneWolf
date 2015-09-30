@@ -34,23 +34,14 @@ namespace LoneWolf.ViewModels
 			get { return _source; }
 		}
 
-		public SectionViewModel()
-		{
-			Section = new Section
-			{
-				Number = "1",
-				Choices = new[]
-				{
-					new Choice { Number = "165" }
-				}
-			};
-		}
-
 		private string GetHtml()
 		{
-			var template = new SectionView { Model = Section };
+			if (Section == null) return string.Empty;
 
-			return template.GenerateString();
+			var template = new SectionView { Model = Section };
+			var html = template.GenerateString();
+
+			return System.Net.WebUtility.HtmlDecode(html);
 		}
 	}
 }

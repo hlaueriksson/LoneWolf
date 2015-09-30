@@ -6,6 +6,8 @@ namespace LoneWolf.Models
 	{
 		public string Number { get; set; }
 
+		public string Body { get; set; }
+
 		public IEnumerable<Choice> Choices { get; set; }
 	}
 
