@@ -1,0 +1,10 @@
+﻿body {
+	background-color: cornsilk;
+}
+
+.disabled .choice {
+	text-decoration: line-through;
+	color: gray;
+	pointer-events: none;
+	cursor: default;
+}

@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="IBaseUrl.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Section.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -54,6 +55,7 @@
   <ItemGroup>
     <None Include="GettingStarted.Xamarin" />
     <None Include="packages.config" />
+    <None Include="Views\SectionView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">

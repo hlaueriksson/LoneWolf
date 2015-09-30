@@ -99,21 +99,22 @@ WriteLiteral("\r\n");
 
 #line default
 #line hidden
-WriteLiteral("\t\t\t<p");
+WriteLiteral("\t\t\t<div");
 
-WriteLiteral(" style=\"text-decoration: line-through; color: gray; pointer-events: none; cursor:" +
-" default;\"");
+WriteLiteral(" class=\"disabled\"");
 
-WriteLiteral(">\r\n\t\t\t\tDisabled: ");
+WriteLiteral(">\r\n");
+
+WriteLiteral("\t\t\t\t");
 
 
 #line 19 "SectionView.cshtml"
-                     Write(choice.Body);
+           Write(choice.Body);
 
 
 #line default
 #line hidden
-WriteLiteral("\r\n\t\t\t</p>\r\n");
+WriteLiteral("\r\n\t\t\t</div>\r\n");
 
 
 #line 21 "SectionView.cshtml"
