@@ -1,4 +1,5 @@
 ﻿@using LoneWolf.Models
+@using LoneWolf.Views
 @model Section
 <html>
 <head>
@@ -9,16 +10,9 @@
 	@Model.Body
 	@foreach(var choice in Model.Choices)
 	{
-		if(choice.Toggle.IsEnabled())
-		{
+		<div class="@choice.GetCssClass()">
 			@choice.Body
-		}
-		else
-		{
-			<div class="disabled">
-				@choice.Body
-			</div>
-		}
+		</div>
 	}
 </body>
 </html>

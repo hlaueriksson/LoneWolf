@@ -22,6 +22,12 @@ using LoneWolf.Models;
 #line default
 #line hidden
 
+#line 2 "SectionView.cshtml"
+using LoneWolf.Views;
+
+#line default
+#line hidden
+
 
 [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorTemplatePreprocessor", "2.6.0.0")]
 public partial class SectionView : SectionViewBase
@@ -29,7 +35,7 @@ public partial class SectionView : SectionViewBase
 
 #line hidden
 
-#line 2 "SectionView.cshtml"
+#line 3 "SectionView.cshtml"
 public Section Model { get; set; }
 
 #line default
@@ -47,7 +53,7 @@ WriteLiteral(" href=\"style.css\"");
 WriteLiteral(" />\r\n</head>\r\n<body>\r\n\t<h1>");
 
 
-#line 8 "SectionView.cshtml"
+#line 9 "SectionView.cshtml"
    Write(Model.Number);
 
 
@@ -58,7 +64,7 @@ WriteLiteral("</h1>\r\n");
 WriteLiteral("\t");
 
 
-#line 9 "SectionView.cshtml"
+#line 10 "SectionView.cshtml"
 Write(Model.Body);
 
 
@@ -67,21 +73,34 @@ Write(Model.Body);
 WriteLiteral("\r\n");
 
 
-#line 10 "SectionView.cshtml"
+#line 11 "SectionView.cshtml"
 	
 
 #line default
 #line hidden
 
-#line 10 "SectionView.cshtml"
+#line 11 "SectionView.cshtml"
      foreach(var choice in Model.Choices)
 	{
-		if(choice.Toggle.IsEnabled())
-		{
-			
+
 
 #line default
 #line hidden
+WriteLiteral("\t\t<div");
+
+WriteAttribute ("class", " class=\"", "\""
+
+#line 13 "SectionView.cshtml"
+, Tuple.Create<string,object,bool> ("", choice.GetCssClass()
+
+#line default
+#line hidden
+, false)
+);
+WriteLiteral(">\r\n");
+
+WriteLiteral("\t\t\t");
+
 
 #line 14 "SectionView.cshtml"
        Write(choice.Body);
@@ -89,36 +108,10 @@ WriteLiteral("\r\n");
 
 #line default
 #line hidden
-
-#line 14 "SectionView.cshtml"
-                        
-		}
-		else
-		{
+WriteLiteral("\r\n\t\t</div>\r\n");
 
 
-#line default
-#line hidden
-WriteLiteral("\t\t\t<div");
-
-WriteLiteral(" class=\"disabled\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("\t\t\t\t");
-
-
-#line 19 "SectionView.cshtml"
-           Write(choice.Body);
-
-
-#line default
-#line hidden
-WriteLiteral("\r\n\t\t\t</div>\r\n");
-
-
-#line 21 "SectionView.cshtml"
-		}
+#line 16 "SectionView.cshtml"
 	}
 
 

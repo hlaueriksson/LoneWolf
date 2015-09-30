@@ -51,6 +51,7 @@
       <DependentUpon>SectionPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SectionView.cs" />
+    <Compile Include="Views\ViewExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GettingStarted.Xamarin" />
