@@ -15,12 +15,6 @@ namespace LoneWolf.Models
 	{
 		public string Number { get; }
 
-		public bool HasValue => !string.IsNullOrEmpty(Number);
-
-		public SectionReference()
-		{
-		}
-
 		public SectionReference(string number)
 		{
 			Number = number;
