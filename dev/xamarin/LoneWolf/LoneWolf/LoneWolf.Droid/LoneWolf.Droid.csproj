@@ -84,8 +84,19 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SectionReaderProxy.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\sections\sect000.json" />
+    <AndroidAsset Include="Assets\sections\sect001.json" />
+    <AndroidAsset Include="Assets\sections\sect002.json" />
+    <AndroidAsset Include="Assets\sections\sect003.json" />
+    <AndroidAsset Include="Assets\sections\sect004.json" />
+    <AndroidAsset Include="Assets\sections\sect005.json" />
+    <AndroidAsset Include="Assets\sections\sect006.json" />
+    <AndroidAsset Include="Assets\sections\sect007.json" />
+    <AndroidAsset Include="Assets\sections\sect008.json" />
+    <AndroidAsset Include="Assets\sections\sect009.json" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
