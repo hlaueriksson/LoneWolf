@@ -4,16 +4,47 @@ namespace LoneWolf.Models
 {
 	public class Section
 	{
-		public string Number { get; set; }
+		public SectionReference Number { get; set; }
 
 		public string Body { get; set; }
 
 		public IEnumerable<Choice> Choices { get; set; }
 	}
 
+	public class SectionReference
+	{
+		public string Number { get; }
+
+		public bool HasValue => !string.IsNullOrEmpty(Number);
+
+		public SectionReference()
+		{
+		}
+
+		public SectionReference(string number)
+		{
+			Number = number;
+		}
+
+		public static implicit operator string (SectionReference value)
+		{
+			return value.Number;
+		}
+
+		public static implicit operator SectionReference(string value)
+		{
+			return new SectionReference(value);
+		}
+
+		public override string ToString()
+		{
+			return Number;
+		}
+	}
+
 	public class Choice
 	{
-		public string Number { get; set; }
+		public SectionReference Number { get; set; }
 
 		public string Body { get; set; }
 

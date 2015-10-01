@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Given_SectionReference.cs" />
     <Compile Include="Views\Given_SectionView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
