@@ -29,7 +29,6 @@ namespace LoneWolf.Test.Factory
 				var json = model.TypedSerialize();
 
 				var path = GetCurrentDirectory() + @"\..\..\Factory\Data\";
-				Console.WriteLine(path);
 				var name = $"sect{i.ToString().PadLeft(3, '0')}.json";
 
 				File.WriteAllText(path + name, json);
@@ -42,25 +41,39 @@ namespace LoneWolf.Test.Factory
 			{
 				Number = number.ToString(),
 				Body = Lorem.Words(100, 500, true, true),
-				Choices = GetChoices()
+				Choices = GetChoices(number)
 			};
 			return model;
 		}
 
-		private static IEnumerable<Choice> GetChoices()
+		private static IEnumerable<Choice> GetChoices(int parent)
 		{
-			var count = random.Next(3) + 1;
+			var count = random.Next(2) + 2;
+			var numbers = GetNumbers(parent, count);
 
 			for (var i = 0; i < count; i++)
 			{
-				yield return GetChoice();
+				yield return GetChoice(numbers[i]);
 			}
 		}
 
-		private static Choice GetChoice()
+		private static List<int> GetNumbers(int parent, int count)
 		{
-			var number = random.Next(SectionCount);
+			var numbers = new List<int>();
+			for (var i = 0; i < count; i++)
+			{
+				var number = parent;
+				while (number == parent || numbers.Contains(number))
+				{
+					number = random.Next(SectionCount);
+				}
+				numbers.Add(number);
+			}
+			return numbers;
+		}
 
+		private static Choice GetChoice(int number)
+		{
 			return new Choice
 			{
 				Number = number.ToString(),
@@ -81,7 +94,7 @@ namespace LoneWolf.Test.Factory
 		{
 			var result = random.Next(100);
 
-			return result < 75 ? new ChoiceOn() : new ChoiceOff() as IChoiceToggle;
+			return result < 80 ? new ChoiceOn() : new ChoiceOff() as IChoiceToggle;
 		}
 
 		private static string GetCurrentDirectory()
