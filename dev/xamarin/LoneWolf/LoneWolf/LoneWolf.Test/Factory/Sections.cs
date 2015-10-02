@@ -9,6 +9,7 @@ using Machine.Specifications;
 namespace LoneWolf.Test.Factory
 {
 	[Subject("Generate")]
+	[Ignore("Run manually")]
 	public class Sections
 	{
 		static Random random;
@@ -48,12 +49,15 @@ namespace LoneWolf.Test.Factory
 
 		private static Section000 GetSection000(int number)
 		{
+			var route = "hybrid:random";
+			var link = $"<p>Pick a number from the <a href=\"{route}\">Random Number Table</a>.</p>";
+
 			return new Section000
 			{
 				Number = number.ToString(),
 				Body = Lorem.Words(100, 500, true, true),
 				Choices = GetChoices(number),
-				Foo = "Bar"
+				Foo = link
 			};
 		}
 

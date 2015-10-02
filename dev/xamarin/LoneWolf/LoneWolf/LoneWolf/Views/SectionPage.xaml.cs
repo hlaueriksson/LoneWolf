@@ -1,4 +1,6 @@
-﻿using LoneWolf.Extensions;
+﻿using System;
+using System.Threading.Tasks;
+using LoneWolf.Extensions;
 using LoneWolf.Models;
 using LoneWolf.Models.Book01;
 using LoneWolf.ViewModels;
@@ -21,14 +23,44 @@ namespace LoneWolf.Views
 
 			e.Cancel = true;
 
-			var number = GetSectionNumber(e.Url);
+			var route = GetRouteAction(e.Url);
 
-			UpdateModel(number);
+			switch (route)
+			{
+				case RouteAction.Section:
+					Section(e);
+					break;
+				case RouteAction.RandomNumberTable:
+					RandomNumberTable(e);
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
 		}
 
 		private void Browser_OnNavigated(object sender, WebNavigatedEventArgs e)
 		{
 			Log("Browser_OnNavigated");
+		}
+
+		private void Section(WebNavigatingEventArgs e)
+		{
+			var number = GetSectionNumber(e.Url);
+
+			UpdateModel(number);
+		}
+
+		private async void RandomNumberTable(WebNavigatingEventArgs e)
+		{
+			await Navigation.PushAsync(new RandomNumberTablePage());
+		}
+
+		private RouteAction GetRouteAction(string url)
+		{
+			if (url == "hybrid:random") return RouteAction.RandomNumberTable;
+			if (url.StartsWith("hybrid:section/")) return RouteAction.Section;
+
+			return RouteAction.None;
 		}
 
 		private string GetSectionNumber(string url)
@@ -62,5 +94,12 @@ namespace LoneWolf.Views
 		{
 			System.Diagnostics.Debug.WriteLine(message);
 		}
+	}
+
+	internal enum RouteAction
+	{
+		None,
+		Section,
+		RandomNumberTable
 	}
 }
