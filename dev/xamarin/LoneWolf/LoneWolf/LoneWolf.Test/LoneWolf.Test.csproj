@@ -78,6 +78,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Factory\JsonExtensions.cs" />
     <Compile Include="Factory\Sections.cs" />
+    <Compile Include="Views\Given_ViewExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

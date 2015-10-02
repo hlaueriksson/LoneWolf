@@ -6,6 +6,8 @@ namespace LoneWolf.Views
 	{
 		public static string GetCssClass(this Choice model)
 		{
+			if (model.Toggle == null) return "enabled";
+
 			return model.Toggle.IsEnabled() ? "enabled" : "disabled";
 		}
 	}
