@@ -19,7 +19,7 @@ namespace LoneWolf.Domain
 
 	public class RandomNumberResult : IEquatable<RandomNumberResult>, IEquatable<int>
 	{
-		private int Value { get; }
+		public int Value { get; }
 
 		public RandomNumberResult(int value)
 		{
