@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using LoneWolf.Models;
+using LoneWolf.Models.Book01;
 using LoremNET;
 using Machine.Specifications;
 
@@ -24,7 +25,7 @@ namespace LoneWolf.Test.Factory
 
 			for (var i = 0; i < SectionCount; i++)
 			{
-				var model = GetSection(i);
+				var model = i == 0 ? GetSection000(i) : GetSection(i);
 
 				var json = model.TypedSerialize();
 
@@ -37,13 +38,23 @@ namespace LoneWolf.Test.Factory
 
 		private static Section GetSection(int number)
 		{
-			var model = new Section
+			return new Section
 			{
 				Number = number.ToString(),
 				Body = Lorem.Words(100, 500, true, true),
 				Choices = GetChoices(number)
 			};
-			return model;
+		}
+
+		private static Section000 GetSection000(int number)
+		{
+			return new Section000
+			{
+				Number = number.ToString(),
+				Body = Lorem.Words(100, 500, true, true),
+				Choices = GetChoices(number),
+				Foo = "Bar"
+			};
 		}
 
 		private static IEnumerable<Choice> GetChoices(int parent)

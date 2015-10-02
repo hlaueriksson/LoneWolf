@@ -1,4 +1,5 @@
 ﻿using LoneWolf.Models;
+using LoneWolf.Models.Book01;
 using Xamarin.Forms;
 
 namespace LoneWolf.ViewModels
@@ -42,10 +43,20 @@ namespace LoneWolf.ViewModels
 		{
 			if (Section == null) return string.Empty;
 
-			var template = new SectionView { Model = Section };
-			var html = template.GenerateString();
+			var html = GenerateHtml();
 
 			return System.Net.WebUtility.HtmlDecode(html);
+		}
+
+		private string GenerateHtml()
+		{
+			switch (Section.Number)
+			{
+				case "0":
+					return new Book01Section000View { Model = Section as Section000 }.GenerateString();
+				default:
+					return new SectionView { Model = Section }.GenerateString();
+			}
 		}
 	}
 }

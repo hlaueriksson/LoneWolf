@@ -1,6 +1,6 @@
-﻿using System;
-using LoneWolf.Extensions;
+﻿using LoneWolf.Extensions;
 using LoneWolf.Models;
+using LoneWolf.Models.Book01;
 using LoneWolf.ViewModels;
 using Xamarin.Forms;
 
@@ -49,7 +49,13 @@ namespace LoneWolf.Views
 		{
 			var json = DependencyService.Get<ISectionReader>().Read(new SectionReference(number));
 
-			return json.TypedDeserialize<Section>();
+			switch (number)
+			{
+				case "0":
+					return json.TypedDeserialize<Section000>();
+				default:
+					return json.TypedDeserialize<Section>();
+			}
 		}
 
 		private static void Log(string message)
