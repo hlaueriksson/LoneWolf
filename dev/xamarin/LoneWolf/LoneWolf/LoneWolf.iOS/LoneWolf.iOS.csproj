@@ -91,12 +91,23 @@
     <Compile Include="BaseUrlProxy.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="SectionReaderProxy.cs" />
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <ITunesArtwork Include="iTunesArtwork" />
     <ITunesArtwork Include="iTunesArtwork@2x" />
     <None Include="packages.config" />
+    <BundleResource Include="sections\sect000.json" />
+    <BundleResource Include="sections\sect001.json" />
+    <BundleResource Include="sections\sect002.json" />
+    <BundleResource Include="sections\sect003.json" />
+    <BundleResource Include="sections\sect004.json" />
+    <BundleResource Include="sections\sect005.json" />
+    <BundleResource Include="sections\sect006.json" />
+    <BundleResource Include="sections\sect007.json" />
+    <BundleResource Include="sections\sect008.json" />
+    <BundleResource Include="sections\sect009.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LoneWolf\LoneWolf.csproj">
@@ -146,6 +157,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\style.css" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.1.5.0.6446\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.1.5.0.6446\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

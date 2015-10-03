@@ -8,7 +8,7 @@ namespace LoneWolf
 		public App()
 		{
 			// The root page of your application
-			MainPage = new NavigationPage(new SectionPage());
+			MainPage = new NavigationPage(new SectionPage()); // new TestSectionPage();
 		}
 
 		protected override void OnStart()

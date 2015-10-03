@@ -34,7 +34,8 @@ namespace LoneWolf.Views
 					RandomNumberTable(e);
 					break;
 				default:
-					throw new ArgumentOutOfRangeException();
+					e.Cancel = false; // FIX: iOS
+					break;
 			}
 		}
 
@@ -101,5 +102,36 @@ namespace LoneWolf.Views
 		None,
 		Section,
 		RandomNumberTable
+	}
+
+	public class TestSectionPage : ContentPage
+	{
+		public TestSectionPage()
+		{
+			var browser = new WebView
+			{
+				Source = new HtmlWebViewSource
+				{
+					Html = GetHtml(),
+					BaseUrl = DependencyService.Get<IBaseUrl>().Get()
+				}
+			};
+
+			Content = browser;
+		}
+
+		private string GetHtml()
+		{
+			var html = new SectionView { Model = GetSection("1") }.GenerateString();
+
+			return System.Net.WebUtility.HtmlDecode(html);
+		}
+
+		private Section GetSection(SectionReference number)
+		{
+			var json = DependencyService.Get<ISectionReader>().Read(new SectionReference(number));
+
+			return json.TypedDeserialize<Section>();
+		}
 	}
 }

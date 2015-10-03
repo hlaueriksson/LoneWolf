@@ -18,11 +18,7 @@ namespace LoneWolf.ViewModels
 				_section = value;
 				OnPropertyChanged();
 
-				Source = new HtmlWebViewSource
-				{
-					Html = GetHtml(),
-					BaseUrl = DependencyService.Get<IBaseUrl>().Get()
-				};
+				Source = GetHtmlWebViewSource();
 			}
 			get { return _section; }
 		}
@@ -37,6 +33,15 @@ namespace LoneWolf.ViewModels
 				OnPropertyChanged();
 			}
 			get { return _source; }
+		}
+
+		private HtmlWebViewSource GetHtmlWebViewSource()
+		{
+			return new HtmlWebViewSource
+			{
+				Html = GetHtml(),
+				BaseUrl = DependencyService.Get<IBaseUrl>().Get()
+			};
 		}
 
 		private string GetHtml()
