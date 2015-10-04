@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace LoneWolf.Domain
 {
@@ -17,6 +18,7 @@ namespace LoneWolf.Domain
 		}
 	}
 
+	[DebuggerDisplay("{Value}")]
 	public class RandomNumberResult : IEquatable<RandomNumberResult>, IEquatable<int>
 	{
 		public int Value { get; }

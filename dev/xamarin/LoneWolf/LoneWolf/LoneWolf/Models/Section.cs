@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace LoneWolf.Models
 {
+	[DebuggerDisplay("Section {Number}")]
 	public class Section
 	{
 		public SectionReference Number { get; set; }
@@ -11,6 +13,7 @@ namespace LoneWolf.Models
 		public IEnumerable<Choice> Choices { get; set; }
 	}
 
+	[DebuggerDisplay("{Number}")]
 	public class SectionReference
 	{
 		public string Number { get; }
@@ -36,6 +39,7 @@ namespace LoneWolf.Models
 		}
 	}
 
+	[DebuggerDisplay("Turn to {Number}")]
 	public class Choice
 	{
 		public SectionReference Number { get; set; }
