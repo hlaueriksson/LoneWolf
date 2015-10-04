@@ -6,6 +6,8 @@ namespace LoneWolf.Views
 	{
 		public static string GetCssClass(this PrologueReference model)
 		{
+			if (model == null) return "disabled";
+
 			return model == PrologueReference.Null ? "disabled" : "enabled";
 		}
 

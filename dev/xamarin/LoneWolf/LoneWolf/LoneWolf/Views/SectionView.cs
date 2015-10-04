@@ -88,10 +88,19 @@ WriteLiteral("\r\n");
 #line hidden
 WriteLiteral("\t\t<div");
 
+WriteAttribute ("id", " id=\"", "\""
+
+#line 13 "SectionView.cshtml"
+, Tuple.Create<string,object,bool> ("", choice.Number
+
+#line default
+#line hidden
+, false)
+);
 WriteAttribute ("class", " class=\"", "\""
 
 #line 13 "SectionView.cshtml"
-, Tuple.Create<string,object,bool> ("", choice.GetCssClass()
+ , Tuple.Create<string,object,bool> ("", choice.GetCssClass()
 
 #line default
 #line hidden

@@ -105,7 +105,7 @@ WriteLiteral(" id=\"forward\"");
 WriteAttribute ("class", " class=\"", "\""
 
 #line 12 "PrologueView.cshtml"
-                              , Tuple.Create<string,object,bool> ("", Model.Back.GetCssClass()
+                              , Tuple.Create<string,object,bool> ("", Model.Forward.GetCssClass()
 
 #line default
 #line hidden

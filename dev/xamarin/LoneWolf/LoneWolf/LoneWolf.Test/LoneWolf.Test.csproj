@@ -75,6 +75,8 @@
     <Compile Include="Domain\Given_RandomNumberTable.cs" />
     <Compile Include="Models\Given_PrologueReference.cs" />
     <Compile Include="Models\Given_SectionReference.cs" />
+    <Compile Include="Views\FakeChoiceToggle.cs" />
+    <Compile Include="Views\Given_PrologueView.cs" />
     <Compile Include="Views\Given_SectionView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Factory\JsonExtensions.cs" />

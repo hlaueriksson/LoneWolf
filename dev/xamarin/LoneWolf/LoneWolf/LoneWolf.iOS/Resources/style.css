@@ -2,6 +2,13 @@
 	background-color: cornsilk;
 }
 
+.navigation .disabled {
+	text-decoration: line-through;
+	color: gray;
+	pointer-events: none;
+	cursor: default;
+}
+
 .disabled .choice {
 	text-decoration: line-through;
 	color: gray;

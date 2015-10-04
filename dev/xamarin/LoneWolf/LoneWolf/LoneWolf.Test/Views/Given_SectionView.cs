@@ -3,20 +3,35 @@ using Machine.Specifications;
 
 namespace LoneWolf.Test.Views
 {
-	[Subject(typeof(SectionView))]
-	public class GenerateString
+	public class Given_SectionView
 	{
-		static SectionView subject;
-
-		Establish context = () =>
+		[Subject(typeof(SectionView))]
+		public class GenerateString
 		{
-			subject = new SectionView();
-		};
+			static SectionView subject;
 
-		It should_render_valid_model = () =>
-		{
-			subject.Model = new Section { Number = "1", Choices = new[] { new Choice { Number = "2" } } };
-			subject.GenerateString().ShouldNotBeEmpty();
-		};
+			Establish context = () =>
+			{
+				subject = new SectionView();
+			};
+
+			It should_render_valid_model = () =>
+			{
+				subject.Model = new Section
+				{
+					Number = "1",
+					Choices = new[]
+					{
+						new Choice {Number = "2", Toggle = FakeChoiceToggle.On()},
+						new Choice {Number = "3", Toggle = FakeChoiceToggle.Off()}
+					}
+				};
+				var result = subject.GenerateString();
+
+				result.ShouldNotBeEmpty();
+				result.ShouldContain("id=\"2\" class=\"enabled\"");
+				result.ShouldContain("id=\"3\" class=\"disabled\"");
+			};
+		}
 	}
 }

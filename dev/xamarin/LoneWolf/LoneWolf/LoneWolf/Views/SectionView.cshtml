@@ -10,7 +10,7 @@
 	@Model.Body
 	@foreach(var choice in Model.Choices)
 	{
-		<div class="@choice.GetCssClass()">
+		<div id="@choice.Number" class="@choice.GetCssClass()">
 			@choice.Body
 		</div>
 	}
