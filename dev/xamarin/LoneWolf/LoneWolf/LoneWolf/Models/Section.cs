@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace LoneWolf.Models
@@ -13,19 +14,19 @@ namespace LoneWolf.Models
 		public IEnumerable<Choice> Choices { get; set; }
 	}
 
-	[DebuggerDisplay("{Number}")]
-	public class SectionReference
+	[DebuggerDisplay("{Value}")]
+	public class SectionReference : IEquatable<SectionReference>, IEquatable<string>
 	{
-		public string Number { get; }
+		public string Value { get; }
 
-		public SectionReference(string number)
+		public SectionReference(string value)
 		{
-			Number = number;
+			Value = value;
 		}
 
 		public static implicit operator string (SectionReference value)
 		{
-			return value.Number;
+			return value.Value;
 		}
 
 		public static implicit operator SectionReference(string value)
@@ -33,10 +34,23 @@ namespace LoneWolf.Models
 			return new SectionReference(value);
 		}
 
-		public override string ToString()
+		public bool Equals(SectionReference other) => other != null && Value == other.Value;
+
+		public bool Equals(string other) => Value == other;
+
+		public static bool operator ==(SectionReference a, SectionReference b)
 		{
-			return Number;
+			if (ReferenceEquals(a, b)) return true;
+			if (((object)a == null) || ((object)b == null)) return false;
+
+			return a.Value == b.Value;
 		}
+
+		public static bool operator !=(SectionReference a, SectionReference b) => !(a == b);
+
+		public override int GetHashCode() => Value.GetHashCode();
+
+		public override string ToString() => Value;
 	}
 
 	[DebuggerDisplay("Turn to {Number}")]

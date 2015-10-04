@@ -1,4 +1,5 @@
 ﻿using LoneWolf.Domain;
+using LoneWolf.Models;
 using Machine.Fakes;
 using Machine.Specifications;
 

@@ -1,4 +1,4 @@
-using LoneWolf.Domain;
+using LoneWolf.Models;
 
 namespace LoneWolf.ViewModels
 {

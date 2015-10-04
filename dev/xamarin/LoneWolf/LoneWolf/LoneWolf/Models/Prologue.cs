@@ -48,6 +48,8 @@ namespace LoneWolf.Models
 
 		public static bool operator !=(PrologueReference a, PrologueReference b) => !(a == b);
 
+		public override int GetHashCode() => Value.GetHashCode();
+
 		public override string ToString() => Value;
 
 		public static readonly PrologueReference Null = "null";

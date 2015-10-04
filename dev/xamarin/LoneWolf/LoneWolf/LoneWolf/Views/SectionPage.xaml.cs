@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using LoneWolf.Extensions;
+﻿using LoneWolf.Extensions;
 using LoneWolf.Models;
 using LoneWolf.Models.Book01;
 using LoneWolf.ViewModels;
@@ -10,6 +8,13 @@ namespace LoneWolf.Views
 {
 	public partial class SectionPage : ContentPage
 	{
+		private enum RouteAction
+		{
+			None,
+			Section,
+			RandomNumberTable
+		}
+
 		public SectionPage()
 		{
 			InitializeComponent();
@@ -44,31 +49,6 @@ namespace LoneWolf.Views
 			Log("Browser_OnNavigated");
 		}
 
-		private void Section(WebNavigatingEventArgs e)
-		{
-			var number = GetSectionNumber(e.Url);
-
-			UpdateModel(number);
-		}
-
-		private async void RandomNumberTable(WebNavigatingEventArgs e)
-		{
-			await Navigation.PushAsync(new RandomNumberTablePage());
-		}
-
-		private RouteAction GetRouteAction(string url)
-		{
-			if (url == "hybrid:random") return RouteAction.RandomNumberTable;
-			if (url.StartsWith("hybrid:section/")) return RouteAction.Section;
-
-			return RouteAction.None;
-		}
-
-		private string GetSectionNumber(string url)
-		{
-			return url.Replace("hybrid:section/", string.Empty);
-		}
-
 		private void UpdateModel(SectionReference number)
 		{
 			var model = BindingContext as SectionViewModel;
@@ -91,17 +71,35 @@ namespace LoneWolf.Views
 			}
 		}
 
+		private RouteAction GetRouteAction(string url)
+		{
+			if (url == "hybrid:random") return RouteAction.RandomNumberTable;
+			if (url.StartsWith("hybrid:section/")) return RouteAction.Section;
+
+			return RouteAction.None;
+		}
+
+		private void Section(WebNavigatingEventArgs e)
+		{
+			var number = GetSectionReference(e.Url);
+
+			UpdateModel(number);
+		}
+
+		private async void RandomNumberTable(WebNavigatingEventArgs e)
+		{
+			await Navigation.PushAsync(new RandomNumberTablePage());
+		}
+
+		private SectionReference GetSectionReference(string url)
+		{
+			return url.Replace("hybrid:section/", string.Empty);
+		}
+
 		private static void Log(string message)
 		{
 			System.Diagnostics.Debug.WriteLine(message);
 		}
-	}
-
-	internal enum RouteAction
-	{
-		None,
-		Section,
-		RandomNumberTable
 	}
 
 	public class TestSectionPage : ContentPage

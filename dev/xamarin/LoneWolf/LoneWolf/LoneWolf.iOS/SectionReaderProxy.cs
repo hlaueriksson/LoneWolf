@@ -10,7 +10,7 @@ namespace LoneWolf.iOS
 	{
 		public string Read(SectionReference number)
 		{
-			var path = $"sections/sect{number.Number.PadLeft(3, '0')}.json";
+			var path = $"sections/sect{number.Value.PadLeft(3, '0')}.json";
 
 			return File.ReadAllText(path);
 		}

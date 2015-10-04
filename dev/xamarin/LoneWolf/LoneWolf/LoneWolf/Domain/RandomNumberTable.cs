@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
+using LoneWolf.Models;
 
 namespace LoneWolf.Domain
 {
@@ -16,33 +16,6 @@ namespace LoneWolf.Domain
 		{
 			return new RandomNumberResult(_random.Next(10));
 		}
-	}
-
-	[DebuggerDisplay("{Value}")]
-	public class RandomNumberResult : IEquatable<RandomNumberResult>, IEquatable<int>
-	{
-		public int Value { get; }
-
-		public RandomNumberResult(int value)
-		{
-			Value = value;
-		}
-
-		public static implicit operator int (RandomNumberResult value)
-		{
-			return value.Value;
-		}
-
-		public static implicit operator RandomNumberResult(int value)
-		{
-			return new RandomNumberResult(value);
-		}
-
-		public bool Equals(RandomNumberResult other) => other != null && Value == other.Value;
-
-		public bool Equals(int other) => Value == other;
-
-		public override string ToString() => Value.ToString();
 	}
 
 	public interface IRandom
