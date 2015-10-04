@@ -1,13 +1,11 @@
 ﻿using LoneWolf.Models;
 using LoneWolf.Models.Book01;
-using Xamarin.Forms;
 
 namespace LoneWolf.ViewModels
 {
-	public class SectionViewModel : BaseViewModel
+	public class SectionViewModel : BaseBrowserViewModel
 	{
 		private Section _section;
-		private HtmlWebViewSource _source;
 
 		public Section Section
 		{
@@ -23,38 +21,10 @@ namespace LoneWolf.ViewModels
 			get { return _section; }
 		}
 
-		public HtmlWebViewSource Source
-		{
-			private set
-			{
-				if (Equals(_source, value)) return;
-
-				_source = value;
-				OnPropertyChanged();
-			}
-			get { return _source; }
-		}
-
-		private HtmlWebViewSource GetHtmlWebViewSource()
-		{
-			return new HtmlWebViewSource
-			{
-				Html = GetHtml(),
-				BaseUrl = DependencyService.Get<IBaseUrl>().Get()
-			};
-		}
-
-		private string GetHtml()
+		protected override string GenerateHtml()
 		{
 			if (Section == null) return string.Empty;
 
-			var html = GenerateHtml();
-
-			return System.Net.WebUtility.HtmlDecode(html);
-		}
-
-		private string GenerateHtml()
-		{
 			switch (Section.Number)
 			{
 				case "0":

@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="Domain\Given_RandomNumberResult.cs" />
     <Compile Include="Domain\Given_RandomNumberTable.cs" />
+    <Compile Include="Models\Given_PrologueReference.cs" />
     <Compile Include="Models\Given_SectionReference.cs" />
     <Compile Include="Views\Given_SectionView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

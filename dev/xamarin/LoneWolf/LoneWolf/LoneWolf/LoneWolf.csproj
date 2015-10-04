@@ -42,17 +42,23 @@
     <Compile Include="ISectionReader.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Book01\Section000.cs" />
+    <Compile Include="Models\Prologue.cs" />
     <Compile Include="Models\Section.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\PrologueViewModel.cs" />
     <Compile Include="ViewModels\RandomNumberTableViewModel.cs" />
     <Compile Include="ViewModels\SectionViewModel.cs" />
     <Compile Include="Views\Book01\Book01Section000View.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ProloguePage.xaml.cs">
+      <DependentUpon>ProloguePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PrologueView.cs" />
     <Compile Include="Views\RandomNumberTablePage.xaml.cs">
       <DependentUpon>RandomNumberTablePage.xaml</DependentUpon>
     </Compile>
@@ -66,6 +72,7 @@
     <None Include="GettingStarted.Xamarin" />
     <None Include="packages.config" />
     <None Include="Views\Book01\Book01Section000View.cshtml" />
+    <None Include="Views\PrologueView.cshtml" />
     <None Include="Views\SectionView.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -100,6 +107,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\RandomNumberTablePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\ProloguePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

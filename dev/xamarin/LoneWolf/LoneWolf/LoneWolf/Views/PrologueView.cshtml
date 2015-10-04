@@ -1,0 +1,15 @@
+﻿@using LoneWolf.Models
+@using LoneWolf.Views
+@model Prologue
+<html>
+<head>
+	<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+	@Model.Body
+	<div class="navigation">
+		<a href="hybrid:prologue/@Model.Back" id="back" class="@Model.Back.GetCssClass()">Back</a>
+		<a href="hybrid:prologue/@Model.Forward" id="forward" class="@Model.Back.GetCssClass()">Forward</a>
+	</div>
+</body>
+</html>

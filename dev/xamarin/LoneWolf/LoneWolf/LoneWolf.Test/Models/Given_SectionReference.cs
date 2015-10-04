@@ -3,19 +3,22 @@ using Machine.Specifications;
 
 namespace LoneWolf.Test.Models
 {
-	[Subject(typeof(SectionReference))]
-	public class Conversion_operators
+	public class Given_SectionReference
 	{
-		It should_convert_SectionReference_to_string = () =>
+		[Subject(typeof(SectionReference))]
+		public class Conversion_operators
 		{
-			string result = new SectionReference("1");
-			result.ShouldEqual("1");
-		};
+			It should_convert_SectionReference_to_string = () =>
+			{
+				string result = new SectionReference("1");
+				result.ShouldEqual("1");
+			};
 
-		It should_convert_string_to_SectionReference = () =>
-		{
-			SectionReference result = "1";
-			result.Number.ShouldEqual("1");
-		};
+			It should_convert_string_to_SectionReference = () =>
+			{
+				SectionReference result = "1";
+				result.Number.ShouldEqual("1");
+			};
+		}
 	}
 }
