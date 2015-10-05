@@ -6,6 +6,8 @@ namespace LoneWolf.Views
 {
 	public partial class RandomNumberTablePage : ContentPage
 	{
+		public const string ResultMessage = "Result";
+
 		private readonly RandomNumberTable _randomNumberTable;
 
 		public RandomNumberTablePage()
@@ -23,7 +25,11 @@ namespace LoneWolf.Views
 
 			if (model == null) return;
 
-			model.Result = _randomNumberTable.Next();
+			var result = _randomNumberTable.Next();
+
+			model.Result = result;
+
+			MessagingCenter.Send(this, ResultMessage, result);
 		}
 	}
 }

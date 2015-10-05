@@ -71,6 +71,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Given_ActionChart.cs" />
+    <Compile Include="Models\Given_KaiDisciplineExtensions.cs" />
     <Compile Include="Models\Given_RandomNumberResult.cs" />
     <Compile Include="Domain\Given_RandomNumberTable.cs" />
     <Compile Include="Models\Given_PrologueReference.cs" />

@@ -40,5 +40,7 @@ namespace LoneWolf.Models
 		public override int GetHashCode() => Value.GetHashCode();
 
 		public override string ToString() => Value.ToString();
+
+		public static readonly RandomNumberResult Null = -1;
 	}
 }
