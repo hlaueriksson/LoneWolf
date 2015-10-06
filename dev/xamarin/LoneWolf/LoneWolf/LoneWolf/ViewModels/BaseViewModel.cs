@@ -32,7 +32,7 @@ namespace LoneWolf.ViewModels
 			get { return _source; }
 		}
 
-		protected HtmlWebViewSource GetHtmlWebViewSource()
+		protected virtual HtmlWebViewSource GetHtmlWebViewSource()
 		{
 			return new HtmlWebViewSource
 			{

@@ -20,11 +20,15 @@ namespace LoneWolf.Views
 			Equipment
 		}
 
+		private ActionChart ActionChart { get; } = new ActionChart();
+
 		private RandomNumberResult RandomNumberResult { get; set; } = RandomNumberResult.Null;
 
 		public ProloguePage()
 		{
 			InitializeComponent();
+
+			UpdateModel(ActionChart);
 
 			UpdateModel(PrologueReference.TitlePage);
 
@@ -78,6 +82,15 @@ namespace LoneWolf.Views
 			Log("Browser_OnNavigated");
 		}
 
+		private void UpdateModel(ActionChart actionChart)
+		{
+			var model = BindingContext as PrologueViewModel;
+
+			if (model == null) return;
+
+			model.ActionChart = actionChart;
+		}
+
 		private void UpdateModel(PrologueReference id)
 		{
 			var model = BindingContext as PrologueViewModel;
@@ -94,8 +107,8 @@ namespace LoneWolf.Views
 			if (id == PrologueReference.TheGameRules)
 			{
 				body += "<p><a href=\"hybrid:actionchart\">ActionChart</a></p>";
-				body += "<p><a href=\"hybrid:combatskill\">CombatSkill</a></p>";
-				body += "<p><a href=\"hybrid:endurance\">Endurance</a></p>";
+				body += "<p><a href=\"hybrid:combatskill\" id=\"CombatSkill\" class=\"enabled\">CombatSkill</a></p>";
+				body += "<p><a href=\"hybrid:endurance\" id=\"Endurance\" class=\"enabled\">Endurance</a></p>";
 			}
 
 			if (id == PrologueReference.KaiDisciplines)
@@ -143,7 +156,11 @@ namespace LoneWolf.Views
 
 			await Navigation.PushAsync(new RandomNumberTablePage());
 
-			if (RandomNumberResult != RandomNumberResult.Null) Log($"CombatSkill.Set({RandomNumberResult})");
+			if (RandomNumberResult == RandomNumberResult.Null) return;
+
+			ActionChart.CombatSkill.Set(RandomNumberResult + 10);
+
+			Log(ActionChart.CombatSkill.Value);
 		}
 
 		private async void Endurance(WebNavigatingEventArgs e)
@@ -152,22 +169,28 @@ namespace LoneWolf.Views
 
 			await Navigation.PushAsync(new RandomNumberTablePage());
 
-			if (RandomNumberResult != RandomNumberResult.Null) Log($"Endurance.Set({RandomNumberResult})");
+			if (RandomNumberResult == RandomNumberResult.Null) return;
+
+			ActionChart.Endurance.Set(RandomNumberResult + 20);
+
+			Log(ActionChart.Endurance.Value);
 		}
 
 		private async void KaiDiscipline(WebNavigatingEventArgs e)
 		{
 			Log("KaiDiscipline");
 
-			var discipline = GetKaiDiscipline(e.Url);
+			if (ActionChart.KaiDisciplines.Count >= 5) return;
 
-			// TODO: Validate max 5
+			var discipline = GetKaiDiscipline(e.Url);
 
 			if (discipline == Models.KaiDiscipline.None) return;
 
-			Log($"KaiDisciplines.Add({discipline})");
+			ActionChart.KaiDisciplines.Add(discipline);
 
-			if(discipline != Models.KaiDiscipline.Weaponskill) return;
+			Log(discipline);
+
+			if (discipline != Models.KaiDiscipline.Weaponskill) return;
 
 			await Navigation.PushAsync(new RandomNumberTablePage());
 
@@ -175,7 +198,9 @@ namespace LoneWolf.Views
 
 			var skill = GetWeaponSkill(RandomNumberResult);
 
-			Log($"WeaponSkill = {skill}");
+			ActionChart.WeaponSkill = skill;
+
+			Log(skill);
 		}
 
 		private WeaponSkill GetWeaponSkill(RandomNumberResult result)
@@ -251,6 +276,11 @@ namespace LoneWolf.Views
 			var value = url.Replace("hybrid:kaidiscipline/", string.Empty);
 
 			return value.GetKaiDiscipline();
+		}
+
+		private void Log(object message)
+		{
+			Log(message.ToString());
 		}
 
 		private static void Log(string message)

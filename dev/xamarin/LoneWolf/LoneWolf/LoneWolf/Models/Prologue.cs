@@ -3,6 +3,13 @@ using System.Diagnostics;
 
 namespace LoneWolf.Models
 {
+	public class PrologueContext
+	{
+		public Prologue Prologue { get; set; }
+
+		public ActionChart ActionChart { get; set; }
+	}
+
 	[DebuggerDisplay("Prologue {Id}")]
 	public class Prologue
 	{
@@ -95,6 +102,36 @@ namespace LoneWolf.Models
 			if (id == PrologueReference.LevelsOfKaiTraining) return PrologueReference.KaiWisdom;
 
 			return PrologueReference.Null;
+		}
+	}
+
+	public interface IPrologueToggle
+	{
+		string Execute(string html);
+	}
+
+	public class NullPrologueToggle : IPrologueToggle
+	{
+		public string Execute(string html)
+		{
+			return html;
+		}
+	}
+
+	public class TheGameRulesToggle : IPrologueToggle
+	{
+		private readonly PrologueContext _context;
+
+		public TheGameRulesToggle(PrologueContext context)
+		{
+			_context = context;
+		}
+
+		public string Execute(string html)
+		{
+			return html
+				.Disable("CombatSkill", () => _context.ActionChart.CombatSkill.Value > 0)
+				.Disable("Endurance", () => _context.ActionChart.Endurance.Value > 0);
 		}
 	}
 }
