@@ -115,7 +115,7 @@ namespace LoneWolf.Views
 			{
 				foreach (KaiDiscipline discipline in Enum.GetValues(typeof(KaiDiscipline)))
 				{
-					body += $"<p><a href=\"hybrid:kaidiscipline/{discipline}\">{discipline}</a></p>";
+					body += $"<p><a href=\"hybrid:kaidiscipline/{discipline}\" id=\"{discipline}\" class=\"enabled\">{discipline}</a></p>";
 				}
 			}
 
@@ -188,12 +188,18 @@ namespace LoneWolf.Views
 
 			if (discipline == Models.KaiDiscipline.None) return;
 
-			ActionChartRepository.Update(model => model.KaiDisciplines.Add(discipline));
+			var hasKaiDiscipline = ActionChartRepository.Get().Has(discipline);
+
+			if (hasKaiDiscipline) ActionChartRepository.Update(model => model.KaiDisciplines.Remove(discipline));
+			else ActionChartRepository.Update(model => model.KaiDisciplines.Add(discipline));
 			await ActionChartRepository.SaveAsync();
 
 			Log(discipline);
 
 			if (discipline != Models.KaiDiscipline.Weaponskill) return;
+			// NOTE: do not reset WeaponSkill
+			if (hasKaiDiscipline) return;
+			if (ActionChartRepository.Get().WeaponSkill != WeaponSkill.None) return;
 
 			await Navigation.PushAsync(new RandomNumberTablePage());
 

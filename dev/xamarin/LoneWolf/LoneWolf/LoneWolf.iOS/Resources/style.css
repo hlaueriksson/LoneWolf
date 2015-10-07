@@ -9,6 +9,11 @@ a.disabled {
 	cursor: default;
 }
 
+a.selected {
+	text-decoration: underline;
+	color: green;
+}
+
 .navigation .disabled {
 	text-decoration: line-through;
 	color: gray;

@@ -134,4 +134,31 @@ namespace LoneWolf.Models
 				.Disable("Endurance", () => _context.ActionChart.Endurance.Value > 0);
 		}
 	}
+
+	public class KaiDisciplinesToggle : IPrologueToggle
+	{
+		private readonly PrologueContext _context;
+
+		public KaiDisciplinesToggle(PrologueContext context)
+		{
+			_context = context;
+		}
+
+		public string Execute(string html)
+		{
+			foreach (KaiDiscipline discipline in Enum.GetValues(typeof(KaiDiscipline)))
+			{
+				html = html.Select(discipline.ToString(), () => _context.ActionChart.Has(discipline));
+			}
+
+			if (_context.ActionChart.KaiDisciplines.Count < 5) return html;
+
+			foreach (KaiDiscipline discipline in Enum.GetValues(typeof(KaiDiscipline)))
+			{
+				html = html.Disable(discipline.ToString());
+			}
+
+			return html;
+		}
+	}
 }

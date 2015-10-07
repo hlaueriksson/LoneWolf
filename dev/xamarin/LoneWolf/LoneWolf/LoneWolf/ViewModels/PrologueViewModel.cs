@@ -44,6 +44,7 @@ namespace LoneWolf.ViewModels
 		private IPrologueToggle GetToggle()
 		{
 			if (Prologue.Id == PrologueReference.TheGameRules) return new TheGameRulesToggle(PrologueContext);
+			if (Prologue.Id == PrologueReference.KaiDisciplines) return new KaiDisciplinesToggle(PrologueContext);
 
 			return new NullPrologueToggle();
 		}

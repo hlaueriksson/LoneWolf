@@ -8,7 +8,7 @@ namespace LoneWolf.Models
 		public CombatSkill CombatSkill { get; set; } = new CombatSkill();
 		public Endurance Endurance { get; set; } = new Endurance();
 
-		public IList<KaiDiscipline> KaiDisciplines { get; set; } = new List<KaiDiscipline>();
+		public ISet<KaiDiscipline> KaiDisciplines { get; set; } = new SortedSet<KaiDiscipline>();
 		public WeaponSkill WeaponSkill { get; set; } = WeaponSkill.None;
 
 		public BeltPouch BeltPouch { get; set; } = new BeltPouch();
