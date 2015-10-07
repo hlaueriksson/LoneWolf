@@ -20,7 +20,7 @@ namespace LoneWolf.Views
 			Equipment
 		}
 
-		private ActionChart ActionChart { get; } = new ActionChart();
+		private PropertiesRepository<ActionChart> ActionChartRepository { get; } = new PropertiesRepository<ActionChart>();
 
 		private RandomNumberResult RandomNumberResult { get; set; } = RandomNumberResult.Null;
 
@@ -28,7 +28,7 @@ namespace LoneWolf.Views
 		{
 			InitializeComponent();
 
-			UpdateModel(ActionChart);
+			UpdateModel(ActionChartRepository.Get());
 
 			UpdateModel(PrologueReference.TitlePage);
 
@@ -158,9 +158,10 @@ namespace LoneWolf.Views
 
 			if (RandomNumberResult == RandomNumberResult.Null) return;
 
-			ActionChart.CombatSkill.Set(RandomNumberResult + 10);
+			ActionChartRepository.Update(model => model.CombatSkill.Set(RandomNumberResult + 10));
+			await ActionChartRepository.SaveAsync();
 
-			Log(ActionChart.CombatSkill.Value);
+			Log(RandomNumberResult);
 		}
 
 		private async void Endurance(WebNavigatingEventArgs e)
@@ -171,22 +172,24 @@ namespace LoneWolf.Views
 
 			if (RandomNumberResult == RandomNumberResult.Null) return;
 
-			ActionChart.Endurance.Set(RandomNumberResult + 20);
+			ActionChartRepository.Update(model => model.Endurance.Set(RandomNumberResult + 20));
+			await ActionChartRepository.SaveAsync();
 
-			Log(ActionChart.Endurance.Value);
+			Log(RandomNumberResult);
 		}
 
 		private async void KaiDiscipline(WebNavigatingEventArgs e)
 		{
 			Log("KaiDiscipline");
 
-			if (ActionChart.KaiDisciplines.Count >= 5) return;
+			if (ActionChartRepository.Get().KaiDisciplines.Count >= 5) return;
 
 			var discipline = GetKaiDiscipline(e.Url);
 
 			if (discipline == Models.KaiDiscipline.None) return;
 
-			ActionChart.KaiDisciplines.Add(discipline);
+			ActionChartRepository.Update(model => model.KaiDisciplines.Add(discipline));
+			await ActionChartRepository.SaveAsync();
 
 			Log(discipline);
 
@@ -198,7 +201,8 @@ namespace LoneWolf.Views
 
 			var skill = GetWeaponSkill(RandomNumberResult);
 
-			ActionChart.WeaponSkill = skill;
+			ActionChartRepository.Update(model => model.WeaponSkill = skill);
+			await ActionChartRepository.SaveAsync();
 
 			Log(skill);
 		}
