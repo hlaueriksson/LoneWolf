@@ -91,6 +91,11 @@ namespace LoneWolf.Views
 			model.ActionChart = actionChart;
 		}
 
+		private void UpdateModel()
+		{
+			(BindingContext as PrologueViewModel)?.Update();
+		}
+
 		private void UpdateModel(PrologueReference id)
 		{
 			var model = BindingContext as PrologueViewModel;
@@ -115,7 +120,7 @@ namespace LoneWolf.Views
 			{
 				foreach (KaiDiscipline discipline in Enum.GetValues(typeof(KaiDiscipline)))
 				{
-					body += $"<p><a href=\"hybrid:kaidiscipline/{discipline}\" id=\"{discipline}\" class=\"enabled\">{discipline}</a></p>";
+					body += $"<p><a href=\"hybrid:kaidiscipline/{discipline}\" id=\"{discipline}\" class=\"enabled\" onclick=\"toggleKaiDiscipline(this);\">{discipline}</a></p>";
 				}
 			}
 
@@ -182,24 +187,36 @@ namespace LoneWolf.Views
 		{
 			Log("KaiDiscipline");
 
-			if (ActionChartRepository.Get().KaiDisciplines.Count >= 5) return;
-
 			var discipline = GetKaiDiscipline(e.Url);
 
 			if (discipline == Models.KaiDiscipline.None) return;
 
 			var hasKaiDiscipline = ActionChartRepository.Get().Has(discipline);
 
-			if (hasKaiDiscipline) ActionChartRepository.Update(model => model.KaiDisciplines.Remove(discipline));
-			else ActionChartRepository.Update(model => model.KaiDisciplines.Add(discipline));
+			if (hasKaiDiscipline)
+			{
+				ActionChartRepository.Update(model => model.KaiDisciplines.Remove(discipline));
+
+				await ActionChartRepository.SaveAsync();
+
+				return;
+			}
+
+			if (ActionChartRepository.Get().KaiDisciplines.Count >= 5)
+			{
+				await DisplayAlert("Rules", "You can only choose five Kai Disciplines. Click on a selected discipline to unchoose it.", "OK");
+
+				return;
+			}
+
+			ActionChartRepository.Update(model => model.KaiDisciplines.Add(discipline));
+
 			await ActionChartRepository.SaveAsync();
 
 			Log(discipline);
 
 			if (discipline != Models.KaiDiscipline.Weaponskill) return;
-			// NOTE: do not reset WeaponSkill
-			if (hasKaiDiscipline) return;
-			if (ActionChartRepository.Get().WeaponSkill != WeaponSkill.None) return;
+			if (ActionChartRepository.Get().WeaponSkill != WeaponSkill.None) return; // NOTE: do not reset WeaponSkill
 
 			await Navigation.PushAsync(new RandomNumberTablePage());
 

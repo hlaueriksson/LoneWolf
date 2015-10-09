@@ -44,18 +44,35 @@ public Prologue Model { get; set; }
 
 public override void Execute()
 {
-WriteLiteral("<html>\r\n<head>\r\n\t<link");
+WriteLiteral("<!DOCTYPE html>\r\n<html>\r\n<head>\r\n\t<meta");
+
+WriteLiteral(" charset=\"UTF-8\"");
+
+WriteLiteral(">\r\n\t<title>LoneWolf - ");
+
+
+#line 8 "PrologueView.cshtml"
+                 Write(Model.Id);
+
+
+#line default
+#line hidden
+WriteLiteral("</title>\r\n\t<link");
 
 WriteLiteral(" rel=\"stylesheet\"");
 
-WriteLiteral(" href=\"style.css\"");
+WriteLiteral(" href=\"prologue.css\"");
 
-WriteLiteral(" />\r\n</head>\r\n<body>\r\n");
+WriteLiteral("/>\r\n\t<script");
+
+WriteLiteral(" src=\"prologue.js\"");
+
+WriteLiteral("></script>\r\n</head>\r\n<body>\r\n");
 
 WriteLiteral("\t");
 
 
-#line 9 "PrologueView.cshtml"
+#line 13 "PrologueView.cshtml"
 Write(Model.Body);
 
 
@@ -70,7 +87,7 @@ WriteLiteral(">\r\n\t\t<a");
 WriteAttribute ("href", " href=\"", "\""
 , Tuple.Create<string,object,bool> ("", "hybrid:prologue/", true)
 
-#line 11 "PrologueView.cshtml"
+#line 15 "PrologueView.cshtml"
 , Tuple.Create<string,object,bool> ("", Model.Back
 
 #line default
@@ -81,7 +98,7 @@ WriteLiteral(" id=\"back\"");
 
 WriteAttribute ("class", " class=\"", "\""
 
-#line 11 "PrologueView.cshtml"
+#line 15 "PrologueView.cshtml"
                         , Tuple.Create<string,object,bool> ("", Model.Back.GetCssClass()
 
 #line default
@@ -93,7 +110,7 @@ WriteLiteral(">Back</a>\r\n\t\t<a");
 WriteAttribute ("href", " href=\"", "\""
 , Tuple.Create<string,object,bool> ("", "hybrid:prologue/", true)
 
-#line 12 "PrologueView.cshtml"
+#line 16 "PrologueView.cshtml"
 , Tuple.Create<string,object,bool> ("", Model.Forward
 
 #line default
@@ -104,7 +121,7 @@ WriteLiteral(" id=\"forward\"");
 
 WriteAttribute ("class", " class=\"", "\""
 
-#line 12 "PrologueView.cshtml"
+#line 16 "PrologueView.cshtml"
                               , Tuple.Create<string,object,bool> ("", Model.Forward.GetCssClass()
 
 #line default

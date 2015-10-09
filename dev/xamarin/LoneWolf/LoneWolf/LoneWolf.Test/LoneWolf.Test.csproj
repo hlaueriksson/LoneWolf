@@ -98,6 +98,19 @@
   <ItemGroup>
     <Folder Include="Factory\Data\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\LoneWolf\Views\prologue.css">
+      <Link>Views\Html\prologue.css</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\LoneWolf\Views\prologue.js">
+      <Link>Views\Html\prologue.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Html\PrologueView.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,4 +1,5 @@
-﻿using LoneWolf.Models;
+﻿using System.Collections.Generic;
+using LoneWolf.Models;
 using LoneWolf.Test.Factory;
 using Machine.Specifications;
 
@@ -33,7 +34,7 @@ namespace LoneWolf.Test.Models
 				result.CombatSkill.Value.ShouldEqual(10);
 				result.Endurance.Value.ShouldEqual(20);
 				result.Endurance.Max.ShouldEqual(20);
-				result.KaiDisciplines.ShouldEqual(new[] { KaiDiscipline.AnimalKinship });
+				result.KaiDisciplines.ShouldEqual(new SortedSet<KaiDiscipline> { KaiDiscipline.AnimalKinship });
 				result.WeaponSkill.ShouldEqual(WeaponSkill.Axe);
 			};
 		}

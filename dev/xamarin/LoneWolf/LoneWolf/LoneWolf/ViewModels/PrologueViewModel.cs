@@ -25,6 +25,11 @@ namespace LoneWolf.ViewModels
 
 		private PrologueContext PrologueContext => new PrologueContext { Prologue = Prologue, ActionChart = ActionChart };
 
+		public void Update()
+		{
+			Source = GetHtmlWebViewSource();
+		}
+
 		protected override HtmlWebViewSource GetHtmlWebViewSource()
 		{
 			var result = base.GetHtmlWebViewSource();

@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using LoneWolf.Annotations;
 using Xamarin.Forms;
@@ -13,6 +15,12 @@ namespace LoneWolf.ViewModels
 		protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+		}
+
+		protected void OnPropertyChanged<TProperty>(Expression<Func<TProperty>> projection)
+		{
+			var memberExpression = (MemberExpression)projection.Body;
+			OnPropertyChanged(memberExpression.Member.Name);
 		}
 	}
 
