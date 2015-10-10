@@ -112,8 +112,8 @@ namespace LoneWolf.Views
 			if (id == PrologueReference.TheGameRules)
 			{
 				body += "<p><a href=\"hybrid:actionchart\">ActionChart</a></p>";
-				body += "<p><a href=\"hybrid:combatskill\" id=\"CombatSkill\" class=\"enabled\">CombatSkill</a></p>";
-				body += "<p><a href=\"hybrid:endurance\" id=\"Endurance\" class=\"enabled\">Endurance</a></p>";
+				body += "<p><a href=\"hybrid:combatskill\" id=\"CombatSkill\" class=\"enabled\" onclick=\"disable(this);\">CombatSkill</a></p>";
+				body += "<p><a href=\"hybrid:endurance\" id=\"Endurance\" class=\"enabled\" onclick=\"disable(this);\">Endurance</a></p>";
 			}
 
 			if (id == PrologueReference.KaiDisciplines)

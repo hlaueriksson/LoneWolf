@@ -33,10 +33,12 @@ namespace LoneWolf
 
 		private void Init()
 		{
+			//ActionChartRepository.Remove();
+
 			if (ActionChartRepository.Exists()) return;
 
 			ActionChartRepository.Add(new ActionChart());
-			ActionChartRepository.SaveAsync();
+			//ActionChartRepository.SaveAsync();
 		}
 	}
 }

@@ -45,7 +45,7 @@ namespace LoneWolf.Test.Views
 
 				foreach (KaiDiscipline discipline in Enum.GetValues(typeof(KaiDiscipline)))
 				{
-					body += $"<p><a href=\"hybrid:kaidiscipline/{discipline}\" id=\"{discipline}\" class=\"enabled\" onclick=\"select(this);\">{discipline}</a></p>";
+					body += $"<p><a href=\"hybrid:kaidiscipline/{discipline}\" id=\"{discipline}\" class=\"enabled\" onclick=\"toggleKaiDiscipline(this);\">{discipline}</a></p>";
 				}
 
 				subject.Model = new Prologue { Id = PrologueReference.TitlePage, Body = body, Back = PrologueReference.Null, Forward = PrologueReference.Dedication };
