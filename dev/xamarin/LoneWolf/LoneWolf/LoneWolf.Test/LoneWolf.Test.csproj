@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="Models\Given_ActionChart.cs" />
     <Compile Include="Models\Given_HtmlToggleExtensions.cs" />
+    <Compile Include="Models\Given_IPrologueToggle.cs" />
     <Compile Include="Models\Given_KaiDisciplineExtensions.cs" />
     <Compile Include="Models\Given_RandomNumberResult.cs" />
     <Compile Include="Domain\Given_RandomNumberTable.cs" />
