@@ -126,9 +126,9 @@ namespace LoneWolf.Views
 
 			if (id == PrologueReference.Equipment)
 			{
-				body += "<p><a href=\"hybrid:goldcrowns\">GoldCrowns</a></p>";
+				body += "<p><a href=\"hybrid:goldcrowns\" id=\"GoldCrowns\" class=\"enabled\" onclick=\"disable(this);\">GoldCrowns</a></p>";
 				body += "<p><a href=\"hybrid:mapofsommerlund\">MapOfSommerlund</a></p>";
-				body += "<p><a href=\"hybrid:equipment\">Equipment</a></p>";
+				body += "<p><a href=\"hybrid:equipment\" id=\"Equipment\" class=\"enabled\" onclick=\"disable(this);\">Equipment</a></p>";
 			}
 
 			return new Prologue { Id = id, Body = body, Back = id.Back(), Forward = id.Forward() };
@@ -254,7 +254,12 @@ namespace LoneWolf.Views
 
 			await Navigation.PushAsync(new RandomNumberTablePage());
 
-			if (RandomNumberResult != RandomNumberResult.Null) Log($"BeltPouch.Set({RandomNumberResult})");
+			if (RandomNumberResult == RandomNumberResult.Null) return;
+
+			ActionChartRepository.Update(model => model.BeltPouch.Set(RandomNumberResult));
+			await ActionChartRepository.SaveAsync();
+
+			Log(RandomNumberResult);
 		}
 
 		private void MapOfSommerlund(WebNavigatingEventArgs e)

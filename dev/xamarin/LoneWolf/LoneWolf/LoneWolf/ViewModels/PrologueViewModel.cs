@@ -1,5 +1,4 @@
 ﻿using LoneWolf.Models;
-using Xamarin.Forms;
 
 namespace LoneWolf.ViewModels
 {
@@ -16,7 +15,7 @@ namespace LoneWolf.ViewModels
 				_prologue = value;
 				OnPropertyChanged();
 
-				Source = GetHtmlWebViewSource();
+				Source = GetHtmlWebViewSource(GetToggle());
 			}
 			get { return _prologue; }
 		}
@@ -30,15 +29,6 @@ namespace LoneWolf.ViewModels
 			Source = GetHtmlWebViewSource();
 		}
 
-		protected override HtmlWebViewSource GetHtmlWebViewSource()
-		{
-			var result = base.GetHtmlWebViewSource();
-
-			result.Html = GetToggle().Execute(result.Html);
-
-			return result;
-		}
-
 		protected override string GenerateHtml()
 		{
 			if (Prologue == null) return string.Empty;
@@ -50,13 +40,9 @@ namespace LoneWolf.ViewModels
 		{
 			if (Prologue.Id == PrologueReference.TheGameRules) return new TheGameRulesToggle(PrologueContext);
 			if (Prologue.Id == PrologueReference.KaiDisciplines) return new KaiDisciplinesToggle(PrologueContext);
+			if (Prologue.Id == PrologueReference.Equipment) return new EquipmentToggle(PrologueContext);
 
 			return new NullPrologueToggle();
-		}
-
-		private void Log(string message)
-		{
-			System.Diagnostics.Debug.WriteLine(message);
 		}
 	}
 }

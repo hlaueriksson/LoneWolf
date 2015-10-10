@@ -105,9 +105,8 @@ namespace LoneWolf.Models
 		}
 	}
 
-	public interface IPrologueToggle
+	public interface IPrologueToggle : IBrowserToggle
 	{
-		string Execute(string html);
 	}
 
 	public class NullPrologueToggle : IPrologueToggle
@@ -159,6 +158,23 @@ namespace LoneWolf.Models
 			}
 
 			return html;
+		}
+	}
+
+	public class EquipmentToggle : IPrologueToggle
+	{
+		private readonly PrologueContext _context;
+
+		public EquipmentToggle(PrologueContext context)
+		{
+			_context = context;
+		}
+
+		public string Execute(string html)
+		{
+			return html
+				.Disable("GoldCrowns", () => _context.ActionChart.BeltPouch.Value > 0);
+			// TODO: .Disable("Equipment", () => _context.ActionChart.Equipment.Count() > 0);
 		}
 	}
 }

@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using LoneWolf.Annotations;
+using LoneWolf.Models;
 using Xamarin.Forms;
 
 namespace LoneWolf.ViewModels
@@ -40,21 +41,26 @@ namespace LoneWolf.ViewModels
 			get { return _source; }
 		}
 
-		protected virtual HtmlWebViewSource GetHtmlWebViewSource()
+		protected HtmlWebViewSource GetHtmlWebViewSource(IBrowserToggle toggle = null)
 		{
 			return new HtmlWebViewSource
 			{
-				Html = GetHtml(),
+				Html = GetHtml(toggle),
 				BaseUrl = DependencyService.Get<IBaseUrl>().Get()
 			};
 		}
 
 		protected abstract string GenerateHtml();
 
-		private string GetHtml()
+		private string GetHtml(IBrowserToggle toggle)
 		{
 			var html = GenerateHtml();
 
+			return toggle != null ? toggle.Execute(HtmlDecode(html)) : HtmlDecode(html);
+		}
+
+		private static string HtmlDecode(string html)
+		{
 			return System.Net.WebUtility.HtmlDecode(html);
 		}
 	}

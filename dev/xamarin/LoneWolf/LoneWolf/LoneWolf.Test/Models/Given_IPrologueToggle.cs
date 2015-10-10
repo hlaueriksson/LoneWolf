@@ -60,5 +60,26 @@ namespace LoneWolf.Test.Models
 				subject.Execute(html).ShouldContain("disabled");
 			};
 		}
+
+		[Subject(typeof(EquipmentToggle))]
+		public class EquipmentToggle_
+		{
+			It should_disable_GoldCrowns_if_rolled = () =>
+			{
+				var subject = new EquipmentToggle(new PrologueContext { ActionChart = new ActionChart { BeltPouch = new BeltPouch { Value = 1 } } });
+				var html = "<a href=\"hybrid:goldcrowns\" id=\"GoldCrowns\" class=\"enabled\" onclick=\"disable(this);\">GoldCrowns</a>";
+
+				subject.Execute(html).ShouldContain("disabled");
+			};
+
+			[Ignore("Implement Items")]
+			It should_disable_Equipment_if_rolled = () =>
+			{
+				var subject = new TheGameRulesToggle(new PrologueContext { ActionChart = new ActionChart { } });
+				var html = "<a href=\"hybrid:equipment\" id=\"Equipment\" class=\"enabled\" onclick=\"disable(this);\">Equipment</a>";
+
+				subject.Execute(html).ShouldContain("disabled");
+			};
+		}
 	}
 }

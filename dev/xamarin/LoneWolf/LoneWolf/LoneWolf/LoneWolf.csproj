@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Models\Abstractions.cs" />
     <Compile Include="Models\ActionChart.cs" />
     <Compile Include="Models\Extensions.cs" />
     <Compile Include="Models\RandomNumberResult.cs" />
