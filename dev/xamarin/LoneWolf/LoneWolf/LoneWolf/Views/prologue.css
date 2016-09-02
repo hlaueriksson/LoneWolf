@@ -1,0 +1,29 @@
+﻿body {
+	background-color: cornsilk;
+}
+
+a.disabled {
+	text-decoration: line-through;
+	color: gray;
+	pointer-events: none;
+	cursor: default;
+}
+
+a.selected {
+	text-decoration: underline;
+	color: green;
+}
+
+.navigation .disabled {
+	text-decoration: line-through;
+	color: gray;
+	pointer-events: none;
+	cursor: default;
+}
+
+.disabled .choice {
+	text-decoration: line-through;
+	color: gray;
+	pointer-events: none;
+	cursor: default;
+}

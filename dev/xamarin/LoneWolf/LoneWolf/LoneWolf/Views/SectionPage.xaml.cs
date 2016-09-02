@@ -1,0 +1,135 @@
+﻿using LoneWolf.Extensions;
+using LoneWolf.Models;
+using LoneWolf.Models.Book01;
+using LoneWolf.ViewModels;
+using Xamarin.Forms;
+
+namespace LoneWolf.Views
+{
+	public partial class SectionPage : ContentPage
+	{
+		private enum RouteAction
+		{
+			None,
+			Section,
+			RandomNumberTable
+		}
+
+		public SectionPage()
+		{
+			InitializeComponent();
+
+			UpdateModel("1");
+		}
+
+		private void Browser_OnNavigating(object sender, WebNavigatingEventArgs e)
+		{
+			Log("Browser_OnNavigating");
+
+			e.Cancel = true;
+
+			var route = GetRouteAction(e.Url);
+
+			switch (route)
+			{
+				case RouteAction.Section:
+					Section(e);
+					break;
+				case RouteAction.RandomNumberTable:
+					RandomNumberTable(e);
+					break;
+				default:
+					e.Cancel = false; // FIX: iOS
+					break;
+			}
+		}
+
+		private void Browser_OnNavigated(object sender, WebNavigatedEventArgs e)
+		{
+			Log("Browser_OnNavigated");
+		}
+
+		private void UpdateModel(SectionReference number)
+		{
+			var model = BindingContext as SectionViewModel;
+
+			if (model == null) return;
+
+			model.Section = GetSection(number);
+		}
+
+		private static Section GetSection(SectionReference number)
+		{
+			var json = DependencyService.Get<ISectionReader>().Read(new SectionReference(number));
+
+			switch (number)
+			{
+				case "0":
+					return json.TypedDeserialize<Section000>();
+				default:
+					return json.TypedDeserialize<Section>();
+			}
+		}
+
+		private RouteAction GetRouteAction(string url)
+		{
+			if (url == "hybrid:random") return RouteAction.RandomNumberTable;
+			if (url.StartsWith("hybrid:section/")) return RouteAction.Section;
+
+			return RouteAction.None;
+		}
+
+		private void Section(WebNavigatingEventArgs e)
+		{
+			var number = GetSectionReference(e.Url);
+
+			UpdateModel(number);
+		}
+
+		private async void RandomNumberTable(WebNavigatingEventArgs e)
+		{
+			await Navigation.PushAsync(new RandomNumberTablePage());
+		}
+
+		private SectionReference GetSectionReference(string url)
+		{
+			return url.Replace("hybrid:section/", string.Empty);
+		}
+
+		private static void Log(string message)
+		{
+			System.Diagnostics.Debug.WriteLine(message);
+		}
+	}
+
+	public class TestSectionPage : ContentPage
+	{
+		public TestSectionPage()
+		{
+			var browser = new WebView
+			{
+				Source = new HtmlWebViewSource
+				{
+					Html = GetHtml(),
+					BaseUrl = DependencyService.Get<IBaseUrl>().Get()
+				}
+			};
+
+			Content = browser;
+		}
+
+		private string GetHtml()
+		{
+			var html = new SectionView { Model = GetSection("1") }.GenerateString();
+
+			return System.Net.WebUtility.HtmlDecode(html);
+		}
+
+		private Section GetSection(SectionReference number)
+		{
+			var json = DependencyService.Get<ISectionReader>().Read(new SectionReference(number));
+
+			return json.TypedDeserialize<Section>();
+		}
+	}
+}
