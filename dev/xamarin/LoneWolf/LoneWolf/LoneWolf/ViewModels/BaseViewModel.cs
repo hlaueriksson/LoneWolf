@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
-using LoneWolf.Annotations;
 using LoneWolf.Models;
 using Xamarin.Forms;
 
@@ -12,7 +11,6 @@ namespace LoneWolf.ViewModels
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		[NotifyPropertyChangedInvocator]
 		protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
